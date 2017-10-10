@@ -1,22 +1,22 @@
-// const db = require('../models/index')
+const db = require('../graphql/connectors')
 
-const users = [
-  {
-    id: 1,
-    name: 'testing'
-  },
-  {
-    id: 2,
-    name: 'another user'
-  }
-]
+// const users = [
+//   {
+//     id: 1,
+//     name: 'testing'
+//   },
+//   {
+//     id: 2,
+//     name: 'another user'
+//   }
+// ]
 
 module.exports = {
   Query: {
-    allUsers: () => users
-    // allUsers: () => {
-    //   return db.User.findAll()
-    // }
+    // allUsers: () => users
+    allUsers: () => {
+      return db.User.findAll()
+    }
   }
   // mutation if using the static array users[], modify if want to test sequelize db
   // Mutation: {
