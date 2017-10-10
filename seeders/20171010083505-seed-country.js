@@ -1,5 +1,5 @@
 'use strict'
-// const countryList = require('country-list')
+const countryList = require('country-list')()
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
@@ -13,9 +13,12 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    return queryInterface.bulkInsert('Countries', [
-      { id: 1, name: 'Singapore', createdAt: Date.now(), updatedAt: Date.now() }
-    ], {})
+    var countries = countryList.getNames()
+    var seedArr = []
+    for (var i = 0; i < countries.length; i++) {
+      seedArr.push({id: i + 1, name: countries[i]})
+    }
+    return queryInterface.bulkInsert('Countries', seedArr, {})
   },
 
   down: function (queryInterface, Sequelize) {
