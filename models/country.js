@@ -1,5 +1,5 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
+'use strict'
+module.exports = function (sequelize, DataTypes) {
   var Country = sequelize.define('Country', {
     name: DataTypes.STRING
   })
@@ -10,5 +10,5 @@ module.exports = function(sequelize, DataTypes) {
     Country.belongsToMany(models.Itinerary, {through: 'CountriesItineraries'})
   }
 
-  return Country;
-};
+  return Country
+}

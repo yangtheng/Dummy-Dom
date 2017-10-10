@@ -1,14 +1,14 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
+'use strict'
+module.exports = function (sequelize, DataTypes) {
   var CountriesItineraries = sequelize.define('CountriesItineraries', {
     CountryId: DataTypes.INTEGER,
     ItineraryId: DataTypes.INTEGER
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: function (models) {
         // associations can be defined here
       }
     }
-  });
-  return CountriesItineraries;
-};
+  })
+  return CountriesItineraries
+}

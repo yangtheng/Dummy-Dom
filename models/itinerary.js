@@ -1,5 +1,5 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
+'use strict'
+module.exports = function (sequelize, DataTypes) {
   var Itinerary = sequelize.define('Itinerary', {
     name: DataTypes.STRING,
     startDate: DataTypes.DATE,
@@ -15,8 +15,8 @@ module.exports = function(sequelize, DataTypes) {
     Itinerary.hasMany(models.Flight)
     Itinerary.hasMany(models.Lodging)
     Itinerary.hasMany(models.Transport)
-    Itinerary.belongsTo(Many(models.User, {through: 'UsersItineraries'}))
+    Itinerary.belongsToMany(models.User, {through: 'UsersItineraries'})
     Itinerary.belongsToMany(models.Country, {through: 'CountriesItineraries'})
   }
-  return Itinerary;
-};
+  return Itinerary
+}

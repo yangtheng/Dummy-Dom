@@ -1,5 +1,5 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
+'use strict'
+module.exports = function (sequelize, DataTypes) {
   var Lodging = sequelize.define('Lodging', {
     LocationId: DataTypes.INTEGER,
     ItineraryId: DataTypes.INTEGER,
@@ -21,5 +21,5 @@ module.exports = function(sequelize, DataTypes) {
     Lodging.belongsTo(models.Location)
   }
 
-  return Lodging;
-};
+  return Lodging
+}

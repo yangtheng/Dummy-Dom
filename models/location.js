@@ -1,5 +1,5 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
+'use strict'
+module.exports = function (sequelize, DataTypes) {
   var Location = sequelize.define('Location', {
     CountryId: DataTypes.INTEGER,
     latitude: DataTypes.FLOAT,
@@ -19,5 +19,5 @@ module.exports = function(sequelize, DataTypes) {
     Location.belongsTo(models.Country)
   }
 
-  return Location;
-};
+  return Location
+}
