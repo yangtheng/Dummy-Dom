@@ -7,6 +7,7 @@ module.exports = function(sequelize, DataTypes) {
   Country.associate = function (models) {
     Country.hasMany(models.User)
     Country.hasMany(models.Location)
+    Country.belongsToMany(models.Itinerary, {through: 'CountriesItineraries'})
   }
 
   return Country;

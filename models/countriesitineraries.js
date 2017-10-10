@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var UsersItinerarys = sequelize.define('UsersItinerarys', {
-    UserId: DataTypes.INTEGER,
+  var CountriesItineraries = sequelize.define('CountriesItineraries', {
+    CountryId: DataTypes.INTEGER,
     ItineraryId: DataTypes.INTEGER
   }, {
     classMethods: {
@@ -10,5 +10,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return UsersItinerarys;
+  return CountriesItineraries;
 };
