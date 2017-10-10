@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 
-// const db = require('./models/index')
+const db = require('./graphql/connectors')
 
 const schema = require('./graphql/schema')
 
