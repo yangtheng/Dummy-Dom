@@ -35,19 +35,25 @@ module.exports = {
           key: 'id'
         }
       },
-      terminal: {
+      departureTerminal: {
         type: Sequelize.STRING
       },
-      gate: {
+      departureGate: {
+        type: Sequelize.STRING
+      },
+      arrivalTerminal: {
+        type: Sequelize.STRING
+      },
+      arrivalGate: {
         type: Sequelize.STRING
       },
       departureTime: {
         type: Sequelize.TIME
       },
-      arrivalTime: {
+      boardingTime: {
         type: Sequelize.TIME
       },
-      boardingTime: {
+      arrivalTime: {
         type: Sequelize.TIME
       },
       name: {
