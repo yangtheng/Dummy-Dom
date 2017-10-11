@@ -1,6 +1,6 @@
-'use strict'
-const faker = require('faker')
+'use strict';
 const casual = require('casual')
+const faker = require('faker')
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
@@ -9,12 +9,16 @@ module.exports = {
       seedArr.push({
         id: i,
         ItineraryId: i,
-        LocationId: i,
-        name: `Activity ${i}`,
+        DepartureLocationId: i,
+        ArrivalLocationId: Math.floor(Math.random() * 50) + 1,
+        terminal: `Terminal ${Math.floor(Math.random() * 4) + 1}`,
+        gate: `Gate ${Math.floor(Math.random() * 10) + 1}`,
+        departureTime: casual.time(),
+        arrivalTime: casual.time(),
+        boardingTime: casual.time(),
+        name: `Airport ${i}`,
         notes: casual.sentences(3),
-        startTime: casual.time(),
-        endTime: casual.time(),
-        cost: Math.floor(Math.random() * 100) + 1,
+        cost: (Math.floor(Math.random() * 20) + 1) * 100,
         currency: casual.currency_code,
         bookingStatus: true,
         bookedThrough: faker.internet.url(),
@@ -24,10 +28,10 @@ module.exports = {
         updatedAt: new Date()
       })
     }
-    return queryInterface.bulkInsert('Activities', seedArr, {})
+    return queryInterface.bulkInsert('Flights', seedArr, {})
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Activities', null, {})
+    return queryInterface.bulkDelete('Flights', null, {})
   }
-}
+};

@@ -41,14 +41,14 @@ module.exports = {
       gate: {
         type: Sequelize.STRING
       },
-      depatureTime: {
-        type: Sequelize.DATE
+      departureTime: {
+        type: Sequelize.TIME
       },
       arrivalTime: {
-        type: Sequelize.DATE
+        type: Sequelize.TIME
       },
       boardingTime: {
-        type: Sequelize.DATE
+        type: Sequelize.TIME
       },
       name: {
         type: Sequelize.STRING

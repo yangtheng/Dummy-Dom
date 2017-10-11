@@ -1,5 +1,6 @@
 'use strict'
 const casual = require('casual')
+const faker = require('faker')
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
@@ -12,6 +13,7 @@ module.exports = {
         endDate: casual.date(),
         pax: Math.floor(Math.random() * 4) + 1,
         budget: (Math.floor(Math.random() * 8) + 2) * 1000,
+        travelInsurance: faker.internet.url(),
         createdAt: new Date(),
         updatedAt: new Date()
       })
