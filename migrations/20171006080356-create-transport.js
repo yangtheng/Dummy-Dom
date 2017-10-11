@@ -35,11 +35,11 @@ module.exports = {
           key: 'id'
         }
       },
-      depatureTime: {
-        type: Sequelize.DATE
+      departureTime: {
+        type: Sequelize.TIME
       },
       arrivalTime: {
-        type: Sequelize.DATE
+        type: Sequelize.TIME
       },
       name: {
         type: Sequelize.STRING
