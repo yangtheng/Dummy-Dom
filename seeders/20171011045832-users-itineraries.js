@@ -6,16 +6,16 @@ module.exports = {
     for (var i = 1; i <= 50; i++) {
       seedArr.push({
         id: i,
-        CountryId: i,
-        ItineraryId: i,
+        UserId: i,
+        ItineraryId: 50 - i + 1,
         createdAt: new Date(),
         updatedAt: new Date()
       })
     }
-    return queryInterface.bulkInsert('CountriesItineraries', seedArr, {})
+    return queryInterface.bulkInsert('UsersItineraries', seedArr, {})
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('CountriesItineraries', null, {})
+    return queryInterface.bulkDelete('UsersItineraries', null, {})
   }
 }
