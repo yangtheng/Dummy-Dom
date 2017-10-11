@@ -1,6 +1,6 @@
 'use strict'
-const faker = require('faker')
 const casual = require('casual')
+const faker = require('faker')
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
@@ -10,7 +10,7 @@ module.exports = {
         id: i,
         ItineraryId: i,
         LocationId: i,
-        name: `Activity ${i}`,
+        name: `Lodging ${i}`,
         notes: casual.sentences(3),
         startTime: casual.time(),
         endTime: casual.time(),
@@ -19,14 +19,15 @@ module.exports = {
         bookingStatus: false,
         bookedThrough: faker.internet.url(),
         attachment: faker.internet.avatar(),
+        roomType: 'Double',
         createdAt: new Date(),
         updatedAt: new Date()
       })
     }
-    return queryInterface.bulkInsert('Activities', seedArr, {})
+    return queryInterface.bulkInsert('Lodgings', seedArr, {})
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Activities', null, {})
+    return queryInterface.bulkDelete('Lodgings', null, {})
   }
 }
