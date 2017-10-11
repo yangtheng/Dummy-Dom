@@ -1,6 +1,5 @@
 'use strict'
 const countryList = require('country-list')()
-const casual = require('casual')
 const faker = require('faker')
 
 module.exports = {
