@@ -1,5 +1,5 @@
 'use strict'
-const faker = require('faker')
+const casual = require('casual')
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
@@ -8,7 +8,8 @@ module.exports = {
       seedArr.push({
         id: i,
         name: `Itinerary ${i}`,
-        startDate: faker.date.recent(),
+        startDate: casual.date(),
+        endDate: casual.date(),
         pax: Math.floor(Math.random() * 4) + 1,
         budget: (Math.floor(Math.random() * 8) + 2) * 1000,
         createdAt: new Date(),

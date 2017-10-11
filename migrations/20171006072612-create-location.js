@@ -24,10 +24,10 @@ module.exports = {
         type: Sequelize.FLOAT
       },
       openingHour: {
-        type: Sequelize.DATE
+        type: Sequelize.TIME
       },
       closingHour: {
-        type: Sequelize.DATE
+        type: Sequelize.TIME
       },
       address: {
         type: Sequelize.STRING

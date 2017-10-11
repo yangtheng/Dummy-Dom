@@ -7,7 +7,7 @@ module.exports = {
       seedArr.push({
         id: i,
         UserId: i,
-        ItineraryId: 50 - i + 1,
+        ItineraryId: i,
         createdAt: new Date(),
         updatedAt: new Date()
       })

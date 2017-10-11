@@ -4,16 +4,6 @@ const faker = require('faker')
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkInsert('Person', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
     var countries = countryList.getNames()
     var seedArr = []
     for (var i = 1; i <= countries.length; i++) {
@@ -25,7 +15,7 @@ module.exports = {
         name: name,
         email: email,
         password: faker.internet.password(),
-        profilePic: faker.image.imageUrl(),
+        profilePic: faker.image.avatar(),
         createdAt: new Date(),
         updatedAt: new Date()
       })
@@ -34,13 +24,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('Person', null, {});
-    */
     return queryInterface.bulkDelete('Users', null, {})
   }
 }
