@@ -17,6 +17,7 @@ type User {
 type Query {
   allCountries: [Country!]!
   allUsers: [User!]!
+  findUser(id: ID!): User!
 }
 type Mutation {
   signUp(name:String!,email:String!,CountryId:Int!,password:String!): User

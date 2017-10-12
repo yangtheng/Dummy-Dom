@@ -7,6 +7,10 @@ module.exports = {
     },
     allUsers: () => {
       return db.User.findAll()
+    },
+    findUser: (__, data) => {
+      console.log('data is', data)
+      return db.User.findById(data.id)
     }
   },
   User: {
@@ -16,7 +20,6 @@ module.exports = {
   },
   Mutation: {
     signUp: (__, data) => {
-      console.log('data', data)
       const newUser = {
         name: data.name,
         email: data.email,
@@ -25,11 +28,9 @@ module.exports = {
       }
       return db.User.create(newUser)
         .then(newUser => {
-          console.log('newUser', newUser)
           return newUser
         })
         .catch(err => {
-          console.log('err', err)
           return err
         })
     }
