@@ -14,6 +14,9 @@ type User {
   profilePic: String
   country: Country!
 }
+type DeletedStatus {
+  status: Boolean
+}
 type Query {
   allCountries: [Country!]!
   allUsers: [User!]!
@@ -21,6 +24,7 @@ type Query {
 }
 type Mutation {
   signUp(name:String!,email:String!,CountryId:Int!,password:String!): User
+  deleteUser(id:ID!): DeletedStatus
 }
 `
 

@@ -27,11 +27,16 @@ module.exports = {
         password: data.password
       }
       return db.User.create(newUser)
-        .then(newUser => {
-          return newUser
-        })
-        .catch(err => {
-          return err
+    },
+    deleteUser: (__, data) => {
+      return db.User.destroy({where: {id: data.id}})
+        .then((deleted) => {
+          console.log('deleted', deleted)
+          if (deleted === 0) {
+            return {status: false}
+          } else if (deleted === 1) {
+            return {status: true}
+          }
         })
     }
   }
