@@ -19,7 +19,7 @@ module.exports = {
     }
   },
   Mutation: {
-    signUp: (__, data) => {
+    createUser: (__, data) => {
       const newUser = {
         name: data.name,
         email: data.email,
@@ -27,6 +27,20 @@ module.exports = {
         password: data.password
       }
       return db.User.create(newUser)
+    },
+    updateUser: (__, data) => {
+      console.log('data is', data)
+      return db.User.findById(data.id)
+        .then((found) => {
+          return found.update({
+            name: data.name,
+            email: data.email,
+            password: data.password
+          })
+        })
+        .then(updated => {
+          return updated
+        })
     },
     deleteUser: (__, data) => {
       return db.User.destroy({where: {id: data.id}})
@@ -41,3 +55,44 @@ module.exports = {
     }
   }
 }
+
+
+/* graphiql syntax
+# {
+#   findUser(id: 13) {
+#     id
+#     name
+#     email
+#     country {
+#       id
+#       name
+#     }
+#   }
+# }
+
+# mutation {
+# 	deleteUser(id: 14) {
+# 		status
+#   }
+# }
+
+mutation {
+	updateUser(
+    id: 15,
+    name: "Updated meh"
+    email: "updatedemail@gmail.com"
+    password: "BananaMangoPineapple",
+    CountryId: 100
+  ) {
+    id
+    name
+    email
+    profilePic
+    password
+    country {
+      id
+      name
+    }
+  }
+}
+*/

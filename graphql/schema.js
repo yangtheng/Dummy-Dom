@@ -23,7 +23,8 @@ type Query {
   findUser(id: ID!): User!
 }
 type Mutation {
-  signUp(name:String!,email:String!,CountryId:Int!,password:String!): User
+  createUser(name:String!,email:String!,CountryId:Int!,password:String!): User
+  updateUser(id:ID!,name:String, email:String, CountryId:Int,password:String, profilePic:String):User
   deleteUser(id:ID!): DeletedStatus
 }
 `
