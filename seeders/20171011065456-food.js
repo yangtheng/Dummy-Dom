@@ -7,7 +7,6 @@ module.exports = {
     var seedArr = []
     for (var i = 1; i <= 50; i++) {
       seedArr.push({
-        id: i,
         ItineraryId: i,
         LocationId: i,
         name: `Restaurant ${i}`,

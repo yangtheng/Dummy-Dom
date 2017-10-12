@@ -7,7 +7,6 @@ module.exports = {
     var seedArr = []
     for (var i = 1; i <= 50; i++) {
       seedArr.push({
-        id: i,
         name: `Itinerary ${i}`,
         startDate: casual.date(),
         endDate: casual.date(),

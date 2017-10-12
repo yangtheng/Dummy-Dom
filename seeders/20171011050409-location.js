@@ -8,7 +8,6 @@ module.exports = {
     for (var i = 1; i <= 249; i++) {
       for (var j = 0; j < 10; j++) {
         seedArr.push({
-          id: idCounter,
           CountryId: i,
           latitude: casual.latitude,
           longitude: casual.longitude,

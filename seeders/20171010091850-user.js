@@ -10,7 +10,6 @@ module.exports = {
       var name = `${faker.name.firstName()} ${faker.name.lastName()}`
       var email = name.replace(' ', '_') + '@gmail.com'
       seedArr.push({
-        id: i,
         CountryId: i,
         name: name,
         email: email,

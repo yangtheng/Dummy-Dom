@@ -1,29 +1,37 @@
 const db = require('../graphql/connectors')
 
-// const users = [
-//   {
-//     id: 1,
-//     name: 'testing'
-//   },
-//   {
-//     id: 2,
-//     name: 'another user'
-//   }
-// ]
-
 module.exports = {
   Query: {
-    // allUsers: () => users
+    allCountries: () => {
+      return db.Country.findAll()
+    },
     allUsers: () => {
       return db.User.findAll()
     }
+  },
+  User: {
+    country (user) {
+      return user.getCountry()
+    }
+  },
+  Mutation: {
+    signUp: (__, data) => {
+      console.log('data', data)
+      const newUser = {
+        name: data.name,
+        email: data.email,
+        CountryId: data.CountryId,
+        password: data.password
+      }
+      return db.User.create(newUser)
+        .then(newUser => {
+          console.log('newUser', newUser)
+          return newUser
+        })
+        .catch(err => {
+          console.log('err', err)
+          return err
+        })
+    }
   }
-  // mutation if using the static array users[], modify if want to test sequelize db
-  // Mutation: {
-  //   createUser: (_, data) => {
-  //     const newUser = Object.assign({id: users.length + 1}, data)
-  //     users.push(newUser)
-  //     return newUser
-  //   }
-  // }
 }

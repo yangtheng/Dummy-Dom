@@ -7,7 +7,6 @@ module.exports = {
     var seedArr = []
     for (var i = 0; i < countries.length; i++) {
       seedArr.push({
-        id: i + 1,
         name: countries[i],
         createdAt: new Date(),
         updatedAt: new Date()

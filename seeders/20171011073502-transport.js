@@ -7,7 +7,6 @@ module.exports = {
     var seedArr = []
     for (var i = 1; i <= 50; i++) {
       seedArr.push({
-        id: i,
         ItineraryId: i,
         DepartureLocationId: i,
         ArrivalLocationId: Math.floor(Math.random() * 50) + 1,
