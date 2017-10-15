@@ -3,16 +3,16 @@
 
 
 "@types/geojson@^1.0.0":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-1.0.4.tgz#f6e011bf3f7eea616cce79b6f1a0722010822f3a"
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-1.0.5.tgz#ef9f12277233399c7f32086818a56a84c8952f8f"
 
 "@types/graphql@^0.9.0":
   version "0.9.4"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.9.4.tgz#cdeb6bcbef9b6c584374b81aa7f48ecf3da404fa"
 
 "@types/node@*":
-  version "8.0.33"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.33.tgz#1126e94374014e54478092830704f6ea89df04cd"
+  version "8.0.34"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.34.tgz#55f801fa2ddb2a40dd6dfc15ecfe1dde9c129fe9"
 
 abbrev@1:
   version "1.1.1"
@@ -91,8 +91,8 @@ apollo-tracing@^0.0.7:
     graphql-tools "^1.1.0"
 
 apollo-utilities@^0.2.0-beta.0:
-  version "0.2.0-beta.2"
-  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-0.2.0-beta.2.tgz#95b61e00fa0cb67f6af65921484bca33114d55e1"
+  version "0.2.0-rc.0"
+  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-0.2.0-rc.0.tgz#5ac93a839c5688e8f655dc7d5789a5d878f4351f"
 
 aproba@^1.0.3:
   version "1.2.0"
@@ -175,7 +175,7 @@ bluebird@^3.4.6:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
 
-body-parser@1.18.2:
+body-parser@1.18.2, body-parser@^1.18.2:
   version "1.18.2"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.18.2.tgz#87678a19d84b47d859b83199bd59bce222b10454"
   dependencies:
@@ -729,8 +729,8 @@ graphql-tools@^1.1.0:
     "@types/graphql" "^0.9.0"
 
 graphql-tools@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.3.0.tgz#91109b4a1d5df378ecdeba6eb76b2d672e20f427"
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.5.0.tgz#b072faf8e1d621550598a681c08504bae13b1904"
   dependencies:
     apollo-link "^0.7.0"
     deprecated-decorator "^0.1.6"
@@ -1175,13 +1175,9 @@ moment-timezone@^0.5.4:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.13.0:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
-
-moment@^2.15.2:
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.0.tgz#44f675ef6b944942762581b1c179fb679e599d67"
+"moment@>= 2.9.0", moment@^2.13.0, moment@^2.15.2:
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
 
 ms@2.0.0:
   version "2.0.0"
@@ -1487,8 +1483,8 @@ raw-body@2.3.2:
     unpipe "1.0.0"
 
 rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.1.tgz#2e03e8e42ee450b8cb3dce65be1bf8974e1dfd95"
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.2.tgz#d8ce9cb57e8d64d9c7badd9876c7c34cbe3c7077"
   dependencies:
     deep-extend "~0.4.0"
     ini "~1.3.0"
@@ -1624,8 +1620,8 @@ send@0.16.1:
     statuses "~1.3.1"
 
 sequelize@^4.13.5:
-  version "4.13.8"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.13.8.tgz#5aa2238e972a723446304bf5162ed1ebcab98023"
+  version "4.13.15"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.13.15.tgz#de2412eb88d26b30580a4018436e58bd5a2d36d2"
   dependencies:
     bluebird "^3.4.6"
     cls-bluebird "^2.0.1"

@@ -23,23 +23,26 @@ type Itinerary {
   pax: Int
   travelInsurance: String
   budget: Int
-  country: [Country!]!
+  country: [Country]
+  user: [User]
 }
 type Location {
   id: ID!
   CountryId: ID!
-  name: String
-  latitude: Float
-  longitude: Float
+  name: String!
+  latitude: Float!
+  longitude: Float!
   openingHour: String
   closingHour: String
-  address: String
+  address: String!
   country: Country!
 }
 type Activity {
   id: ID!
   ItineraryId: ID!
   itinerary: Itinerary!
+  LocationId: ID!
+  location: Location!
   name: String
   notes: String
   startTime: String
@@ -50,8 +53,6 @@ type Activity {
   bookedThrough: String
   bookingConfirmation: String
   attachment: String
-  LocationId: ID!
-  location: Location!
 }
 type DeletedStatus {
   status: Boolean
@@ -66,7 +67,15 @@ type Query {
 }
 type Mutation {
   createUser(name:String!,email:String!,CountryId:Int!,password:String!): User
+
+  createItinerary(name:String!,startDate:String,endDate:String,pax:Int,travelInsurance:String,budget:Int): Itinerary
+
+  createLocation(CountryId: ID!, name:String!, latitude:String!, longitude:String!,openingHour:String,closingHour:String,address:String!): Location
+
+  createActivity(ItineraryId: ID!, LocationId: ID!, name: String, notes: String, startTime: String, endTime: String, cost: Int, currency: String, bookingStatus: String, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
+
   updateUser(id:ID!,name:String, email:String, CountryId:Int,password:String, profilePic:String):User
+
   deleteUser(id:ID!): DeletedStatus
 }
 `

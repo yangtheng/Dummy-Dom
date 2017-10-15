@@ -32,6 +32,9 @@ module.exports = {
   Itinerary: {
     country (itinerary) {
       return itinerary.getCountries()
+    },
+    user (itinerary) {
+      return itinerary.getUsers()
     }
   },
   Location: {
@@ -56,6 +59,39 @@ module.exports = {
         password: data.password
       }
       return db.User.create(newUser)
+    },
+    // createItinerary: (__, data) => {
+    //   var newItinerary = {}
+    //   Object.keys(data).forEach((key) => {
+    //     newItinerary[key] = data[key]
+    //   })
+    //   console.log('newItinerary', newItinerary)
+    //   return db.Itinerary.create(newItinerary)
+    //     .then((created) => {
+    //       console.log('created Itinerary', created.dataValues)
+    //       db.UsersItineraries.create({
+    //         UserId: 1,
+    //         ItineraryId: created.dataValues.id
+    //       })
+    //       return created.dataValues
+    //     })
+    // },
+    createLocation: (__, data) => {
+      console.log('data is', data)
+      var newLocation = {}
+      Object.keys(data).forEach(key => {
+        newLocation[key] = data[key]
+      })
+      console.log('newLocation', newLocation)
+      return db.Location.create(newLocation)
+    },
+    createActivity: (__, data) => {
+      var newActivity = {}
+      Object.keys(data).forEach(key => {
+        newActivity[key] = data[key]
+      })
+      console.log('newActivity', newActivity)
+      return db.Activity.create(newActivity)
     },
     updateUser: (__, data) => {
       console.log('data is', data)

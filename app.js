@@ -1,17 +1,13 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 
-const db = require('./graphql/connectors')
-
 const schema = require('./graphql/schema')
 
-const {graphqlExpress, graphiqlExpress } = require('apollo-server-express')
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express')
 
-/* -----express routing and port ------ */
 const app = express()
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({schema}))
-
 app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql'
 }))
