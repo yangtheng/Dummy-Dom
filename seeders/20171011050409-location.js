@@ -5,8 +5,8 @@ module.exports = {
   up: function (queryInterface, Sequelize) {
     var seedArr = []
     var idCounter = 1
-    for (var i = 1; i <= 249; i++) {
-      for (var j = 0; j < 10; j++) {
+    for (var i = 1; i <= 50; i++) {
+      for (var j = 0; j < 3; j++) {
         seedArr.push({
           CountryId: i,
           latitude: casual.latitude,

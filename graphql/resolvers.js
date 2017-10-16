@@ -60,22 +60,35 @@ module.exports = {
       }
       return db.User.create(newUser)
     },
-    // createItinerary: (__, data) => {
-    //   var newItinerary = {}
-    //   Object.keys(data).forEach((key) => {
-    //     newItinerary[key] = data[key]
-    //   })
-    //   console.log('newItinerary', newItinerary)
-    //   return db.Itinerary.create(newItinerary)
-    //     .then((created) => {
-    //       console.log('created Itinerary', created.dataValues)
-    //       db.UsersItineraries.create({
-    //         UserId: 1,
-    //         ItineraryId: created.dataValues.id
-    //       })
-    //       return created.dataValues
-    //     })
-    // },
+    createItinerary: (__, data) => {
+      var newItinerary = {}
+      Object.keys(data).forEach(key => {
+        newItinerary[key] = data[key]
+      })
+      var newItineraryId = null
+      return db.Itinerary.create(newItinerary)
+        .then(created => {
+          console.log('created', created.dataValues)
+          db.UsersItineraries.create({
+            UserId: 1,
+            ItineraryId: created.dataValues.id
+          })
+          return created
+        })
+        .then(created => {
+          console.log('second then', created.dataValues)
+          db.CountriesItineraries.create({
+            CountryId: 1,
+            ItineraryId: created.dataValues.id
+          })
+          newItineraryId = created.dataValues.id
+          return created
+        })
+        .then(() => {
+          console.log('new id is', newItineraryId)
+          return db.Itinerary.findById(newItineraryId)
+        })
+    },
     createLocation: (__, data) => {
       console.log('data is', data)
       var newLocation = {}

@@ -41,10 +41,4 @@ sequelize
     console.error('Unable to connect to the database:', err)
   })
 
-// console.log('hello')
-// db.Itinerary.findById(1)
-// .then((found) => {
-//   found.getCountries().then(result => console.log(result[0].name))
-// })
-
 module.exports = db
