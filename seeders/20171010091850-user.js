@@ -13,7 +13,7 @@ module.exports = {
         CountryId: i,
         name: name,
         email: email,
-        password: faker.internet.password(),
+        password: `password${i}`,
         profilePic: faker.image.avatar(),
         createdAt: new Date(),
         updatedAt: new Date()

@@ -1,4 +1,5 @@
 const db = require('../graphql/connectors')
+const jwt = require('jsonwebtoken')
 
 module.exports = {
   Query: {
@@ -59,6 +60,27 @@ module.exports = {
         password: data.password
       }
       return db.User.create(newUser)
+    },
+    createToken: (__, data) => {
+      return db.User.findOne({
+        where: {email: data.email}
+      })
+        .then(found => {
+          if (found.password === data.password) {
+            var token = jwt.sign({id: found.id, email: found.email}, 'coconutavocadoshake')
+            return {
+              token: token
+            }
+          } else {
+            return {
+              token: 'unauthorized'
+            }
+          }
+        })
+        .catch(err => {
+          console.log('err', err)
+          return err
+        })
     },
     createItinerary: (__, data) => {
       var newItinerary = {}

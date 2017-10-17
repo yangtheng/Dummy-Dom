@@ -57,6 +57,9 @@ type Activity {
 type DeletedStatus {
   status: Boolean
 }
+type Token {
+  token: String
+}
 type Query {
   allCountries: [Country!]!
   allUsers: [User!]!
@@ -67,6 +70,8 @@ type Query {
 }
 type Mutation {
   createUser(name:String!,email:String!,CountryId:Int!,password:String!): User
+
+  createToken(email:String!, password:String!): Token
 
   createItinerary(name:String!,startDate:String,endDate:String,pax:Int,travelInsurance:String,budget:Int): Itinerary
 
