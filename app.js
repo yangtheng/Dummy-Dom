@@ -11,7 +11,7 @@ app.use('/graphql', bodyParser.json())
 
 app.use('/graphql', graphqlExpress(request => ({
   schema: schema,
-  context: request.headers.authorization
+  context: request.headers.authorization.substring(7)
 })))
 
 // app.use('/graphql', bodyParser.json(), graphqlExpress({schema, context: 'hello this is context'}))

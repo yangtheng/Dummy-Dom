@@ -63,6 +63,8 @@ module.exports = {
     },
     createToken: (__, data, context) => {
       console.log('context', context)
+      console.log('verification', jwt.verify(context, 'coconutavocadoshake'))
+
       return db.User.findOne({
         where: {email: data.email}
       })
