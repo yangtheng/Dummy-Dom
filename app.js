@@ -7,7 +7,15 @@ const { graphqlExpress, graphiqlExpress } = require('apollo-server-express')
 
 const app = express()
 
-app.use('/graphql', bodyParser.json(), graphqlExpress({schema}))
+app.use('/graphql', bodyParser.json())
+
+app.use('/graphql', graphqlExpress(request => ({
+  schema: schema,
+  context: request.headers.authorization
+})))
+
+// app.use('/graphql', bodyParser.json(), graphqlExpress({schema, context: 'hello this is context'}))
+
 app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql'
 }))

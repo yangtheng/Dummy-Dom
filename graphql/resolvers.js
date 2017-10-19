@@ -61,7 +61,8 @@ module.exports = {
       }
       return db.User.create(newUser)
     },
-    createToken: (__, data) => {
+    createToken: (__, data, context) => {
+      console.log('context', context)
       return db.User.findOne({
         where: {email: data.email}
       })
