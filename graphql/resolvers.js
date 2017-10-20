@@ -65,30 +65,28 @@ module.exports = {
       console.log('context', context)
 
       if (!context.user) {
-        return {token: 'no token'}
+        return {token: 'unauthorized'}
       } else {
-        return {token: 'token exist'}
+        return db.User.findOne({
+          where: {email: data.email}
+        })
+          .then(found => {
+            if (found.password === data.password) {
+              var token = jwt.sign({id: found.id, email: found.email}, 'coconutavocadoshake')
+              return {
+                token: token
+              }
+            } else {
+              return {
+                token: 'unauthorized'
+              }
+            }
+          })
+          .catch(err => {
+            console.log('err', err)
+            return err
+          })
       }
-
-      return db.User.findOne({
-        where: {email: data.email}
-      })
-        .then(found => {
-          if (found.password === data.password) {
-            var token = jwt.sign({id: found.id, email: found.email}, 'coconutavocadoshake')
-            return {
-              token: token
-            }
-          } else {
-            return {
-              token: 'unauthorized'
-            }
-          }
-        })
-        .catch(err => {
-          console.log('err', err)
-          return err
-        })
     },
     createItinerary: (__, data) => {
       var newItinerary = {}
