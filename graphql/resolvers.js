@@ -1,5 +1,6 @@
 const db = require('../graphql/connectors')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 
 module.exports = {
   Query: {
@@ -9,7 +10,7 @@ module.exports = {
     allUsers: () => {
       return db.User.findAll()
     },
-    findUser: (__, data) => {
+    findUser: (__, data, context) => {
       return db.User.findById(data.id)
     },
     findItinerary: (__, data) => {
@@ -26,16 +27,19 @@ module.exports = {
     country (user) {
       return user.getCountry()
     },
-    itinerary (user) {
+    itineraries (user) {
       return user.getItineraries()
     }
   },
   Itinerary: {
-    country (itinerary) {
+    countries (itinerary) {
       return itinerary.getCountries()
     },
-    user (itinerary) {
+    users (itinerary) {
       return itinerary.getUsers()
+    },
+    activities (itinerary) {
+      return itinerary.getActivities()
     }
   },
   Location: {
@@ -53,11 +57,12 @@ module.exports = {
   },
   Mutation: {
     createUser: (__, data) => {
+      var hash = bcrypt.hashSync(data.password,10)
       const newUser = {
         name: data.name,
         email: data.email,
         CountryId: data.CountryId,
-        password: data.password
+        password: hash
       }
       return db.User.create(newUser)
     },

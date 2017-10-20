@@ -13,7 +13,7 @@ type User {
   password: String!
   profilePic: String
   country: Country!
-  itinerary: [Itinerary]
+  itineraries: [Itinerary]
 }
 type Itinerary {
   id: ID!
@@ -23,8 +23,9 @@ type Itinerary {
   pax: Int
   travelInsurance: String
   budget: Int
-  country: [Country]
-  user: [User]
+  countries: [Country]
+  users: [User]
+  activities: [Activity]
 }
 type Location {
   id: ID!

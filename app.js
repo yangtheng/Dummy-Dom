@@ -12,17 +12,13 @@ app.use('/graphql', bodyParser.json())
 
 function verifyToken (req, res, next) {
   var authHeader = req.headers.authorization
-  var token = authHeader.substring(7)
-  if (token) {
+  if (authHeader) {
+    var token = authHeader.substring(7)
     var user = jwt.verify(token, 'coconutavocadoshake')
     if (user) {
       req.user = user.id
       console.log('req.user', req.user)
-    } else {
-      res.status(400)
     }
-  } else {
-    res.status(400)
   }
   next()
 }
