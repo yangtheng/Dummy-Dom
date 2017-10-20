@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const jwt = require('jsonwebtoken')
 
 const schema = require('./graphql/schema')
 
@@ -9,12 +10,34 @@ const app = express()
 
 app.use('/graphql', bodyParser.json())
 
-app.use('/graphql', graphqlExpress(request => ({
-  schema: schema,
-  context: request.headers.authorization.substring(7)
-})))
+function verifyToken (req, res, next) {
+  var authHeader = req.headers.authorization
+  console.log('header', authHeader)
+  var token = authHeader.substring(7)
+  console.log('token', token)
+  if (token) {
+    var user = jwt.verify(token, 'coconutavocadoshake')
+    if (user) {
+      req.user = user.id
+      console.log('req.user', req.user)
+    } else {
+      res.status(400)
+    }
+  } else {
+    res.status(400)
+  }
+  console.log('before next', req.user )
+  next()
+}
 
-// app.use('/graphql', bodyParser.json(), graphqlExpress({schema, context: 'hello this is context'}))
+app.use('/graphql', verifyToken)
+
+app.use('/graphql', graphqlExpress(req => ({
+  schema: schema,
+  context: {
+    user: req.user
+  }
+})))
 
 app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql'
