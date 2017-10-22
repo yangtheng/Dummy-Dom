@@ -58,6 +58,9 @@ type Activity {
 type DeletedStatus {
   status: Boolean
 }
+type AuthorizationStatus {
+  status: Boolean
+}
 type Token {
   token: String
 }
@@ -68,6 +71,7 @@ type Query {
   findItinerary(id: ID!): Itinerary
   findLocation(id: ID!): Location
   findActivity(id: ID!): Activity
+  authorization: AuthorizationStatus
 }
 type Mutation {
   createUser(name:String!,email:String!,CountryId:Int!,password:String!): User

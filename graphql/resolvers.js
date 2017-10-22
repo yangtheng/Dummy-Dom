@@ -11,7 +11,7 @@ module.exports = {
     allUsers: () => {
       return db.User.findAll()
     },
-    findUser: (__, data, context) => {
+    findUser: (__, data) => {
       return db.User.findById(data.id)
     },
     findItinerary: (__, data) => {
@@ -22,6 +22,14 @@ module.exports = {
     },
     findActivity: (__, data) => {
       return db.Activity.findById(data.id)
+    },
+    authorization: (__, data, context) => {
+      console.log('context', context)
+      if (context.user) {
+        return {status: true}
+      } else {
+        return {status: false}
+      }
     }
   },
   User: {
@@ -69,29 +77,26 @@ module.exports = {
       return db.User.create(newUser)
     },
     // createToken is messed up at the moment. i need to split authentication(login to create token) from authorization(token validation).
-    createToken: (__, data, context) => {
-      console.log('context', context)
-
-      // if (!context.user) {
-      //   return {token: 'unauthorized'}
-      // } else {
-      // }
+    createToken: (__, data) => {
       console.log('data', data)
-
       return db.User.findOne({
         where: {email: data.email}
       })
       .then(found => {
-        if (found.password === data.password) {
-          var token = jwt.sign({id: found.id, email: found.email}, 'coconutavocadoshake')
-          return {
-            token: token
-          }
-        } else {
-          return {
-            token: 'unauthorized'
-          }
-        }
+        console.log('found', found)
+        return bcrypt.compare(data.password, found.password)
+          .then(compared => {
+            if (compared) {
+              var token = jwt.sign({id: found.id, email: found.email}, 'coconutavocadoshake')
+              return {
+                token: token
+              }
+            } else {
+              return {
+                token: 'unauthorized. password incorrect'
+              }
+            }
+          })
       })
       .catch(err => {
         console.log('err', err)

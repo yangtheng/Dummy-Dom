@@ -16,9 +16,10 @@ function verifyToken (req, res, next) {
   var authHeader = req.headers.authorization
   console.log('header', authHeader)
   var token = authHeader.substring(7)
-  console.log('token', token)
+  console.log('token', token.length)
 
-  if (token) {
+  if (token !== 'undefined') {
+    console.log('pre verify')
     var user = jwt.verify(token, 'coconutavocadoshake')
     if (user) {
       req.user = user.id

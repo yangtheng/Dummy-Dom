@@ -26,6 +26,9 @@ module.exports = {
           key: 'id'
         }
       },
+      loadSequence: {
+        type: Sequelize.INTEGER
+      },
       name: {
         type: Sequelize.STRING
       },
