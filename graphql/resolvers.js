@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
 module.exports = {
+  // example get requests
   Query: {
     allCountries: () => {
       return db.Country.findAll()
@@ -55,6 +56,7 @@ module.exports = {
       return activity.getLocation()
     }
   },
+  // example post, update, delete requests.
   Mutation: {
     createUser: (__, data) => {
       var hash = bcrypt.hashSync(data.password,10)
@@ -66,6 +68,7 @@ module.exports = {
       }
       return db.User.create(newUser)
     },
+    // createToken is messed up at the moment. i need to split authentication(login to create token) from authorization(token validation).
     createToken: (__, data, context) => {
       console.log('context', context)
 
