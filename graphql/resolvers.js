@@ -59,7 +59,7 @@ module.exports = {
   // example post, update, delete requests.
   Mutation: {
     createUser: (__, data) => {
-      var hash = bcrypt.hashSync(data.password,10)
+      var hash = bcrypt.hashSync(data.password, 10)
       const newUser = {
         name: data.name,
         email: data.email,
@@ -72,29 +72,31 @@ module.exports = {
     createToken: (__, data, context) => {
       console.log('context', context)
 
-      if (!context.user) {
-        return {token: 'unauthorized'}
-      } else {
-        return db.User.findOne({
-          where: {email: data.email}
-        })
-          .then(found => {
-            if (found.password === data.password) {
-              var token = jwt.sign({id: found.id, email: found.email}, 'coconutavocadoshake')
-              return {
-                token: token
-              }
-            } else {
-              return {
-                token: 'unauthorized'
-              }
-            }
-          })
-          .catch(err => {
-            console.log('err', err)
-            return err
-          })
-      }
+      // if (!context.user) {
+      //   return {token: 'unauthorized'}
+      // } else {
+      // }
+      console.log('data', data)
+
+      return db.User.findOne({
+        where: {email: data.email}
+      })
+      .then(found => {
+        if (found.password === data.password) {
+          var token = jwt.sign({id: found.id, email: found.email}, 'coconutavocadoshake')
+          return {
+            token: token
+          }
+        } else {
+          return {
+            token: 'unauthorized'
+          }
+        }
+      })
+      .catch(err => {
+        console.log('err', err)
+        return err
+      })
     },
     createItinerary: (__, data) => {
       var newItinerary = {}
