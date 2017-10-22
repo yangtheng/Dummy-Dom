@@ -9,6 +9,7 @@ module.exports = {
       seedArr.push({
         ItineraryId: i,
         LocationId: i,
+        loadSequence: 1,
         name: `Activity ${i}`,
         notes: casual.sentences(3),
         startTime: casual.time(),
