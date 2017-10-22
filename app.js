@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
 
@@ -7,6 +8,7 @@ const schema = require('./graphql/schema')
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express')
 
 const app = express()
+app.use(cors())
 
 app.use('/graphql', bodyParser.json())
 
