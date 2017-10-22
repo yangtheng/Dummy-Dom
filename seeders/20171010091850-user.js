@@ -1,6 +1,7 @@
 'use strict'
 const countryList = require('country-list')()
 const faker = require('faker')
+const bcrypt = require('bcrypt')
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
@@ -9,11 +10,14 @@ module.exports = {
     for (var i = 1; i <= countries.length; i++) {
       var name = `${faker.name.firstName()} ${faker.name.lastName()}`
       var email = name.replace(' ', '_') + '@gmail.com'
+      var password = `password${i}`
+      var hash = bcrypt.hashSync(password, 10)
+
       seedArr.push({
         CountryId: i,
         name: name,
         email: email,
-        password: `password${i}`,
+        password: hash,
         profilePic: faker.image.avatar(),
         createdAt: new Date(),
         updatedAt: new Date()
