@@ -83,11 +83,11 @@ module.exports = {
         where: {email: data.email}
       })
       .then(found => {
-        console.log('found', found)
+        // console.log('found', found)
         return bcrypt.compare(data.password, found.password)
           .then(compared => {
             if (compared) {
-              var token = jwt.sign({id: found.id, email: found.email}, 'coconutavocadoshake')
+              var token = jwt.sign({id: found.id, email: found.email}, process.env.JWT)
               return {
                 token: token
               }
