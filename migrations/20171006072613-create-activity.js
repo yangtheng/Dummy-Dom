@@ -29,6 +29,9 @@ module.exports = {
       loadSequence: {
         type: Sequelize.INTEGER
       },
+      date: {
+        type: Sequelize.DATEONLY
+      },
       name: {
         type: Sequelize.STRING
       },

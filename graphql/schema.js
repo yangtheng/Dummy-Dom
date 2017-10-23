@@ -45,6 +45,7 @@ type Activity {
   LocationId: ID!
   location: Location!
   loadSequence: Int!
+  date: String!
   name: String
   notes: String
   startTime: String
