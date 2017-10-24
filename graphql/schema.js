@@ -84,7 +84,7 @@ type Mutation {
 
   createLocation(CountryId: ID!, name:String!, latitude:String!, longitude:String!,openingHour:String,closingHour:String,address:String!): Location
 
-  createActivity(ItineraryId: ID!, LocationId: ID!, name: String, notes: String, startTime: String, endTime: String, cost: Int, currency: String, bookingStatus: String, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
+  createActivity(ItineraryId: ID!, LocationId: ID!, date: String!, loadSequence: Int!, name: String, notes: String, startTime: String, endTime: String, cost: Int, currency: String, bookingStatus: String, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
 
   updateUser(id:ID!,name:String, email:String, CountryId:Int,password:String, profilePic:String):User
 

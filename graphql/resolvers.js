@@ -76,7 +76,6 @@ module.exports = {
       }
       return db.User.create(newUser)
     },
-    // createToken is messed up at the moment. i need to split authentication(login to create token) from authorization(token validation).
     createToken: (__, data) => {
       console.log('data', data)
       return db.User.findOne({
