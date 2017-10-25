@@ -1,7 +1,8 @@
 'use strict'
 module.exports = function (sequelize, DataTypes) {
   var Country = sequelize.define('Country', {
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    code: DataTypes.STRING
   })
 
   Country.associate = function (models) {
