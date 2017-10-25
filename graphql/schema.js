@@ -5,6 +5,7 @@ const typeDefs = `
 type Country {
   id: ID!
   name: String!
+  code: String!
 }
 type User {
   id: ID!
