@@ -192,6 +192,18 @@ module.exports = {
           console.log('err', err)
           return err
         })
+    },
+    deleteActivity: (__, data) => {
+      console.log('data is', data)
+      return db.Activity.destroy({where: {id: data.id}})
+        .then(deleted => {
+          console.log('deleted', deleted)
+          if (deleted) {
+            return {status: true}
+          } else {
+            return {status: false}
+          }
+        })
     }
   }
 } // close module exports
