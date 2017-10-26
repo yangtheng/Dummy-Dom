@@ -26,6 +26,12 @@ module.exports = {
           key: 'id'
         }
       },
+      loadSequence: {
+        type: Sequelize.INTEGER
+      },
+      date: {
+        type: Sequelize.INTEGER
+      },
       name: {
         type: Sequelize.STRING
       },
@@ -33,10 +39,10 @@ module.exports = {
         type: Sequelize.TEXT
       },
       startTime: {
-        type: Sequelize.TIME
+        type: Sequelize.INTEGER
       },
       endTime: {
-        type: Sequelize.TIME
+        type: Sequelize.INTEGER
       },
       cost: {
         type: Sequelize.INTEGER

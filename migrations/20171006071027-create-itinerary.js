@@ -12,10 +12,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       startDate: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.INTEGER
       },
       endDate: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.INTEGER
       },
       pax: {
         type: Sequelize.INTEGER

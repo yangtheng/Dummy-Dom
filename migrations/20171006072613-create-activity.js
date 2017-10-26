@@ -30,7 +30,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       date: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.INTEGER
       },
       name: {
         type: Sequelize.STRING
@@ -39,10 +39,10 @@ module.exports = {
         type: Sequelize.TEXT
       },
       startTime: {
-        type: Sequelize.TIME
+        type: Sequelize.INTEGER
       },
       endTime: {
-        type: Sequelize.TIME
+        type: Sequelize.INTEGER
       },
       cost: {
         type: Sequelize.INTEGER
