@@ -155,14 +155,20 @@ module.exports = {
     },
     deleteItinerary: (__, data) => {
       const id = data.id
-      return db.Itinerary.destroy({where: {id: id}})
-        // .then(() => {
-        //   return db.CountriesItineraries.destroy({where: {ItineraryId: id}})
-        // })
-        // .then(() => {
-        //   return db.UsersItineraries.destroy({where: {ItineraryId: id}})
-        // })
+      return db.UsersItineraries.destroy({where: {ItineraryId: id}})
+        .then(() => {
+          db.CountriesItineraries.destroy({where: {ItineraryId: id}})
+          db.Activity.destroy({where: {ItineraryId: id}})
+          db.Food.destroy({where: {ItineraryId: id}})
+          db.Lodging.destroy({where: {ItineraryId: id}})
+          db.Flight.destroy({where: {ItineraryId: id}})
+          db.Transport.destroy({where: {ItineraryId: id}})
+          return db.Itinerary.destroy({
+            where: {id: id}
+          })
+        })
         .then(deleteChain => {
+          // if Itinerary.destroy returns true, associated rows must hv also been deleted. deleting itinerary but not assocs will return foreign key constraint
           console.log('chained status', deleteChain)
           if (deleteChain) {
             return {status: true}
