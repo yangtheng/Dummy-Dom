@@ -156,12 +156,12 @@ module.exports = {
     deleteItinerary: (__, data) => {
       const id = data.id
       return db.Itinerary.destroy({where: {id: id}})
-        .then(() => {
-          return db.CountriesItineraries.destroy({where: {ItineraryId: id}})
-        })
-        .then(() => {
-          return db.UsersItineraries.destroy({where: {ItineraryId: id}})
-        })
+        // .then(() => {
+        //   return db.CountriesItineraries.destroy({where: {ItineraryId: id}})
+        // })
+        // .then(() => {
+        //   return db.UsersItineraries.destroy({where: {ItineraryId: id}})
+        // })
         .then(deleteChain => {
           console.log('chained status', deleteChain)
           if (deleteChain) {
