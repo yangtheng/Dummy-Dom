@@ -76,6 +76,31 @@ module.exports = {
       }
       return db.User.create(newUser)
     },
+    updateUser: (__, data) => {
+      console.log('data is', data)
+      return db.User.findById(data.id)
+      .then((found) => {
+        return found.update({
+          name: data.name,
+          email: data.email,
+          password: data.password
+        })
+      })
+      .then(updated => {
+        return updated
+      })
+    },
+    deleteUser: (__, data) => {
+      return db.User.destroy({where: {id: data.id}})
+      .then((deleted) => {
+        console.log('deleted', deleted)
+        if (deleted === 0) {
+          return {status: false}
+        } else if (deleted === 1) {
+          return {status: true}
+        }
+      })
+    },
     createToken: (__, data) => {
       console.log('data', data)
       return db.User.findOne({
@@ -84,18 +109,18 @@ module.exports = {
       .then(found => {
         // console.log('found', found)
         return bcrypt.compare(data.password, found.password)
-          .then(compared => {
-            if (compared) {
-              var token = jwt.sign({id: found.id, email: found.email}, process.env.JWT)
-              return {
-                token: token
-              }
-            } else {
-              return {
-                token: 'unauthorized. password incorrect'
-              }
+        .then(compared => {
+          if (compared) {
+            var token = jwt.sign({id: found.id, email: found.email}, process.env.JWT)
+            return {
+              token: token
             }
-          })
+          } else {
+            return {
+              token: 'unauthorized. password incorrect'
+            }
+          }
+        })
       })
       .catch(err => {
         console.log('err', err)
@@ -109,27 +134,27 @@ module.exports = {
       })
       var newItineraryId = null
       return db.Itinerary.create(newItinerary)
-        .then(created => {
-          console.log('created', created.dataValues)
-          db.UsersItineraries.create({
-            UserId: 1,
-            ItineraryId: created.dataValues.id
-          })
-          return created
+      .then(created => {
+        console.log('created', created.dataValues)
+        db.UsersItineraries.create({
+          UserId: 1,
+          ItineraryId: created.dataValues.id
         })
-        .then(created => {
-          console.log('second then', created.dataValues)
-          db.CountriesItineraries.create({
-            CountryId: 1,
-            ItineraryId: created.dataValues.id
-          })
-          newItineraryId = created.dataValues.id
-          return created
+        return created
+      })
+      .then(created => {
+        console.log('second then', created.dataValues)
+        db.CountriesItineraries.create({
+          CountryId: 1,
+          ItineraryId: created.dataValues.id
         })
-        .then(() => {
-          console.log('new id is', newItineraryId)
-          return db.Itinerary.findById(newItineraryId)
-        })
+        newItineraryId = created.dataValues.id
+        return created
+      })
+      .then(() => {
+        console.log('new id is', newItineraryId)
+        return db.Itinerary.findById(newItineraryId)
+      })
     },
     createLocation: (__, data) => {
       console.log('data is', data)
@@ -147,31 +172,6 @@ module.exports = {
       })
       console.log('newActivity', newActivity)
       return db.Activity.create(newActivity)
-    },
-    updateUser: (__, data) => {
-      console.log('data is', data)
-      return db.User.findById(data.id)
-        .then((found) => {
-          return found.update({
-            name: data.name,
-            email: data.email,
-            password: data.password
-          })
-        })
-        .then(updated => {
-          return updated
-        })
-    },
-    deleteUser: (__, data) => {
-      return db.User.destroy({where: {id: data.id}})
-        .then((deleted) => {
-          console.log('deleted', deleted)
-          if (deleted === 0) {
-            return {status: false}
-          } else if (deleted === 1) {
-            return {status: true}
-          }
-        })
     }
   }
-}
+} // close module exports

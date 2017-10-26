@@ -79,6 +79,10 @@ type Query {
 type Mutation {
   createUser(name:String!,email:String!,CountryId:Int!,password:String!): User
 
+  updateUser(id:ID!,name:String, email:String, CountryId:Int,password:String, profilePic:String):User
+
+  deleteUser(id:ID!): DeletedStatus
+
   createToken(email:String!, password:String!): Token
 
   createItinerary(name:String!,startDate:String,endDate:String,pax:Int,travelInsurance:String,budget:Int): Itinerary
@@ -86,10 +90,6 @@ type Mutation {
   createLocation(CountryId: ID!, name:String!, latitude:String!, longitude:String!,openingHour:String,closingHour:String,address:String!): Location
 
   createActivity(ItineraryId: ID!, LocationId: ID!, date: String!, loadSequence: Int!, name: String, notes: String, startTime: String, endTime: String, cost: Int, currency: String, bookingStatus: String, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
-
-  updateUser(id:ID!,name:String, email:String, CountryId:Int,password:String, profilePic:String):User
-
-  deleteUser(id:ID!): DeletedStatus
 }
 `
 
