@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 const casual = require('casual')
 const faker = require('faker')
 
@@ -14,9 +14,13 @@ module.exports = {
         departureGate: `Gate ${Math.floor(Math.random() * 10) + 1}`,
         arrivalTerminal: `Terminal ${Math.floor(Math.random() * 4) + 1}`,
         arrivalGate: `Gate ${Math.floor(Math.random() * 10) + 1}`,
-        departureTime: casual.time(),
-        boardingTime: casual.time(),
-        arrivalTime: casual.time(),
+        departureLoadSequence: 1,
+        arrivalLoadSequence: 1,
+        departureDate: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        arrivalDate: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        departureTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        boardingTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        arrivalTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
         name: `Airport ${i}`,
         notes: casual.sentences(3),
         cost: (Math.floor(Math.random() * 20) + 1) * 100,
@@ -35,4 +39,4 @@ module.exports = {
   down: function (queryInterface, Sequelize) {
     return queryInterface.bulkDelete('Flights', null, {})
   }
-};
+}
