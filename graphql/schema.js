@@ -19,8 +19,8 @@ type User {
 type Itinerary {
   id: ID!
   name: String
-  startDate: String
-  endDate: String
+  startDate: Int
+  endDate: Int
   pax: Int
   travelInsurance: String
   budget: Int
@@ -46,11 +46,11 @@ type Activity {
   LocationId: ID!
   location: Location!
   loadSequence: Int!
-  date: String!
+  date: Int!
   name: String
   notes: String
-  startTime: String
-  endTime: String
+  startTime: Int
+  endTime: Int
   cost: Int
   currency: String
   bookingStatus: Boolean
@@ -85,11 +85,11 @@ type Mutation {
 
   createToken(email:String!, password:String!): Token
 
-  createItinerary(name:String!,startDate:String,endDate:String,pax:Int,travelInsurance:String,budget:Int): Itinerary
+  createItinerary(name:String!,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
 
   createLocation(CountryId: ID!, name:String!, latitude:String!, longitude:String!,openingHour:String,closingHour:String,address:String!): Location
 
-  createActivity(ItineraryId: ID!, LocationId: ID!, date: String!, loadSequence: Int!, name: String, notes: String, startTime: String, endTime: String, cost: Int, currency: String, bookingStatus: String, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
+  createActivity(ItineraryId: ID!, LocationId: ID!, date: Int!, loadSequence: Int!, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: String, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
 }
 `
 
