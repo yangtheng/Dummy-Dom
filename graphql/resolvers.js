@@ -92,22 +92,19 @@ module.exports = {
     },
     deleteUser: (__, data) => {
       return db.User.destroy({where: {id: data.id}})
-      .then((deleted) => {
-        console.log('deleted', deleted)
-        if (deleted === 0) {
-          return {status: false}
-        } else if (deleted === 1) {
+      .then(deleted => {
+        if (deleted) {
           return {status: true}
+        } else {
+          return {status: false}
         }
       })
     },
     createToken: (__, data) => {
-      console.log('data', data)
       return db.User.findOne({
         where: {email: data.email}
       })
       .then(found => {
-        // console.log('found', found)
         return bcrypt.compare(data.password, found.password)
         .then(compared => {
           if (compared) {
@@ -156,6 +153,24 @@ module.exports = {
         return db.Itinerary.findById(newItineraryId)
       })
     },
+    deleteItinerary: (__, data) => {
+      const id = data.id
+      return db.Itinerary.destroy({where: {id: id}})
+        .then(() => {
+          return db.CountriesItineraries.destroy({where: {ItineraryId: id}})
+        })
+        .then(() => {
+          return db.UsersItineraries.destroy({where: {ItineraryId: id}})
+        })
+        .then(deleteChain => {
+          console.log('chained status', deleteChain)
+          if (deleteChain) {
+            return {status: true}
+          } else {
+            return {status: false}
+          }
+        })
+    },
     createLocation: (__, data) => {
       console.log('data is', data)
       var newLocation = {}
@@ -194,10 +209,8 @@ module.exports = {
         })
     },
     deleteActivity: (__, data) => {
-      console.log('data is', data)
       return db.Activity.destroy({where: {id: data.id}})
         .then(deleted => {
-          console.log('deleted', deleted)
           if (deleted) {
             return {status: true}
           } else {

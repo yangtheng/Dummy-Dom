@@ -87,6 +87,8 @@ type Mutation {
 
   createItinerary(name:String!,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
 
+  deleteItinerary(id: ID!): DeletedStatus
+  
   createLocation(CountryId: ID!, name:String!, latitude:String!, longitude:String!,openingHour:String,closingHour:String,address:String!): Location
 
   createActivity(ItineraryId: ID!, LocationId: ID!, date: Int!, loadSequence: Int!, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: String, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
