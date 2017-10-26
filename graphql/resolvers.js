@@ -172,6 +172,26 @@ module.exports = {
       })
       console.log('newActivity', newActivity)
       return db.Activity.create(newActivity)
+    },
+    updateActivity: (__, data) => {
+      console.log('data is', data)
+      return db.Activity.findById(data.id)
+        .then(found => {
+          console.log('found activity', found)
+          var updates = {}
+          Object.keys(data).forEach(key => {
+            // prevent id from changing
+            // need to prevent deleting of compulsory fields
+            if (key !== 'id') {
+              updates[key] = data[key]
+            }
+          })
+          return found.update(updates)
+        })
+        .catch(err => {
+          console.log('err', err)
+          return err
+        })
     }
   }
 } // close module exports
