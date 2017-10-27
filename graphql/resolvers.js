@@ -28,6 +28,9 @@ module.exports = {
     findLodging: (__, data) => {
       return db.Lodging.findById(data.id)
     },
+    findFlight: (__, data) => {
+      return db.Flight.findById(data.id)
+    },
     authorization: (__, data, context) => {
       console.log('context', context)
       if (context.user) {
@@ -85,6 +88,13 @@ module.exports = {
       return lodging.getLocation()
     }
   },
+  // Flight: {
+  //   departureLocation (flight) {
+  //     return db.Location.findById(1)
+  //   },
+  //   arrivalLocation (flight) {
+  //     return db.Location.findById(2)
+  // },
   Mutation: {
     createUser: (__, data) => {
       var hash = bcrypt.hashSync(data.password, 10)
