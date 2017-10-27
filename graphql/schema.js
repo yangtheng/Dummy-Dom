@@ -106,7 +106,9 @@ type Lodging {
 type Flight {
   id: ID!
   DepartureLocationId: ID!
+  departureLocation: Location!
   ArrivalLocationId: ID!
+  arrivalLocation: Location!
   ItineraryId: ID!
   departureTerminal: String
   departureGate: String

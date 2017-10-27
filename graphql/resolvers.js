@@ -88,13 +88,14 @@ module.exports = {
       return lodging.getLocation()
     }
   },
-  // Flight: {
-  //   departureLocation (flight) {
-  //     return db.Location.findById(1)
-  //   },
-  //   arrivalLocation (flight) {
-  //     return db.Location.findById(2)
-  // },
+  Flight: {
+    departureLocation (flight) {
+      return flight.getDepartureLocation()
+    },
+    arrivalLocation (flight) {
+      return flight.getArrivalLocation()
+    }
+  },
   Mutation: {
     createUser: (__, data) => {
       var hash = bcrypt.hashSync(data.password, 10)
