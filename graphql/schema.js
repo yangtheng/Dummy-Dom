@@ -83,6 +83,26 @@ type Food {
   attachment: String
   type: String
 }
+type Lodging {
+  id: ID!
+  LocationId: ID!
+  location: Location!
+  ItineraryId: ID!
+  itinerary: Itinerary
+  loadSequence: Int!
+  date: Int
+  name: String
+  notes: String
+  startDate: Int
+  endDate: Int
+  cost: Int
+  currency: String
+  bookingStatus: Boolean
+  bookedThrough: String
+  bookingConfirmation: String
+  attachment: String
+  roomType: String
+}
 type DeletedStatus {
   status: Boolean
 }
@@ -100,6 +120,7 @@ type Query {
   findLocation(id: ID!): Location
   findActivity(id: ID!): Activity
   findFood(id:ID!): Food
+  findLodging(id:ID!): Lodging
   authorization: AuthorizationStatus
 }
 type Mutation {

@@ -25,6 +25,9 @@ module.exports = {
     findFood: (__, data) => {
       return db.Food.findById(data.id)
     },
+    findLodging: (__, data) => {
+      return db.Lodging.findById(data.id)
+    },
     authorization: (__, data, context) => {
       console.log('context', context)
       if (context.user) {
@@ -72,6 +75,14 @@ module.exports = {
     },
     location (food) {
       return food.getLocation()
+    }
+  },
+  Lodging: {
+    itinerary (lodging) {
+      return lodging.getItinerary()
+    },
+    location (lodging) {
+      return lodging.getLocation()
     }
   },
   Mutation: {

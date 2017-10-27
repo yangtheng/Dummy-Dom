@@ -38,10 +38,10 @@ module.exports = {
       notes: {
         type: Sequelize.TEXT
       },
-      startTime: {
+      startDate: {
         type: Sequelize.INTEGER
       },
-      endTime: {
+      endDate: {
         type: Sequelize.INTEGER
       },
       cost: {
