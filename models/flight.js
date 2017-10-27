@@ -27,7 +27,14 @@ module.exports = function (sequelize, DataTypes) {
 
   Flight.associate = function (models) {
     Flight.belongsTo(models.Itinerary)
-    Flight.belongsTo(models.Location)
+    Flight.belongsTo(models.Location, {
+      as: 'DepartureLocation',
+      foreignKey: 'DepartureLocationId'
+    })
+    Flight.belongsTo(models.Location, {
+      as: 'ArrivalLocation',
+      foreignKey: 'ArrivalLocationId'
+    })
   }
 
   return Flight
