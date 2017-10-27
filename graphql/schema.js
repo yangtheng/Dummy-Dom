@@ -25,7 +25,7 @@ type Itinerary {
   travelInsurance: String
   budget: Int
   countries: [Country]
-  users: [User]
+  users: [User!]
   activities: [Activity]
 }
 type Location {
@@ -58,6 +58,11 @@ type Activity {
   bookingConfirmation: String
   attachment: String
 }
+type CountriesItineraries {
+  id: ID!
+  CountryId: ID!
+  ItineraryId: ID!
+}
 type DeletedStatus {
   status: Boolean
 }
@@ -88,6 +93,10 @@ type Mutation {
   createItinerary(UserId: [Int!], CountryId: [Int!], name:String!,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
 
   updateItineraryDetails(id: ID!, name:String,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
+
+  createCountriesItineraries(ItineraryId: Int!, CountryId:Int!): CountriesItineraries
+
+  deleteCountriesItineraries(ItineraryId: Int!, CountryId:Int!): DeletedStatus
 
   deleteItinerary(id: ID!): DeletedStatus
 

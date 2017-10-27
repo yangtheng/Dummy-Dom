@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
 module.exports = {
-  // example get requests
   Query: {
     allCountries: () => {
       return db.Country.findAll()
@@ -64,7 +63,6 @@ module.exports = {
       return activity.getLocation()
     }
   },
-  // example post, update, delete requests.
   Mutation: {
     createUser: (__, data) => {
       var hash = bcrypt.hashSync(data.password, 10)
@@ -171,6 +169,27 @@ module.exports = {
       return db.Itinerary.findById(data.id)
         .then(found => {
           return found.update(updates)
+        })
+    },
+    createCountriesItineraries: (__, data) => {
+      return db.CountriesItineraries.create({
+        CountryId: data.CountryId,
+        ItineraryId: data.ItineraryId
+      })
+    },
+    deleteCountriesItineraries: (__, data) => {
+      return db.CountriesItineraries.destroy({
+        where: {
+          CountryId: data.CountryId,
+          ItineraryId: data.ItineraryId
+        }
+      })
+        .then(deleted => {
+          if (deleted) {
+            return {status: true}
+          } else {
+            return {status: false}
+          }
         })
     },
     deleteItinerary: (__, data) => {
