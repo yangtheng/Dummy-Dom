@@ -18,7 +18,7 @@ type User {
 }
 type Itinerary {
   id: ID!
-  name: String
+  name: String!
   startDate: Int
   endDate: Int
   pax: Int
@@ -67,9 +67,6 @@ type AuthorizationStatus {
 type Token {
   token: String
 }
-type Array {
-  array: [Int]
-}
 type Query {
   allCountries: [Country!]!
   allUsers: [User!]!
@@ -90,7 +87,7 @@ type Mutation {
 
   createItinerary(UserId: [Int!], CountryId: [Int!], name:String!,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
 
-  arrayInput(id:[Int]): Array
+  updateItineraryDetails(id: ID!, name:String,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
 
   deleteItinerary(id: ID!): DeletedStatus
 

@@ -135,7 +135,6 @@ module.exports = {
           newItinerary[key] = data[key]
         }
       })
-      var newItineraryId = null
       return db.Itinerary.create(newItinerary)
       .then(created => {
         console.log('created', created)
@@ -162,11 +161,17 @@ module.exports = {
         return db.Itinerary.findById(created.id)
       })
     },
-    arrayInput: (__, data) => {
-      console.log('data', data)
-      return {
-        array: data.id
-      }
+    updateItineraryDetails: (__, data) => {
+      var updates = {}
+      Object.keys(data).forEach(key => {
+        if (key !== 'id') {
+          updates[key] = data[key]
+        }
+      })
+      return db.Itinerary.findById(data.id)
+        .then(found => {
+          return found.update(updates)
+        })
     },
     deleteItinerary: (__, data) => {
       const id = data.id
