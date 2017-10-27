@@ -67,6 +67,9 @@ type AuthorizationStatus {
 type Token {
   token: String
 }
+type Array {
+  array: [Int]
+}
 type Query {
   allCountries: [Country!]!
   allUsers: [User!]!
@@ -85,10 +88,12 @@ type Mutation {
 
   createToken(email:String!, password:String!): Token
 
-  createItinerary(name:String!,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
+  createItinerary(UserId: [Int!], CountryId: [Int!], name:String!,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
+
+  arrayInput(id:[Int]): Array
 
   deleteItinerary(id: ID!): DeletedStatus
-  
+
   createLocation(CountryId: ID!, name:String!, latitude:String!, longitude:String!,openingHour:String,closingHour:String,address:String!): Location
 
   createActivity(ItineraryId: ID!, LocationId: ID!, date: Int!, loadSequence: Int!, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: String, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity

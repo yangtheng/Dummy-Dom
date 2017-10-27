@@ -126,32 +126,47 @@ module.exports = {
     },
     createItinerary: (__, data) => {
       var newItinerary = {}
+      var UserIdArr = data.UserId
+      var CountryIdArr = data.CountryId
+      console.log('users', UserIdArr)
+      console.log('countries', CountryIdArr)
       Object.keys(data).forEach(key => {
-        newItinerary[key] = data[key]
+        if (key !== 'UserId' && key !== 'CountryId') {
+          newItinerary[key] = data[key]
+        }
       })
       var newItineraryId = null
       return db.Itinerary.create(newItinerary)
       .then(created => {
-        console.log('created', created.dataValues)
-        db.UsersItineraries.create({
-          UserId: 1,
-          ItineraryId: created.dataValues.id
+        console.log('created', created)
+        UserIdArr.forEach(id => {
+          return db.UsersItineraries.create({
+            UserId: id,
+            ItineraryId: created.id
+          })
         })
         return created
       })
       .then(created => {
-        console.log('second then', created.dataValues)
-        db.CountriesItineraries.create({
-          CountryId: 1,
-          ItineraryId: created.dataValues.id
+        console.log('second then', created)
+        CountryIdArr.forEach(id => {
+          return db.CountriesItineraries.create({
+            CountryId: id,
+            ItineraryId: created.id
+          })
         })
-        newItineraryId = created.dataValues.id
         return created
       })
-      .then(() => {
-        console.log('new id is', newItineraryId)
-        return db.Itinerary.findById(newItineraryId)
+      .then(created => {
+        console.log('new id is', created.id)
+        return db.Itinerary.findById(created.id)
       })
+    },
+    arrayInput: (__, data) => {
+      console.log('data', data)
+      return {
+        array: data.id
+      }
     },
     deleteItinerary: (__, data) => {
       const id = data.id
@@ -178,12 +193,10 @@ module.exports = {
         })
     },
     createLocation: (__, data) => {
-      console.log('data is', data)
       var newLocation = {}
       Object.keys(data).forEach(key => {
         newLocation[key] = data[key]
       })
-      console.log('newLocation', newLocation)
       return db.Location.create(newLocation)
     },
     createActivity: (__, data) => {
@@ -191,14 +204,11 @@ module.exports = {
       Object.keys(data).forEach(key => {
         newActivity[key] = data[key]
       })
-      console.log('newActivity', newActivity)
       return db.Activity.create(newActivity)
     },
     updateActivity: (__, data) => {
-      console.log('data is', data)
       return db.Activity.findById(data.id)
         .then(found => {
-          console.log('found activity', found)
           var updates = {}
           Object.keys(data).forEach(key => {
             // prevent id from changing
