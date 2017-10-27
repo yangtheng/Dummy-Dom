@@ -22,6 +22,9 @@ module.exports = {
     findActivity: (__, data) => {
       return db.Activity.findById(data.id)
     },
+    findFood: (__, data) => {
+      return db.Food.findById(data.id)
+    },
     authorization: (__, data, context) => {
       console.log('context', context)
       if (context.user) {
@@ -61,6 +64,14 @@ module.exports = {
     },
     location (activity) {
       return activity.getLocation()
+    }
+  },
+  Food: {
+    itinerary (food) {
+      return food.getItinerary()
+    },
+    location (food) {
+      return food.getLocation()
     }
   },
   Mutation: {

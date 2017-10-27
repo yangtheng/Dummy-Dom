@@ -28,6 +28,11 @@ type Itinerary {
   users: [User!]
   activities: [Activity]
 }
+type CountriesItineraries {
+  id: ID!
+  CountryId: ID!
+  ItineraryId: ID!
+}
 type Location {
   id: ID!
   CountryId: ID!
@@ -46,7 +51,7 @@ type Activity {
   LocationId: ID!
   location: Location!
   loadSequence: Int!
-  date: Int!
+  date: Int
   name: String
   notes: String
   startTime: Int
@@ -58,10 +63,25 @@ type Activity {
   bookingConfirmation: String
   attachment: String
 }
-type CountriesItineraries {
+type Food {
   id: ID!
-  CountryId: ID!
+  LocationId: ID!
+  location: Location!
   ItineraryId: ID!
+  itinerary: Itinerary!
+  loadSequence: Int!
+  date: Int
+  name: String
+  notes: String
+  startTime: Int
+  endTime: Int
+  cost: Int
+  currency: String
+  bookingStatus: Boolean
+  bookedThrough: String
+  bookingConfirmation: String
+  attachment: String
+  type: String
 }
 type DeletedStatus {
   status: Boolean
@@ -79,6 +99,7 @@ type Query {
   findItinerary(id: ID!): Itinerary
   findLocation(id: ID!): Location
   findActivity(id: ID!): Activity
+  findFood(id:ID!): Food
   authorization: AuthorizationStatus
 }
 type Mutation {
