@@ -31,6 +31,9 @@ module.exports = {
     findFlight: (__, data) => {
       return db.Flight.findById(data.id)
     },
+    findTransport: (__, data) => {
+      return db.Transport.findById(data.id)
+    },
     authorization: (__, data, context) => {
       console.log('context', context)
       if (context.user) {
@@ -90,10 +93,18 @@ module.exports = {
   },
   Flight: {
     departureLocation (flight) {
-      return flight.getDepartureLocation()
+      return flight.getFlightDeparture()
     },
     arrivalLocation (flight) {
-      return flight.getArrivalLocation()
+      return flight.getFlightArrival()
+    }
+  },
+  Transport: {
+    departureLocation (transport) {
+      return transport.getTransportDeparture()
+    },
+    arrivalLocation (transport) {
+      return transport.getTransportArrival()
     }
   },
   Mutation: {
