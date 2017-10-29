@@ -160,6 +160,14 @@ type AuthorizationStatus {
 type Token {
   token: String
 }
+input LoadSequence {
+  type: String!
+  id: Int!
+  loadSequence: Int!
+}
+type LoadStatus {
+  status: Boolean
+}
 type Query {
   allCountries: [Country!]!
   allUsers: [User!]!
@@ -174,6 +182,8 @@ type Query {
   authorization: AuthorizationStatus
 }
 type Mutation {
+  changingLoadSequence(input:[LoadSequence]): Boolean
+
   createUser(name:String!,email:String!,CountryId:Int!,password:String!): User
 
   updateUser(id:ID!,name:String, email:String, CountryId:Int,password:String, profilePic:String):User

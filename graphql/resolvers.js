@@ -35,7 +35,6 @@ module.exports = {
       return db.Transport.findById(data.id)
     },
     authorization: (__, data, context) => {
-      console.log('context', context)
       if (context.user) {
         return {status: true}
       } else {
@@ -108,6 +107,41 @@ module.exports = {
     }
   },
   Mutation: {
+    changingLoadSequence: (__, data) => {
+      var input = data.input
+      input.forEach(e => {
+        if (e.type === 'Activity') {
+          return db.Activity.findById(e.id)
+            .then(found => {
+              found.update({loadSequence: e.loadSequence})
+            })
+        } else if (e.type === 'Lodging') {
+          return db.Lodging.findById(e.id)
+          .then(found => {
+            found.update({loadSequence: e.loadSequence})
+          })
+        } else if (e.type === 'Food') {
+          return db.Food.findById(e.id)
+          .then(found => {
+            found.update({loadSequence: e.loadSequence})
+          })
+        } else if (e.type === 'Flight') {
+          return db.Flight.findById(e.id)
+          .then(found => {
+            found.update({loadSequence: e.loadSequence})
+          })
+        } else if (e.type === 'Transport') {
+          return db.Transport.findById(e.id)
+          .then(found => {
+            found.update({loadSequence: e.loadSequence})
+          })
+        } else {
+          //if type doesnt match anything
+          return false
+        }
+      })
+      return true
+    },
     createUser: (__, data) => {
       var hash = bcrypt.hashSync(data.password, 10)
       const newUser = {
@@ -119,7 +153,6 @@ module.exports = {
       return db.User.create(newUser)
     },
     updateUser: (__, data) => {
-      console.log('data is', data)
       return db.User.findById(data.id)
       .then((found) => {
         return found.update({

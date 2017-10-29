@@ -20,14 +20,14 @@ function verifyToken (req, res, next) {
   // auth was required but no header given. (forgot to attach token)
   // token is undefined or 'undefined' or ''
   var authHeader = req.headers.authorization
-  console.log('header', authHeader)
+  // console.log('header', authHeader)
   if (authHeader) {
     var token = authHeader.substring(7)
   }
-  console.log('token', token)
+  // console.log('token', token)
 
   if (token && token !== 'undefined' && token !== '') {
-    console.log('pre verify')
+    // console.log('pre verify')
     var user = jwt.verify(token, process.env.JWT)
     if (user) {
       req.user = user.id

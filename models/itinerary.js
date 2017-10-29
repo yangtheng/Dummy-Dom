@@ -15,8 +15,8 @@ module.exports = function (sequelize, DataTypes) {
     Itinerary.hasMany(models.Flight)
     Itinerary.hasMany(models.Lodging)
     Itinerary.hasMany(models.Transport)
-    Itinerary.belongsToMany(models.User, {through: 'UsersItineraries', onDelete: 'cascade', hooks: true})
-    Itinerary.belongsToMany(models.Country, {through: 'CountriesItineraries', onDelete: 'cascade', hooks: true})
+    Itinerary.belongsToMany(models.User, {through: 'UsersItineraries'})
+    Itinerary.belongsToMany(models.Country, {through: 'CountriesItineraries'})
   }
   return Itinerary
 }
