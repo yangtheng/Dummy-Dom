@@ -400,6 +400,39 @@ module.exports = {
             return {status: false}
           }
         })
+    },
+    createFood: (__, data) => {
+      var newFood = {}
+      Object.keys(data).forEach(key => {
+        newFood[key] = data[key]
+      })
+      return db.Food.create(newFood)
+    },
+    updateFood: (__, data) => {
+      return db.Food.findById(data.id)
+        .then(found => {
+          var updates = {}
+          Object.keys(data).forEach(key => {
+            if (key !== 'id') {
+              updates[key] = data[key]
+            }
+          })
+          return found.update(updates)
+        })
+        .catch(err => {
+          console.log('err', err)
+          return err
+        })
+    },
+    deleteFood: (__, data) => {
+      return db.Food.destroy({where: {id: data.id}})
+        .then(deleted => {
+          if (deleted) {
+            return {status: true}
+          } else {
+            return {status: false}
+          }
+        })
     }
   }
 } // close module exports

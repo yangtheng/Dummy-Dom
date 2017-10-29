@@ -213,11 +213,17 @@ type Mutation {
 
   deleteFlight(id:ID!): DeletedStatus
 
-  createLodging(ItineraryId: ID!, name: String, notes: String, startDate: Int, endDate: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
+  createLodging(ItineraryId: ID!, loadSequence: Int, name: String, notes: String, startDate: Int, endDate: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
 
-  updateLodging(id: ID!, name: String, notes: String, startDate: Int, endDate: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
+  updateLodging(id: ID!, LocationId: ID, loadSequence: Int, name: String, notes: String, startDate: Int, endDate: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
 
   deleteLodging(id:ID!): DeletedStatus
+
+  createFood(ItineraryId: ID!, LocationId: ID!, date: Int, loadSequence: Int, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, type: String): Food
+
+  updateFood(id: ID!, LocationId: ID, date: Int, loadSequence: Int, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, type: String): Food
+
+  deleteFood(id:ID!): DeletedStatus
 }
 `
 
