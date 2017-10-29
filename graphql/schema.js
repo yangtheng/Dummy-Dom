@@ -165,9 +165,6 @@ input LoadSequence {
   id: Int!
   loadSequence: Int!
 }
-type LoadStatus {
-  status: Boolean
-}
 type Query {
   allCountries: [Country!]!
   allUsers: [User!]!
@@ -209,6 +206,10 @@ type Mutation {
   updateActivity(id: ID!, LocationId: ID, date: Int, loadSequence: Int, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: String, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
 
   deleteActivity(id:ID!): DeletedStatus
+
+  createFlight(ItineraryId: ID!, DepartureLocationId: ID!, ArrivalLocationId: ID!, arrivalTerminal: String, arrivalGate: String, departureTerminal: String, departureGate: String,departureLoadSequence: Int, arrivalLoadSequence: Int, departureDate: Int, departureTime: Int, arrivalDate: Int, arrivalTime: Int, boardingTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String): Flight
+
+  updateFlight(id: ID!, ItineraryId: ID!, DepartureLocationId: ID!, ArrivalLocationId: ID!, arrivalTerminal: String, arrivalGate: String, departureTerminal: String, departureGate: String,departureLoadSequence: Int, arrivalLoadSequence: Int, departureDate: Int, departureTime: Int, arrivalDate: Int, arrivalTime: Int, boardingTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String): Flight
 }
 `
 
