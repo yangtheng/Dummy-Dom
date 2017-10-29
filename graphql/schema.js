@@ -209,9 +209,15 @@ type Mutation {
 
   createFlight(ItineraryId: ID!, DepartureLocationId: ID!, ArrivalLocationId: ID!, arrivalTerminal: String, arrivalGate: String, departureTerminal: String, departureGate: String,departureLoadSequence: Int, arrivalLoadSequence: Int, departureDate: Int, departureTime: Int, arrivalDate: Int, arrivalTime: Int, boardingTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String): Flight
 
-  updateFlight(id: ID!, ItineraryId: ID!, DepartureLocationId: ID!, ArrivalLocationId: ID!, arrivalTerminal: String, arrivalGate: String, departureTerminal: String, departureGate: String,departureLoadSequence: Int, arrivalLoadSequence: Int, departureDate: Int, departureTime: Int, arrivalDate: Int, arrivalTime: Int, boardingTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String): Flight
+  updateFlight(id: ID!, DepartureLocationId: ID!, ArrivalLocationId: ID!, arrivalTerminal: String, arrivalGate: String, departureTerminal: String, departureGate: String,departureLoadSequence: Int, arrivalLoadSequence: Int, departureDate: Int, departureTime: Int, arrivalDate: Int, arrivalTime: Int, boardingTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String): Flight
 
   deleteFlight(id:ID!): DeletedStatus
+
+  createLodging(ItineraryId: ID!, name: String, notes: String, startDate: Int, endDate: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
+
+  updateLodging(id: ID!, name: String, notes: String, startDate: Int, endDate: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
+
+  deleteLodging(id:ID!): DeletedStatus
 }
 `
 
