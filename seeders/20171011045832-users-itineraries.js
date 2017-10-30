@@ -11,6 +11,13 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       })
+      seedArr.push({
+        UserId: i + 50,
+        ItineraryId: i,
+        permissions: 'collab',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
     }
     return queryInterface.bulkInsert('UsersItineraries', seedArr, {})
   },

@@ -25,6 +25,7 @@ type Itinerary {
   travelInsurance: String
   budget: Int
   countries: [Country]
+  owner: User
   users: [User!]
   activities: [Activity]
   food: [Food]
@@ -97,8 +98,8 @@ type Lodging {
   location: Location!
   ItineraryId: ID!
   itinerary: Itinerary
-  loadSequence: Int!
-  date: Int
+  startLoadSequence: Int!
+  endLoadSequence: Int!
   name: String
   notes: String
   startDate: Int
@@ -223,9 +224,9 @@ type Mutation {
 
   deleteFlight(id:ID!): DeletedStatus
 
-  createLodging(ItineraryId: ID!, loadSequence: Int, name: String, notes: String, startDate: Int, endDate: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
+  createLodging(ItineraryId: ID!, startLoadSequence: Int, endLoadSequence:Int, name: String, notes: String, startDate: Int, endDate: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
 
-  updateLodging(id: ID!, LocationId: ID, loadSequence: Int, name: String, notes: String, startDate: Int, endDate: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
+  updateLodging(id: ID!, LocationId: ID, startLoadSequence: Int, endLoadSequence:Int, name: String, notes: String, startDate: Int, endDate: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
 
   deleteLodging(id:ID!): DeletedStatus
 

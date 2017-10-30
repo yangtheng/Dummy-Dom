@@ -26,7 +26,10 @@ module.exports = {
           key: 'id'
         }
       },
-      loadSequence: {
+      startLoadSequence: {
+        type: Sequelize.INTEGER
+      },
+      endLoadSequence: {
         type: Sequelize.INTEGER
       },
       name: {

@@ -66,6 +66,17 @@ module.exports = {
     countries (itinerary) {
       return itinerary.getCountries()
     },
+    owner (itinerary) {
+      var ownerId = null
+      return db.UsersItineraries.find({where: {
+        ItineraryId: itinerary.id,
+        permissions: 'owner'
+      }})
+        .then(found => {
+          ownerId = found.UserId
+          return db.User.findById(ownerId)
+        })
+    },
     users (itinerary) {
       return itinerary.getUsers()
     },
