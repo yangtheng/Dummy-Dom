@@ -33,12 +33,10 @@ type Itinerary {
   transports: [Transport]
 }
 type CountriesItineraries {
-  id: ID!
   CountryId: ID!
   ItineraryId: ID!
 }
 type UsersItineraries {
-  id: ID
   UserId: ID!
   ItineraryId: ID!
 }
@@ -186,6 +184,7 @@ type Query {
   findFlight(id:ID!): Flight
   findTransport(id:ID!): Transport
   authorization: AuthorizationStatus
+  findCountriesItineraries(CountryId: ID!, ItineraryId: ID!): CountriesItineraries
   permissions(UserId: ID!, ItineraryId: ID!): UsersItineraries
 }
 type Mutation {

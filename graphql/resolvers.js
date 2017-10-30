@@ -46,6 +46,12 @@ module.exports = {
         UserId: data.UserId,
         ItineraryId: data.ItineraryId
       }})
+    },
+    findCountriesItineraries: (__, data) => {
+      return db.CountriesItineraries.find({where: {
+        CountryId: data.CountryId,
+        ItineraryId: data.ItineraryId
+      }})
     }
   },
   User: {
