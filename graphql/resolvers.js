@@ -236,9 +236,9 @@ module.exports = {
     },
     createItinerary: (__, data) => {
       var newItinerary = {}
-      var UserIdArr = data.UserId
+      var UserId = data.UserId
       var CountryIdArr = data.CountryId
-      console.log('users', UserIdArr)
+      console.log('owner', UserId)
       console.log('countries', CountryIdArr)
       Object.keys(data).forEach(key => {
         if (key !== 'UserId' && key !== 'CountryId') {
@@ -248,11 +248,9 @@ module.exports = {
       return db.Itinerary.create(newItinerary)
       .then(created => {
         console.log('created', created)
-        UserIdArr.forEach(id => {
-          return db.UsersItineraries.create({
-            UserId: id,
-            ItineraryId: created.id
-          })
+        db.UsersItineraries.create({
+          UserId: UserId,
+          ItineraryId: created.id
         })
         return created
       })

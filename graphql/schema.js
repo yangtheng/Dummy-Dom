@@ -201,7 +201,7 @@ type Mutation {
 
   createToken(email:String!, password:String!): Token
 
-  createItinerary(UserId: [Int!], CountryId: [Int!], name:String!,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
+  createItinerary(UserId: Int!, CountryId: [Int!], name:String!,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
 
   updateItineraryDetails(id: ID!, name:String,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
 
@@ -209,6 +209,7 @@ type Mutation {
 
   deleteCountriesItineraries(ItineraryId: Int!, CountryId:Int!): DeletedStatus
 
+  createUsersItineraries()
   deleteItinerary(id: ID!): DeletedStatus
 
   createLocation(CountryId: ID!, name:String!, latitude:String!, longitude:String!,openingHour:String,closingHour:String,address:String!): Location
