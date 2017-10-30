@@ -17,6 +17,10 @@ module.exports = {
           key: 'id'
         }
       },
+      placeId: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       latitude: {
         type: Sequelize.FLOAT
       },

@@ -2,12 +2,13 @@
 module.exports = function (sequelize, DataTypes) {
   var Location = sequelize.define('Location', {
     CountryId: DataTypes.INTEGER,
+    placeId: DataTypes.STRING,
+    name: DataTypes.STRING,
     latitude: DataTypes.FLOAT,
     longitude: DataTypes.FLOAT,
     openingHour: DataTypes.TIME,
     closingHour: DataTypes.TIME,
-    address: DataTypes.STRING,
-    name: DataTypes.STRING
+    address: DataTypes.STRING
   })
 
   Location.associate = function (models) {
