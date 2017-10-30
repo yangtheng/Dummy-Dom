@@ -250,7 +250,8 @@ module.exports = {
         console.log('created', created)
         db.UsersItineraries.create({
           UserId: UserId,
-          ItineraryId: created.id
+          ItineraryId: created.id,
+          permissions: 'owner'
         })
         return created
       })
@@ -303,6 +304,7 @@ module.exports = {
         })
     },
     deleteItinerary: (__, data) => {
+      // need to gate by user permissions in context
       const id = data.id
       return db.UsersItineraries.destroy({where: {ItineraryId: id}})
         .then(() => {

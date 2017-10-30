@@ -209,7 +209,6 @@ type Mutation {
 
   deleteCountriesItineraries(ItineraryId: Int!, CountryId:Int!): DeletedStatus
 
-  createUsersItineraries()
   deleteItinerary(id: ID!): DeletedStatus
 
   createLocation(CountryId: ID!, name:String!, latitude:String!, longitude:String!,openingHour:String,closingHour:String,address:String!): Location
