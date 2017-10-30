@@ -38,7 +38,7 @@ type CountriesItineraries {
   ItineraryId: ID!
 }
 type UsersItineraries {
-  id: ID!
+  id: ID
   UserId: ID!
   ItineraryId: ID!
 }
