@@ -40,6 +40,12 @@ module.exports = {
       } else {
         return {status: false}
       }
+    },
+    permissions: (__, data) => {
+      return db.UsersItineraries.find({where: {
+        UserId: data.UserId,
+        ItineraryId: data.ItineraryId
+      }})
     }
   },
   User: {
@@ -59,6 +65,18 @@ module.exports = {
     },
     activities (itinerary) {
       return itinerary.getActivities()
+    },
+    food (itinerary) {
+      return itinerary.getFood()
+    },
+    lodgings (itinerary) {
+      return itinerary.getLodgings()
+    },
+    flights (itinerary) {
+      return itinerary.getFlights()
+    },
+    transports (itinerary) {
+      return itinerary.getTransports()
     }
   },
   Location: {
@@ -136,7 +154,7 @@ module.exports = {
             found.update({loadSequence: e.loadSequence})
           })
         } else {
-          //if type doesnt match anything
+          // if type doesnt match anything
           return false
         }
       })

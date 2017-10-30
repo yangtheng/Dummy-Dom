@@ -27,10 +27,19 @@ type Itinerary {
   countries: [Country]
   users: [User!]
   activities: [Activity]
+  food: [Food]
+  lodgings: [Lodging]
+  flights: [Flight]
+  transports: [Transport]
 }
 type CountriesItineraries {
   id: ID!
   CountryId: ID!
+  ItineraryId: ID!
+}
+type UsersItineraries {
+  id: ID!
+  UserId: ID!
   ItineraryId: ID!
 }
 type Location {
@@ -177,6 +186,7 @@ type Query {
   findFlight(id:ID!): Flight
   findTransport(id:ID!): Transport
   authorization: AuthorizationStatus
+  permissions(UserId: ID!, ItineraryId: ID!): UsersItineraries
 }
 type Mutation {
   changingLoadSequence(input:[LoadSequence]): Boolean
@@ -229,7 +239,7 @@ type Mutation {
 
   updateTransport(id: ID!, DepartureLocationId: ID, ArrivalLocationId: ID, loadSequence: Int, date: Int, departureTime: Int, arrivalTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, type: String): Transport
 
-  deleteTransport(id:ID!): DeletedStatus  
+  deleteTransport(id:ID!): DeletedStatus
 }
 `
 

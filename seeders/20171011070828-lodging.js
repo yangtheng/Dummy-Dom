@@ -10,7 +10,6 @@ module.exports = {
         ItineraryId: i,
         LocationId: i,
         loadSequence: 1,
-        date: (new Date(casual.date()).getTime() / 1000).toFixed(0),
         name: `Lodging ${i}`,
         notes: casual.sentences(3),
         startDate: (new Date(casual.date()).getTime() / 1000).toFixed(0),
