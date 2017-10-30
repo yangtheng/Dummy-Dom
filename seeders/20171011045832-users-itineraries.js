@@ -7,6 +7,7 @@ module.exports = {
       seedArr.push({
         UserId: i,
         ItineraryId: i,
+        permissions: 'owner',
         createdAt: new Date(),
         updatedAt: new Date()
       })

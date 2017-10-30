@@ -39,6 +39,7 @@ type CountriesItineraries {
 type UsersItineraries {
   UserId: ID!
   ItineraryId: ID!
+  permissions: String!
 }
 type Location {
   id: ID!
