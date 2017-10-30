@@ -330,6 +330,19 @@ module.exports = {
     },
     createLocation: (__, data) => {
       console.log('placeId', data.placeId)
+      // var newLocation = {}
+      // Object.keys(data).forEach(key => {
+      //   newLocation[key] = data[key]
+      // })
+      // return db.Location.findOrCreate({where: newLocation})
+      // .spread((row, status) => {
+      //   console.log(row.get({
+      //     plain: true
+      //   }))
+      //   console.log(status)
+      //   return row
+      // })
+
       // check if location exists first
       return db.Location.find({where: {
         placeId: data.placeId
@@ -346,7 +359,6 @@ module.exports = {
             return db.Location.create(newLocation)
           }
         })
-
     },
     createActivity: (__, data) => {
       var newActivity = {}

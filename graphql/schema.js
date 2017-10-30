@@ -45,14 +45,14 @@ type UsersItineraries {
 type Location {
   id: ID!
   placeId: String!
-  CountryId: ID!
-  name: String!
-  latitude: Float!
-  longitude: Float!
+  CountryId: ID
+  name: String
+  latitude: Float
+  longitude: Float
   openingHour: String
   closingHour: String
-  address: String!
-  country: Country!
+  address: String
+  country: Country
 }
 type Activity {
   id: ID!
