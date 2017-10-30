@@ -146,7 +146,8 @@ type Transport {
   ArrivalLocationId: ID!
   arrivalLocation: Location!
   ItineraryId: ID!
-  loadSequence: Int!
+  startLoadSequence: Int
+  endLoadSequence: Int
   date: Int
   departureTime: Int!
   arrivalTime: Int!
@@ -236,7 +237,7 @@ type Mutation {
 
   deleteFood(id:ID!): DeletedStatus
 
-  createTransport(DepartureLocationId: ID!, ArrivalLocationId: ID!, loadSequence: Int, date: Int, departureTime: Int, arrivalTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, type: String): Transport
+  createTransport(DepartureLocationId: ID!, ArrivalLocationId: ID!, startloadSequence: Int, endLoadSequence: Int, date: Int, departureTime: Int, arrivalTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, type: String): Transport
 
   updateTransport(id: ID!, DepartureLocationId: ID, ArrivalLocationId: ID, loadSequence: Int, date: Int, departureTime: Int, arrivalTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, type: String): Transport
 
