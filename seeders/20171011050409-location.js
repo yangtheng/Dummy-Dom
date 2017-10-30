@@ -9,7 +9,7 @@ module.exports = {
       for (var j = 0; j < 3; j++) {
         seedArr.push({
           CountryId: i,
-          placeId: 'googleplaceid',
+          placeId: `googleplaceid${i}`,
           latitude: casual.latitude,
           longitude: casual.longitude,
           openingHour: casual.time(),

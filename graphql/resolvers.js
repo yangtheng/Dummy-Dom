@@ -329,11 +329,24 @@ module.exports = {
         })
     },
     createLocation: (__, data) => {
-      var newLocation = {}
-      Object.keys(data).forEach(key => {
-        newLocation[key] = data[key]
-      })
-      return db.Location.create(newLocation)
+      console.log('placeId', data.placeId)
+      // check if location exists first
+      return db.Location.find({where: {
+        placeId: data.placeId
+      }})
+        .then(found => {
+          console.log('found', found)
+          if (found) {
+            return found
+          } else {
+            var newLocation = {}
+            Object.keys(data).forEach(key => {
+              newLocation[key] = data[key]
+            })
+            return db.Location.create(newLocation)
+          }
+        })
+
     },
     createActivity: (__, data) => {
       var newActivity = {}
