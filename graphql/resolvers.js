@@ -10,6 +10,9 @@ module.exports = {
     allUsers: () => {
       return db.User.findAll()
     },
+    allItineraries: () => {
+      return db.Itinerary.findAll()
+    },
     findUser: (__, data) => {
       return db.User.findById(data.id)
     },

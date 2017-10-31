@@ -179,6 +179,7 @@ input LoadSequence {
 type Query {
   allCountries: [Country!]!
   allUsers: [User!]!
+  allItineraries: [Itinerary]
   findUser(id: ID!): User
   findItinerary(id: ID!): Itinerary
   findLocation(id: ID!): Location
