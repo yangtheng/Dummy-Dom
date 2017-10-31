@@ -364,6 +364,18 @@ module.exports = {
         })
     },
     createActivity: (__, data) => {
+      // extract google places object
+      var googlePlaceData = data.googlePlaceData
+      var placeId = googlePlaceData.placeId
+
+      var LocationId = null
+      // check if location exists via placeId
+      // update LocationId if exists. else create and return Location Id.
+      db.Location.find({where: {placeId: placeId}})
+        .then(found => {
+          console.log('found location', found)
+        })
+      // check db if google place id already exists
       var newActivity = {}
       Object.keys(data).forEach(key => {
         newActivity[key] = data[key]

@@ -176,6 +176,16 @@ input LoadSequence {
   id: Int!
   loadSequence: Int!
 }
+input googlePlaceData {
+  placeId: String!
+  countryCode: String
+  name: String
+  latitude: Float
+  longitude: Float
+  openingHour: String
+  closingHour: String
+  address: String
+}
 type Query {
   allCountries: [Country!]!
   allUsers: [User!]!
@@ -215,7 +225,7 @@ type Mutation {
 
   createLocation(placeId: String!, CountryId: ID, name:String, latitude:String, longitude:String,openingHour:String,closingHour:String,address:String): Location
 
-  createActivity(ItineraryId: ID!, LocationId: ID!, date: Int!, loadSequence: Int!, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: String, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
+  createActivity(ItineraryId: ID!, googlePlaceData: googlePlaceData, LocationId: ID, date: Int!, loadSequence: Int!, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: String, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
 
   updateActivity(id: ID!, LocationId: ID, date: Int, loadSequence: Int, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: String, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
 
