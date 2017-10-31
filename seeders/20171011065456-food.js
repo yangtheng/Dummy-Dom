@@ -9,12 +9,15 @@ module.exports = {
       seedArr.push({
         ItineraryId: i,
         LocationId: i,
-        loadSequence: 1,
-        date: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        loadSequence: 6,
+        // date: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        date: 1508025600,
         name: `Restaurant ${i}`,
         notes: casual.sentences(3),
-        startTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
-        endTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        // startTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        // endTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        startTime: 1508090400, //6pm dinner
+        endTime: 1508094000, //7pm end
         cost: Math.floor(Math.random() * 100) + 1,
         currency: casual.currency_code,
         bookingStatus: true,

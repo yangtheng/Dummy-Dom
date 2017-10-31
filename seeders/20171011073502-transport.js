@@ -10,11 +10,14 @@ module.exports = {
         ItineraryId: i,
         DepartureLocationId: i,
         ArrivalLocationId: Math.floor(Math.random() * 50) + 1,
-        startLoadSequence: 1,
-        endLoadSequence: 2,
-        date: (new Date(casual.date()).getTime() / 1000).toFixed(0),
-        departureTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
-        arrivalTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        startLoadSequence: 3,
+        endLoadSequence: 4,
+        // date: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        date: 1508025600, //15th oct
+        departureTime: 1508058000, // 9am after flight
+        arrivalTime: 1508061600, //10am
+        // departureTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        // arrivalTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
         name: `Transport ${i}`,
         notes: casual.sentences(3),
         cost: (Math.floor(Math.random() * 20) + 1) * 10,
