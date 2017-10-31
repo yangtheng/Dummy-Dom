@@ -364,23 +364,48 @@ module.exports = {
         })
     },
     createActivity: (__, data) => {
+      console.log('data', data)
       // extract google places object
       var googlePlaceData = data.googlePlaceData
+      console.log('googlePlaceData', googlePlaceData)
       var placeId = googlePlaceData.placeId
 
       var LocationId = null
       // check if location exists via placeId
       // update LocationId if exists. else create and return Location Id.
-      db.Location.find({where: {placeId: placeId}})
-        .then(found => {
-          console.log('found location', found)
-        })
       // check db if google place id already exists
-      var newActivity = {}
-      Object.keys(data).forEach(key => {
-        newActivity[key] = data[key]
-      })
-      return db.Activity.create(newActivity)
+      return db.Location.find({where: {placeId: placeId}})
+        .then(found => {
+          LocationId = found.id
+          console.log('Locationid', LocationId)
+        })
+        .catch(err => {
+          console.log(err)
+          db.Location.create({
+            placeId: placeId,
+            name: googlePlaceData.name,
+            CountryId: 123,
+            latitude: googlePlaceData.latitude,
+            longitude: googlePlaceData.longitude,
+            openingHour: googlePlaceData.openingHour,
+            closingHour: googlePlaceData.closingHour,
+            address: googlePlaceData.address
+          })
+          .then(created => {
+            LocationId = created.id
+            console.log('created id', LocationId)
+          })
+        })
+        .then(() => {
+          var newActivity = {}
+          Object.keys(data).forEach(key => {
+            if (key !== 'googlePlaceData') {
+              newActivity[key] = data[key]
+            }
+          })
+          newActivity.LocationId = LocationId
+          return db.Activity.create(newActivity)
+        })
     },
     updateActivity: (__, data) => {
       return db.Activity.findById(data.id)
