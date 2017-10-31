@@ -9,7 +9,7 @@ module.exports = {
       seedArr.push({
         ItineraryId: i,
         LocationId: i,
-        loadSequence: 5,
+        loadSequence: 6,
         // date: (new Date(casual.date()).getTime() / 1000).toFixed(0),
         date: 1508025600,
         name: `Activity ${i}`,
