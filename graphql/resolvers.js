@@ -365,13 +365,27 @@ module.exports = {
     },
     createActivity: (__, data) => {
       console.log('data', data)
-      // extract google places object
-      var googlePlaceData = data.googlePlaceData
 
-      var LocationId = null
-      // update LocationId if exists. else create and return Location Id.
-      // check db if google place id already exists
-      return db.Location.find({where: {placeId: googlePlaceData.placeId}})
+      // if we know location has been saved before(bucket), createNewActivity immediately
+      // else if found via searching, check if location has been saved before, find LocationId
+      // if location has not been saved before, create new location first.
+
+      if (data.LocationId) {
+        console.log('locationId was given')
+        var newActivity = {}
+        Object.keys(data).forEach(key => {
+          if (key !== 'googlePlaceData') {
+            newActivity[key] = data[key]
+          }
+        })
+        return db.Activity.create(newActivity)
+      } else {
+        console.log('locationId was not given')
+        // extract google places object
+        var googlePlaceData = data.googlePlaceData
+        var LocationId = null
+        // check db if google place id already exists
+        return db.Location.find({where: {placeId: googlePlaceData.placeId}})
         .then(found => {
           LocationId = found.id
           console.log('Locationid', LocationId)
@@ -383,25 +397,25 @@ module.exports = {
           var CountryId = null
 
           db.Country.find({where: {code: countryCode}})
-            .then(found => {
-              CountryId = found.id
+          .then(found => {
+            CountryId = found.id
+          })
+          .then(() => {
+            db.Location.create({
+              placeId: googlePlaceData.placeId,
+              name: googlePlaceData.name,
+              CountryId: CountryId,
+              latitude: googlePlaceData.latitude,
+              longitude: googlePlaceData.longitude,
+              openingHour: googlePlaceData.openingHour,
+              closingHour: googlePlaceData.closingHour,
+              address: googlePlaceData.address
             })
-            .then(() => {
-              db.Location.create({
-                placeId: googlePlaceData.placeId,
-                name: googlePlaceData.name,
-                CountryId: CountryId,
-                latitude: googlePlaceData.latitude,
-                longitude: googlePlaceData.longitude,
-                openingHour: googlePlaceData.openingHour,
-                closingHour: googlePlaceData.closingHour,
-                address: googlePlaceData.address
-              })
-              .then(created => {
-                LocationId = created.id
-                console.log('created LocationId', LocationId)
-              })
+            .then(created => {
+              LocationId = created.id
+              console.log('created LocationId', LocationId)
             })
+          })
         })
         .then(() => {
           var newActivity = {}
@@ -413,6 +427,7 @@ module.exports = {
           newActivity.LocationId = LocationId
           return db.Activity.create(newActivity)
         })
+      }
     },
     updateActivity: (__, data) => {
       return db.Activity.findById(data.id)
