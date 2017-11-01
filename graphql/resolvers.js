@@ -430,8 +430,6 @@ module.exports = {
       }
     },
     updateActivity: (__, data) => {
-      console.log('data', data)
-
       var updates = {}
       Object.keys(data).forEach(key => {
         if (key !== 'id' && key !== 'googlePlaceData') {
@@ -440,13 +438,10 @@ module.exports = {
       })
       console.log('updates', updates)
 
-    if (data.googlePlaceData) {
-      var LocationId = null
-
-      return db.Location.find({where: {placeId: data.googlePlaceData.placeId}})
+      if (data.googlePlaceData) {
+        return db.Location.find({where: {placeId: data.googlePlaceData.placeId}})
         .then(found => {
-          LocationId = found.id
-          updates.LocationId = LocationId
+          updates.LocationId = found.id
           return db.Activity.findById(data.id)
             .then(found => {
               return found.update(updates)
@@ -468,8 +463,7 @@ module.exports = {
                 address: data.googlePlaceData.address
               })
                 .then(createdLocation => {
-                  LocationId = createdLocation.id
-                  updates.LocationId = LocationId
+                  updates.LocationId = createdLocation.id
                   return db.Activity.findById(data.id)
                     .then(found => {
                       return found.update(updates)
@@ -477,12 +471,12 @@ module.exports = {
                 })
             })
         })
-    } else {
-      return db.Activity.findById(data.id)
+      } else {
+        return db.Activity.findById(data.id)
         .then(found => {
           return found.update(updates)
         })
-    }
+      }
     },
     deleteActivity: (__, data) => {
       return db.Activity.destroy({where: {id: data.id}})
