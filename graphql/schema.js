@@ -104,7 +104,9 @@ type Lodging {
   name: String
   notes: String
   startDate: Int
+  startTime: Int
   endDate: Int
+  endTime: Int
   cost: Int
   currency: String
   bookingStatus: Boolean
