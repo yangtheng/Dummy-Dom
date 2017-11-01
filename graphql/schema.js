@@ -237,9 +237,9 @@ type Mutation {
 
   deleteFlight(id:ID!): DeletedStatus
 
-  createLodging(ItineraryId: ID!, startLoadSequence: Int, endLoadSequence:Int, name: String, notes: String, startDate: Int, endDate: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
+  createLodging(ItineraryId: ID!, startLoadSequence: Int, endLoadSequence:Int, name: String, notes: String, startDate: Int, startTime: Int, endDate: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
 
-  updateLodging(id: ID!, LocationId: ID, startLoadSequence: Int, endLoadSequence:Int, name: String, notes: String, startDate: Int, endDate: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
+  updateLodging(id: ID!, LocationId: ID, startLoadSequence: Int, endLoadSequence:Int, name: String, notes: String, startDate: Int, startTime: Int, endDate: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String, roomType: String): Lodging
 
   deleteLodging(id:ID!): DeletedStatus
 
