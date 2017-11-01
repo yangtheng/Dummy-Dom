@@ -337,30 +337,11 @@ module.exports = {
       Object.keys(data).forEach(key => {
         newLocation[key] = data[key]
       })
-      return db.Location.findOrCreate({where: newLocation})
-        .spread((location, created) => {
-          console.log('location', location)
-          console.log('created', created)
-          return arr[0]
+      return db.Location.findCreateFind({where: newLocation})
+        .then(results => {
+          return results[0]
+          //arr of 2 elements. first is found or created row, second is boolean
         })
-
-      // check if location exists first
-
-      // return db.Location.find({where: {
-      //   placeId: data.placeId
-      // }})
-      //   .then(found => {
-      //     console.log('found', found)
-      //     if (found) {
-      //       return found
-      //     } else {
-      //       var newLocation = {}
-      //       Object.keys(data).forEach(key => {
-      //         newLocation[key] = data[key]
-      //       })
-      //       return db.Location.create(newLocation)
-      //     }
-      //   })
     },
     createActivity: (__, data) => {
       console.log('data', data)
