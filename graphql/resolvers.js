@@ -430,21 +430,19 @@ module.exports = {
       }
     },
     updateActivity: (__, data) => {
+      console.log('data', data)
+
+      var updates = {}
+      Object.keys(data).forEach(key => {
+        if (key !== 'id') {
+          updates[key] = data[key]
+        }
+      })
+      console.log('updates', updates)
+
       return db.Activity.findById(data.id)
         .then(found => {
-          var updates = {}
-          Object.keys(data).forEach(key => {
-            // prevent id from changing
-            // need to prevent deleting of compulsory fields
-            if (key !== 'id') {
-              updates[key] = data[key]
-            }
-          })
           return found.update(updates)
-        })
-        .catch(err => {
-          console.log('err', err)
-          return err
         })
     },
     deleteActivity: (__, data) => {
