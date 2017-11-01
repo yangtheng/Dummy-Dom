@@ -250,11 +250,12 @@ module.exports = {
 
       if (data.countryCode) {
         var CountryId = null
-        return db.Country.find({where: {code: data.CountryCode}})
+        return db.Country.find({where: {code: data.countryCode}})
           .then(foundCountry => {
-            return CountryId = foundCountry.id
+            CountryId = foundCountry.id
           })
           .then(() => {
+            console.log('country id is', CountryId)
             return db.Itinerary.create(newItinerary)
               .then(createdItinerary => {
                 db.CountriesItineraries.create({
@@ -266,6 +267,7 @@ module.exports = {
                   UserId: data.UserId,
                   permissions: 'owner'
                 })
+                return createdItinerary
               })
               .then(createdItinerary => {
                 return db.Itinerary.findById(createdItinerary.id)
