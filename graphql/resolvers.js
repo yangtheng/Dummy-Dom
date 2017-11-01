@@ -367,34 +367,40 @@ module.exports = {
       console.log('data', data)
       // extract google places object
       var googlePlaceData = data.googlePlaceData
-      console.log('googlePlaceData', googlePlaceData)
-      var placeId = googlePlaceData.placeId
 
       var LocationId = null
-      // check if location exists via placeId
       // update LocationId if exists. else create and return Location Id.
       // check db if google place id already exists
-      return db.Location.find({where: {placeId: placeId}})
+      return db.Location.find({where: {placeId: googlePlaceData.placeId}})
         .then(found => {
           LocationId = found.id
           console.log('Locationid', LocationId)
         })
         .catch(err => {
-          console.log(err)
-          db.Location.create({
-            placeId: placeId,
-            name: googlePlaceData.name,
-            CountryId: 123,
-            latitude: googlePlaceData.latitude,
-            longitude: googlePlaceData.longitude,
-            openingHour: googlePlaceData.openingHour,
-            closingHour: googlePlaceData.closingHour,
-            address: googlePlaceData.address
-          })
-          .then(created => {
-            LocationId = created.id
-            console.log('created id', LocationId)
-          })
+          console.log('location not found. creating row')
+          var countryCode = googlePlaceData.countryCode
+          var CountryId = null
+
+          db.Country.find({where: {code: countryCode}})
+            .then(found => {
+              CountryId = found.id
+            })
+            .then(() => {
+              db.Location.create({
+                placeId: googlePlaceData.placeId,
+                name: googlePlaceData.name,
+                CountryId: CountryId,
+                latitude: googlePlaceData.latitude,
+                longitude: googlePlaceData.longitude,
+                openingHour: googlePlaceData.openingHour,
+                closingHour: googlePlaceData.closingHour,
+                address: googlePlaceData.address
+              })
+              .then(created => {
+                LocationId = created.id
+                console.log('created LocationId', LocationId)
+              })
+            })
         })
         .then(() => {
           var newActivity = {}
