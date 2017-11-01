@@ -434,16 +434,55 @@ module.exports = {
 
       var updates = {}
       Object.keys(data).forEach(key => {
-        if (key !== 'id') {
+        if (key !== 'id' && key !== 'googlePlaceData') {
           updates[key] = data[key]
         }
       })
       console.log('updates', updates)
 
+    if (data.googlePlaceData) {
+      var LocationId = null
+
+      return db.Location.find({where: {placeId: data.googlePlaceData.placeId}})
+        .then(found => {
+          LocationId = found.id
+          updates.LocationId = LocationId
+          return db.Activity.findById(data.id)
+            .then(found => {
+              return found.update(updates)
+            })
+        })
+        .catch(() => {
+          var CountryId = null
+          return db.Country.find({where: {code: data.googlePlaceData.countryCode}})
+            .then(found => {
+              CountryId = found.id
+              return db.Location.create({
+                placeId: data.googlePlaceData.placeId,
+                name: data.googlePlaceData.name,
+                CountryId: CountryId,
+                latitude: data.googlePlaceData.latitude,
+                longitude: data.googlePlaceData.longitude,
+                openingHour: data.googlePlaceData.openingHour,
+                closingHour: data.googlePlaceData.closingHour,
+                address: data.googlePlaceData.address
+              })
+                .then(createdLocation => {
+                  LocationId = createdLocation.id
+                  updates.LocationId = LocationId
+                  return db.Activity.findById(data.id)
+                    .then(found => {
+                      return found.update(updates)
+                    })
+                })
+            })
+        })
+    } else {
       return db.Activity.findById(data.id)
         .then(found => {
           return found.update(updates)
         })
+    }
     },
     deleteActivity: (__, data) => {
       return db.Activity.destroy({where: {id: data.id}})
