@@ -240,38 +240,50 @@ module.exports = {
     createItinerary: (__, data) => {
       var newItinerary = {}
       var UserId = data.UserId
-      var CountryIdArr = data.CountryId
       console.log('owner', UserId)
-      console.log('countries', CountryIdArr)
+
       Object.keys(data).forEach(key => {
-        if (key !== 'UserId' && key !== 'CountryId') {
+        if (key !== 'UserId' && key !== 'countryCode') {
           newItinerary[key] = data[key]
         }
       })
-      return db.Itinerary.create(newItinerary)
-      .then(created => {
-        console.log('created', created)
-        db.UsersItineraries.create({
-          UserId: UserId,
-          ItineraryId: created.id,
-          permissions: 'owner'
-        })
-        return created
-      })
-      .then(created => {
-        console.log('second then', created)
-        CountryIdArr.forEach(id => {
-          return db.CountriesItineraries.create({
-            CountryId: id,
-            ItineraryId: created.id
+
+      if (data.countryCode) {
+        var CountryId = null
+        return db.Country.find({where: {code: data.CountryCode}})
+          .then(foundCountry => {
+            return CountryId = foundCountry.id
           })
-        })
-        return created
-      })
-      .then(created => {
-        console.log('new id is', created.id)
-        return db.Itinerary.findById(created.id)
-      })
+          .then(() => {
+            return db.Itinerary.create(newItinerary)
+              .then(createdItinerary => {
+                db.CountriesItineraries.create({
+                  ItineraryId: createdItinerary.id,
+                  CountryId: CountryId
+                })
+                db.UsersItineraries.create({
+                  ItineraryId: createdItinerary.id,
+                  UserId: data.UserId,
+                  permissions: 'owner'
+                })
+              })
+              .then(createdItinerary => {
+                return db.Itinerary.findById(createdItinerary.id)
+              })
+          })
+      } else {
+        return db.Itinerary.create(newItinerary)
+          .then(createdItinerary => {
+            return db.UsersItineraries.create({
+              UserId: data.UserId,
+              ItineraryId: createdItinerary.id,
+              permissions: 'owner'
+            })
+              .then(() => {
+                return db.Itinerary.findById(createdItinerary.id)
+              })
+          })
+      }
     },
     updateItineraryDetails: (__, data) => {
       var updates = {}
@@ -340,7 +352,7 @@ module.exports = {
       return db.Location.findCreateFind({where: newLocation})
         .then(results => {
           return results[0]
-          //arr of 2 elements. first is found or created row, second is boolean
+          // arr of 2 elements. first is found or created row, second is boolean
         })
     },
     createActivity: (__, data) => {
@@ -370,8 +382,7 @@ module.exports = {
           LocationId = found.id
           console.log('Locationid', LocationId)
         })
-        .catch(err => {
-          console.log(err)
+        .catch(() => {
           console.log('location not found. creating row')
           var countryCode = googlePlaceData.countryCode
           var CountryId = null
