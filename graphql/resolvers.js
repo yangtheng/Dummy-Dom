@@ -333,35 +333,34 @@ module.exports = {
     },
     createLocation: (__, data) => {
       console.log('placeId', data.placeId)
-      // var newLocation = {}
-      // Object.keys(data).forEach(key => {
-      //   newLocation[key] = data[key]
-      // })
-      // return db.Location.findOrCreate({where: newLocation})
-      // .spread((row, status) => {
-      //   console.log(row.get({
-      //     plain: true
-      //   }))
-      //   console.log(status)
-      //   return row
-      // })
+      var newLocation = {}
+      Object.keys(data).forEach(key => {
+        newLocation[key] = data[key]
+      })
+      return db.Location.findOrCreate({where: newLocation})
+        .spread((location, created) => {
+          console.log('location', location)
+          console.log('created', created)
+          return arr[0]
+        })
 
       // check if location exists first
-      return db.Location.find({where: {
-        placeId: data.placeId
-      }})
-        .then(found => {
-          console.log('found', found)
-          if (found) {
-            return found
-          } else {
-            var newLocation = {}
-            Object.keys(data).forEach(key => {
-              newLocation[key] = data[key]
-            })
-            return db.Location.create(newLocation)
-          }
-        })
+
+      // return db.Location.find({where: {
+      //   placeId: data.placeId
+      // }})
+      //   .then(found => {
+      //     console.log('found', found)
+      //     if (found) {
+      //       return found
+      //     } else {
+      //       var newLocation = {}
+      //       Object.keys(data).forEach(key => {
+      //         newLocation[key] = data[key]
+      //       })
+      //       return db.Location.create(newLocation)
+      //     }
+      //   })
     },
     createActivity: (__, data) => {
       console.log('data', data)
