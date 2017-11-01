@@ -15,8 +15,10 @@ module.exports = {
         notes: casual.sentences(3),
         // startDate: (new Date(casual.date()).getTime() / 1000).toFixed(0),
         // endDate: (new Date(casual.date()).getTime() / 1000).toFixed(0),
-        startDate: 1508025600, //15th oct
-        endDate: 1508457600, //20th oct
+        startDate: 1508025600, // 15th oct
+        startTime: 1508061600, // 10am checkin
+        endDate: 1508457600, // 20th oct
+        endTime: 1508504400, // 1pm checkout
         cost: Math.floor(Math.random() * 100) + 1,
         currency: casual.currency_code,
         bookingStatus: true,

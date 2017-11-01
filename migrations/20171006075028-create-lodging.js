@@ -41,7 +41,13 @@ module.exports = {
       startDate: {
         type: Sequelize.INTEGER
       },
+      startTime: {
+        type: Sequelize.INTEGER
+      },
       endDate: {
+        type: Sequelize.INTEGER
+      },
+      endTime: {
         type: Sequelize.INTEGER
       },
       cost: {
