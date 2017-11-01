@@ -377,6 +377,7 @@ module.exports = {
           console.log('Locationid', LocationId)
         })
         .catch(err => {
+          console.log(err)
           console.log('location not found. creating row')
           var countryCode = googlePlaceData.countryCode
           var CountryId = null
