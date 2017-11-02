@@ -164,9 +164,6 @@ type Transport {
   attachment: String
   type: String
 }
-type DeletedStatus {
-  status: Boolean
-}
 type AuthorizationStatus {
   status: Boolean
 }
