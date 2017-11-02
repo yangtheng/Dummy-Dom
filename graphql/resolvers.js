@@ -205,12 +205,8 @@ module.exports = {
     },
     deleteUser: (__, data) => {
       return db.User.destroy({where: {id: data.id}})
-      .then(deleted => {
-        if (deleted) {
-          return {status: true}
-        } else {
-          return {status: false}
-        }
+      .then(status => {
+        return status
       })
     },
     createToken: (__, data) => {
@@ -300,7 +296,6 @@ module.exports = {
         })
     },
     createCountriesItineraries: (__, data) => {
-      console.log('countryCode', data.countryCode)
       return db.Country.find({where: {code: data.countryCode}})
         .then(found => {
           return db.CountriesItineraries.findCreateFind({where: {
@@ -319,12 +314,8 @@ module.exports = {
           ItineraryId: data.ItineraryId
         }
       })
-        .then(deleted => {
-          if (deleted) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+        .then(status => {
+          return status
         })
     },
     deleteItinerary: (__, data) => {
@@ -345,11 +336,7 @@ module.exports = {
         .then(deleteChain => {
           // if Itinerary.destroy returns true, associated rows must hv also been deleted. deleting itinerary but not assocs will return foreign key constraint
           console.log('chained status', deleteChain)
-          if (deleteChain) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+          return deleteChain
         })
     },
     createLocation: (__, data) => {
@@ -480,12 +467,8 @@ module.exports = {
     },
     deleteActivity: (__, data) => {
       return db.Activity.destroy({where: {id: data.id}})
-        .then(deleted => {
-          if (deleted) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+        .then(status => {
+          return status
         })
     },
     createFlight: (__, data) => {
@@ -513,12 +496,8 @@ module.exports = {
     },
     deleteFlight: (__, data) => {
       return db.Flight.destroy({where: {id: data.id}})
-        .then(deleted => {
-          if (deleted) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+        .then(status => {
+          return status
         })
     },
     createLodging: (__, data) => {
@@ -546,12 +525,8 @@ module.exports = {
     },
     deleteLodging: (__, data) => {
       return db.Lodging.destroy({where: {id: data.id}})
-        .then(deleted => {
-          if (deleted) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+        .then(status => {
+          return status
         })
     },
     createFood: (__, data) => {
@@ -579,12 +554,8 @@ module.exports = {
     },
     deleteFood: (__, data) => {
       return db.Food.destroy({where: {id: data.id}})
-        .then(deleted => {
-          if (deleted) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+        .then(status => {
+          return status
         })
     },
     createTransport: (__, data) => {
@@ -612,12 +583,8 @@ module.exports = {
     },
     deleteTransport: (__, data) => {
       return db.Transport.destroy({where: {id: data.id}})
-        .then(deleted => {
-          if (deleted) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+        .then(status => {
+          return status
         })
     }
   }
