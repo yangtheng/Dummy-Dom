@@ -219,7 +219,7 @@ type Mutation {
 
   updateItineraryDetails(id: ID!, name:String,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
 
-  createCountriesItineraries(ItineraryId: Int!, CountryId:Int!): CountriesItineraries
+  createCountriesItineraries(ItineraryId: Int!, countryCode: String!): CountriesItineraries
 
   deleteCountriesItineraries(ItineraryId: Int!, CountryId:Int!): DeletedStatus
 

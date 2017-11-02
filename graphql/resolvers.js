@@ -300,10 +300,14 @@ module.exports = {
         })
     },
     createCountriesItineraries: (__, data) => {
-      return db.CountriesItineraries.create({
-        CountryId: data.CountryId,
-        ItineraryId: data.ItineraryId
-      })
+      console.log('countryCode', data.countryCode)
+      return db.Country.find({where: {code: data.countryCode}})
+        .then(found => {
+          return db.CountriesItineraries.create({
+            CountryId: found.id,
+            ItineraryId: data.ItineraryId
+          })
+        })
     },
     deleteCountriesItineraries: (__, data) => {
       return db.CountriesItineraries.destroy({
