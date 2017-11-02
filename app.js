@@ -50,7 +50,7 @@ app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql'
 }))
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3001
 app.listen(port, function () {
   console.log(`Graphql is running on port ${port}`)
 })

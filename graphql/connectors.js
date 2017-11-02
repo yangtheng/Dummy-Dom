@@ -14,7 +14,7 @@ var db = {
   User: sequelize.import('../models/user'),
   Itinerary: sequelize.import('../models/itinerary'),
   UsersItineraries: sequelize.import('../models/usersitineraries'),
-  CountriesItineraries: sequelize.import('../models/CountriesItineraries'),
+  CountriesItineraries: sequelize.import('../models/countriesitineraries'),
   Location: sequelize.import('../models/location'),
   Activity: sequelize.import('../models/activity'),
   Food: sequelize.import('../models/food'),
