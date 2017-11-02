@@ -303,10 +303,13 @@ module.exports = {
       console.log('countryCode', data.countryCode)
       return db.Country.find({where: {code: data.countryCode}})
         .then(found => {
-          return db.CountriesItineraries.create({
+          return db.CountriesItineraries.findCreateFind({where: {
             CountryId: found.id,
             ItineraryId: data.ItineraryId
-          })
+          }})
+            .then(results => {
+              return results[0]
+            })
         })
     },
     deleteCountriesItineraries: (__, data) => {
