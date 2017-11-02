@@ -205,12 +205,8 @@ module.exports = {
     },
     deleteUser: (__, data) => {
       return db.User.destroy({where: {id: data.id}})
-      .then(deleted => {
-        if (deleted) {
-          return {status: true}
-        } else {
-          return {status: false}
-        }
+      .then(status => {
+        return status
       })
     },
     createToken: (__, data) => {
@@ -240,38 +236,52 @@ module.exports = {
     createItinerary: (__, data) => {
       var newItinerary = {}
       var UserId = data.UserId
-      var CountryIdArr = data.CountryId
       console.log('owner', UserId)
-      console.log('countries', CountryIdArr)
+
       Object.keys(data).forEach(key => {
-        if (key !== 'UserId' && key !== 'CountryId') {
+        if (key !== 'UserId' && key !== 'countryCode') {
           newItinerary[key] = data[key]
         }
       })
-      return db.Itinerary.create(newItinerary)
-      .then(created => {
-        console.log('created', created)
-        db.UsersItineraries.create({
-          UserId: UserId,
-          ItineraryId: created.id,
-          permissions: 'owner'
-        })
-        return created
-      })
-      .then(created => {
-        console.log('second then', created)
-        CountryIdArr.forEach(id => {
-          return db.CountriesItineraries.create({
-            CountryId: id,
-            ItineraryId: created.id
+
+      if (data.countryCode) {
+        var CountryId = null
+        return db.Country.find({where: {code: data.countryCode}})
+          .then(foundCountry => {
+            CountryId = foundCountry.id
           })
-        })
-        return created
-      })
-      .then(created => {
-        console.log('new id is', created.id)
-        return db.Itinerary.findById(created.id)
-      })
+          .then(() => {
+            console.log('country id is', CountryId)
+            return db.Itinerary.create(newItinerary)
+              .then(createdItinerary => {
+                db.CountriesItineraries.create({
+                  ItineraryId: createdItinerary.id,
+                  CountryId: CountryId
+                })
+                db.UsersItineraries.create({
+                  ItineraryId: createdItinerary.id,
+                  UserId: data.UserId,
+                  permissions: 'owner'
+                })
+                return createdItinerary
+              })
+              .then(createdItinerary => {
+                return db.Itinerary.findById(createdItinerary.id)
+              })
+          })
+      } else {
+        return db.Itinerary.create(newItinerary)
+          .then(createdItinerary => {
+            return db.UsersItineraries.create({
+              UserId: data.UserId,
+              ItineraryId: createdItinerary.id,
+              permissions: 'owner'
+            })
+              .then(() => {
+                return db.Itinerary.findById(createdItinerary.id)
+              })
+          })
+      }
     },
     updateItineraryDetails: (__, data) => {
       var updates = {}
@@ -286,10 +296,16 @@ module.exports = {
         })
     },
     createCountriesItineraries: (__, data) => {
-      return db.CountriesItineraries.create({
-        CountryId: data.CountryId,
-        ItineraryId: data.ItineraryId
-      })
+      return db.Country.find({where: {code: data.countryCode}})
+        .then(found => {
+          return db.CountriesItineraries.findCreateFind({where: {
+            CountryId: found.id,
+            ItineraryId: data.ItineraryId
+          }})
+            .then(results => {
+              return results[0]
+            })
+        })
     },
     deleteCountriesItineraries: (__, data) => {
       return db.CountriesItineraries.destroy({
@@ -298,12 +314,8 @@ module.exports = {
           ItineraryId: data.ItineraryId
         }
       })
-        .then(deleted => {
-          if (deleted) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+        .then(status => {
+          return status
         })
     },
     deleteItinerary: (__, data) => {
@@ -324,43 +336,19 @@ module.exports = {
         .then(deleteChain => {
           // if Itinerary.destroy returns true, associated rows must hv also been deleted. deleting itinerary but not assocs will return foreign key constraint
           console.log('chained status', deleteChain)
-          if (deleteChain) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+          return deleteChain
         })
     },
     createLocation: (__, data) => {
       console.log('placeId', data.placeId)
-      // var newLocation = {}
-      // Object.keys(data).forEach(key => {
-      //   newLocation[key] = data[key]
-      // })
-      // return db.Location.findOrCreate({where: newLocation})
-      // .spread((row, status) => {
-      //   console.log(row.get({
-      //     plain: true
-      //   }))
-      //   console.log(status)
-      //   return row
-      // })
-
-      // check if location exists first
-      return db.Location.find({where: {
-        placeId: data.placeId
-      }})
-        .then(found => {
-          console.log('found', found)
-          if (found) {
-            return found
-          } else {
-            var newLocation = {}
-            Object.keys(data).forEach(key => {
-              newLocation[key] = data[key]
-            })
-            return db.Location.create(newLocation)
-          }
+      var newLocation = {}
+      Object.keys(data).forEach(key => {
+        newLocation[key] = data[key]
+      })
+      return db.Location.findCreateFind({where: newLocation})
+        .then(results => {
+          return results[0]
+          // arr of 2 elements. first is found or created row, second is boolean
         })
     },
     createActivity: (__, data) => {
@@ -390,8 +378,7 @@ module.exports = {
           LocationId = found.id
           console.log('Locationid', LocationId)
         })
-        .catch(err => {
-          console.log(err)
+        .catch(() => {
           console.log('location not found. creating row')
           var countryCode = googlePlaceData.countryCode
           var CountryId = null
@@ -430,31 +417,58 @@ module.exports = {
       }
     },
     updateActivity: (__, data) => {
-      return db.Activity.findById(data.id)
+      var updates = {}
+      Object.keys(data).forEach(key => {
+        if (key !== 'id' && key !== 'googlePlaceData') {
+          updates[key] = data[key]
+        }
+      })
+      console.log('updates', updates)
+
+      if (data.googlePlaceData) {
+        return db.Location.find({where: {placeId: data.googlePlaceData.placeId}})
         .then(found => {
-          var updates = {}
-          Object.keys(data).forEach(key => {
-            // prevent id from changing
-            // need to prevent deleting of compulsory fields
-            if (key !== 'id') {
-              updates[key] = data[key]
-            }
-          })
+          updates.LocationId = found.id
+          return db.Activity.findById(data.id)
+            .then(found => {
+              return found.update(updates)
+            })
+        })
+        .catch(() => {
+          var CountryId = null
+          return db.Country.find({where: {code: data.googlePlaceData.countryCode}})
+            .then(found => {
+              CountryId = found.id
+              return db.Location.create({
+                placeId: data.googlePlaceData.placeId,
+                name: data.googlePlaceData.name,
+                CountryId: CountryId,
+                latitude: data.googlePlaceData.latitude,
+                longitude: data.googlePlaceData.longitude,
+                openingHour: data.googlePlaceData.openingHour,
+                closingHour: data.googlePlaceData.closingHour,
+                address: data.googlePlaceData.address
+              })
+                .then(createdLocation => {
+                  updates.LocationId = createdLocation.id
+                  return db.Activity.findById(data.id)
+                    .then(found => {
+                      return found.update(updates)
+                    })
+                })
+            })
+        })
+      } else {
+        return db.Activity.findById(data.id)
+        .then(found => {
           return found.update(updates)
         })
-        .catch(err => {
-          console.log('err', err)
-          return err
-        })
+      }
     },
     deleteActivity: (__, data) => {
       return db.Activity.destroy({where: {id: data.id}})
-        .then(deleted => {
-          if (deleted) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+        .then(status => {
+          return status
         })
     },
     createFlight: (__, data) => {
@@ -482,12 +496,8 @@ module.exports = {
     },
     deleteFlight: (__, data) => {
       return db.Flight.destroy({where: {id: data.id}})
-        .then(deleted => {
-          if (deleted) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+        .then(status => {
+          return status
         })
     },
     createLodging: (__, data) => {
@@ -515,12 +525,8 @@ module.exports = {
     },
     deleteLodging: (__, data) => {
       return db.Lodging.destroy({where: {id: data.id}})
-        .then(deleted => {
-          if (deleted) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+        .then(status => {
+          return status
         })
     },
     createFood: (__, data) => {
@@ -548,12 +554,8 @@ module.exports = {
     },
     deleteFood: (__, data) => {
       return db.Food.destroy({where: {id: data.id}})
-        .then(deleted => {
-          if (deleted) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+        .then(status => {
+          return status
         })
     },
     createTransport: (__, data) => {
@@ -581,12 +583,8 @@ module.exports = {
     },
     deleteTransport: (__, data) => {
       return db.Transport.destroy({where: {id: data.id}})
-        .then(deleted => {
-          if (deleted) {
-            return {status: true}
-          } else {
-            return {status: false}
-          }
+        .then(status => {
+          return status
         })
     }
   }
