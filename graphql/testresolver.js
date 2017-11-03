@@ -5,6 +5,11 @@ const chirpResolver = {
     findChirp: () => {
       return {chirp: 'tweet tweet'}
     }
+  },
+  Chirp: {
+    barker (chirp) {
+      return {bark: 'woof woof'}
+    }
   }
 }
 

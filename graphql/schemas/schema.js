@@ -1,5 +1,5 @@
 const { makeExecutableSchema, mergeSchemas } = require('graphql-tools')
-const resolvers = require('./testresolver')
+const resolvers = require('../testresolver')
 
 // const resolvers = require('./resolvers')
 
@@ -260,30 +260,11 @@ const resolvers = require('./testresolver')
 // }
 // `
 
-const chirpSchema = `
-    type Chirp {
-      chirp: String
-    }
-  `
+const chirpSchema = require('./chirpSchema')
+const barkSchema = require('./barkSchema')
+const Query = require('./Query')
+const Mutation = require('./Mutation')
 
-const barkSchema = `
-    type Bark {
-      bark: String
-    }
-  `
-
-const Query = `
-  type Query {
-    findChirp: Chirp
-    findBark: Bark
-  }
-`
-
-const Mutation = `
-  type Mutation {
-    testing(testString: String!): String
-  }
-`
 const SchemaDefinition = `
     schema {
       query: Query
@@ -295,6 +276,5 @@ module.exports = makeExecutableSchema({
   typeDefs: [SchemaDefinition, Query, Mutation, chirpSchema, barkSchema],
   resolvers: resolvers
 })
-
 
 // module.exports = makeExecutableSchema({typeDefs, resolvers})
