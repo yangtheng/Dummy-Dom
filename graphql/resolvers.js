@@ -13,6 +13,13 @@ module.exports = {
     allItineraries: () => {
       return db.Itinerary.findAll()
     },
+    itinerariesByUser: (__, data) => {
+      // this returns all itineraries for that user, regardless of owner or collab
+      return db.User.findById(data.id)
+        .then(user => {
+          return user.getItineraries()
+        })
+    },
     findUser: (__, data) => {
       return db.User.findById(data.id)
     },
