@@ -2,7 +2,7 @@
 
 const { makeExecutableSchema } = require('graphql-tools')
 
-const resolvers = require('../resolvers/resolvers')
+const mergedResolvers = require('../resolvers/mergedResolvers')
 
 const Query = require('./Query')
 const Mutation = require('./Mutation')
@@ -26,5 +26,5 @@ const randomStuff = require('./randomStuff')
 
 module.exports = makeExecutableSchema({
   typeDefs: [SchemaDefinition, Query, Mutation, Country, User, Itinerary, Location, Activity, Flight, Food, Transport, Lodging, randomStuff],
-  resolvers: resolvers
+  resolvers: mergedResolvers
 })
