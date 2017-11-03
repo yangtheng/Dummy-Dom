@@ -22,6 +22,7 @@
     "graphql": "^0.11.7",
     "graphql-tools": "^2.3.0",
     "jsonwebtoken": "^8.1.0",
+    "lodash": "^4.17.4",
     "nodemon": "^1.12.1",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",

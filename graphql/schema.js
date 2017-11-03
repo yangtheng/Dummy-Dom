@@ -296,5 +296,5 @@ module.exports = makeExecutableSchema({
   resolvers: resolvers
 })
 
-// module.exports = schema
+
 // module.exports = makeExecutableSchema({typeDefs, resolvers})

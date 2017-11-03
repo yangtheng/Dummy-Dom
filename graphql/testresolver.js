@@ -1,15 +1,21 @@
-module.exports = {
+const _ = require('lodash')
+
+const chirpResolver = {
   Query: {
     findChirp: () => {
       return {chirp: 'tweet tweet'}
-    },
-    findBark: () => {
-      return {bark: 'bork bork i am doggo'}
-    }
-  },
-  Mutation: {
-    testing: (__, data) => {
-      return data.testString
     }
   }
 }
+
+const barkResolver = {
+  Query: {
+    findBark: () => {
+      return {bark: 'bork bork i am doggo'}
+    }
+  }
+}
+
+const resolvers = _.merge(chirpResolver, barkResolver)
+
+module.exports = resolvers
