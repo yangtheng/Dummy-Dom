@@ -1,4 +1,4 @@
-const db = require('../graphql/connectors')
+const db = require('../connectors')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
