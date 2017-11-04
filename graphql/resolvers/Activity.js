@@ -17,18 +17,22 @@ const Activity = {
   },
   Mutation: {
     createActivity: (__, data) => {
-      return findOrCreateLocation(data)
-        .then(LocationId => {
-          console.log('returning LocationId', LocationId)
-          var newActivity = {}
-          Object.keys(data).forEach(key => {
-            if (key !== 'googlePlaceData' && key !== 'LocationId') {
-              newActivity[key] = data[key]
-            }
+      var newActivity = {}
+      Object.keys(data).forEach(key => {
+        if (key !== 'googlePlaceData' && key !== 'LocationId') {
+          newActivity[key] = data[key]
+        }
+      })
+      if (data.googlePlaceData) {
+        return findOrCreateLocation(data.googlePlaceData)
+          .then(id => {
+            newActivity.LocationId = id
+            return db.Activity.create(newActivity)
           })
-          newActivity.LocationId = LocationId
-          return db.Activity.create(newActivity)
-        })
+      } else if (data.LocationId) {
+        newActivity.LocationId = data.LocationId
+        return db.Activity.create(newActivity)
+      }
     },
     updateActivity: (__, data) => {
       var updates = {}
