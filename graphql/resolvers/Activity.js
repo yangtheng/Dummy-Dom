@@ -16,69 +16,49 @@ const Activity = {
   },
   Mutation: {
     createActivity: (__, data) => {
-      console.log('data', data)
-
-      // if we know location has been saved before(bucket), createNewActivity immediately
-      // else if found via searching, check if location has been saved before, find LocationId
-      // if location has not been saved before, create new location first.
-
-      if (data.LocationId) {
-        console.log('locationId was given')
-        var newActivity = {}
-        Object.keys(data).forEach(key => {
-          if (key !== 'googlePlaceData') {
-            newActivity[key] = data[key]
-          }
-        })
-        return db.Activity.create(newActivity)
-      } else {
-        console.log('locationId was not given')
-        // extract google places object
-        var googlePlaceData = data.googlePlaceData
-        var LocationId = null
-        // check db if google place id already exists
-        return db.Location.find({where: {placeId: googlePlaceData.placeId}})
-        .then(found => {
-          LocationId = found.id
-          console.log('Locationid', LocationId)
-        })
-        .catch(() => {
-          console.log('location not found. creating row')
-          var countryCode = googlePlaceData.countryCode
-          var CountryId = null
-
-          db.Country.find({where: {code: countryCode}})
-          .then(found => {
-            CountryId = found.id
-          })
-          .then(() => {
-            db.Location.create({
-              placeId: googlePlaceData.placeId,
-              name: googlePlaceData.name,
-              CountryId: CountryId,
-              latitude: googlePlaceData.latitude,
-              longitude: googlePlaceData.longitude,
-              openingHour: googlePlaceData.openingHour,
-              closingHour: googlePlaceData.closingHour,
-              address: googlePlaceData.address
+      // this helper function finds or create location and return LocationId
+      function findOrCreateLocation (data) {
+        if (data.LocationId) {
+          return data.LocationId
+        } else if (data.googlePlaceData) {
+          var google = data.googlePlaceData
+          return db.Location.find({where: { placeId: google.placeId }})
+            .then(found => {
+              return found.id
             })
-            .then(created => {
-              LocationId = created.id
-              console.log('created LocationId', LocationId)
-            })
-          })
-        })
-        .then(() => {
+            .catch(() => {
+              return db.Country.find({where: { code: google.countryCode }})
+                .then(country => {
+                  return db.Location.create({
+                    placeId: google.placeId,
+                    name: google.name,
+                    CountryId: country.id,
+                    latitude: google.latitude,
+                    longitude: google.longitude,
+                    openingHour: google.openingHour,
+                    closingHour: google.closingHour,
+                    address: google.address
+                  })
+                  .then(createdLocation => {
+                    return createdLocation.id
+                  })
+                })
+            }) // close catch
+        } // close else
+      } // close helper fxn
+
+      return findOrCreateLocation(data)
+        .then(LocationId => {
+          console.log('returning LocationId', LocationId)
           var newActivity = {}
           Object.keys(data).forEach(key => {
-            if (key !== 'googlePlaceData') {
+            if (key !== 'googlePlaceData' && key !== 'LocationId') {
               newActivity[key] = data[key]
             }
           })
           newActivity.LocationId = LocationId
           return db.Activity.create(newActivity)
         })
-      }
     },
     updateActivity: (__, data) => {
       var updates = {}
