@@ -3,7 +3,7 @@ const db = require('../connectors')
 // this fxn will findOrCreateLocation and return LocationId
 function findOrCreateLocation (data) {
   if (data.LocationId) {
-    return data.LocationId
+    return Promise.resolve(data.LocationId)
   } else if (data.googlePlaceData) {
     var google = data.googlePlaceData
     return db.Location.find({where: { placeId: google.placeId }})
