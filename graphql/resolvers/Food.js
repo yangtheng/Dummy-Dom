@@ -17,18 +17,22 @@ const Food = {
   },
   Mutation: {
     createFood: (__, data) => {
-      return findOrCreateLocation(data)
-        .then(LocationId => {
-          console.log('returning LocationId', LocationId)
-          var newFood = {}
-          Object.keys(data).forEach(key => {
-            if (key !== 'googlePlaceData' && key !== 'LocationId') {
-              newFood[key] = data[key]
-            }
+      var newFood = {}
+      Object.keys(data).forEach(key => {
+        if (key !== 'googlePlaceData' && key !== 'LocationId') {
+          newFood[key] = data[key]
+        }
+      })
+      if (data.googlePlaceData) {
+        return findOrCreateLocation(data.googlePlaceData)
+          .then(id => {
+            newFood.LocationId = id
+            return db.Food.create(newFood)
           })
-          newFood.LocationId = LocationId
-          return db.Food.create(newFood)
-        })
+      } else if (data.LocationId) {
+        newFood.LocationId = data.LocationId
+        return db.Food.create(newFood)
+      }
     },
     updateFood: (__, data) => {
       var updates = {}
@@ -39,7 +43,7 @@ const Food = {
       })
 
       if (data.googlePlaceData) {
-        return findOrCreateLocation(data)
+        return findOrCreateLocation(data.googlePlaceData)
           .then(LocationId => {
             updates.LocationId = LocationId
             return db.Food.findById(data.id)

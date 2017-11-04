@@ -43,7 +43,7 @@ const Activity = {
       })
 
       if (data.googlePlaceData) {
-        return findOrCreateLocation(data)
+        return findOrCreateLocation(data.googlePlaceData)
           .then(LocationId => {
             updates.LocationId = LocationId
             return db.Activity.findById(data.id)
