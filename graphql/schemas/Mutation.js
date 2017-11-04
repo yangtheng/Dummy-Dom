@@ -1,9 +1,3 @@
-// const Mutation = `
-//   type Mutation {
-//     testing(testString: String!): String
-//   }
-// `
-
 const Mutation = `
   type Mutation {
     changingLoadSequence(input:[LoadSequence]): Boolean
