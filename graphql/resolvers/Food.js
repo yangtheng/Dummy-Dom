@@ -1,4 +1,5 @@
 const db = require('../connectors')
+const findOrCreateLocation = require('./findOrCreateLocation')
 
 const Food = {
   Food: {
@@ -16,27 +17,42 @@ const Food = {
   },
   Mutation: {
     createFood: (__, data) => {
-      var newFood = {}
-      Object.keys(data).forEach(key => {
-        newFood[key] = data[key]
-      })
-      return db.Food.create(newFood)
-    },
-    updateFood: (__, data) => {
-      return db.Food.findById(data.id)
-        .then(found => {
-          var updates = {}
+      return findOrCreateLocation(data)
+        .then(LocationId => {
+          console.log('returning LocationId', LocationId)
+          var newFood = {}
           Object.keys(data).forEach(key => {
-            if (key !== 'id') {
-              updates[key] = data[key]
+            if (key !== 'googlePlaceData' && key !== 'LocationId') {
+              newFood[key] = data[key]
             }
           })
+          newFood.LocationId = LocationId
+          return db.Food.create(newFood)
+        })
+    },
+    updateFood: (__, data) => {
+      var updates = {}
+      Object.keys(data).forEach(key => {
+        if (key !== 'id' && key !== 'googlePlaceData') {
+          updates[key] = data[key]
+        }
+      })
+
+      if (data.googlePlaceData) {
+        return findOrCreateLocation(data)
+          .then(LocationId => {
+            updates.LocationId = LocationId
+            return db.Food.findById(data.id)
+              .then(foundFood => {
+                return foundFood.update(updates)
+              })
+          })
+      } else {
+        return db.Food.findById(data.id)
+        .then(found => {
           return found.update(updates)
         })
-        .catch(err => {
-          console.log('err', err)
-          return err
-        })
+      }
     },
     deleteFood: (__, data) => {
       return db.Food.destroy({where: {id: data.id}})
