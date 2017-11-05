@@ -1,4 +1,5 @@
 const db = require('../connectors')
+const findOrCreateLocation = require('./findOrCreateLocation')
 
 const Flight = {
   Flight: {
@@ -18,25 +19,46 @@ const Flight = {
     createFlight: (__, data) => {
       var newFlight = {}
       Object.keys(data).forEach(key => {
-        newFlight[key] = data[key]
+        if (key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData' && key !== 'DepartureLocationId' && key !== 'ArrivalLocationId') {
+          newFlight[key] = data[key]
+        }
       })
-      return db.Flight.create(newFlight)
+      var departure = findOrCreateLocation(data.departureGooglePlaceData)
+      var arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
+      return Promise.all([departure, arrival])
+        .then(values => {
+          console.log(values)
+          newFlight.DepartureLocationId = values[0]
+          newFlight.ArrivalLocationId = values[1]
+          return db.Flight.create(newFlight)
+        })
     },
     updateFlight: (__, data) => {
-      return db.Flight.findById(data.id)
-        .then(found => {
-          var updates = {}
-          Object.keys(data).forEach(key => {
-            if (key !== 'id') {
-              updates[key] = data[key]
-            }
+      var updates = {}
+      Object.keys(data).forEach(key => {
+        if (key !== 'id' && key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData' && key !== 'DepartureLocationId' && key !== 'ArrivalLocationId') {
+          updates[key] = data[key]
+        }
+      })
+      if (data.departureGooglePlaceData && data.arrivalGooglePlaceData) {
+        var departure = findOrCreateLocation(data.departureGooglePlaceData)
+        var arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
+        return Promise.all([departure, arrival])
+          .then(values => {
+            console.log(values)
+            updates.DepartureLocationId = values[0]
+            updates.ArrivalLocationId = values[1]
+            return db.Flight.findById(data.id)
+              .then(foundFlight => {
+                return foundFlight.update(updates)
+              })
           })
+      } else {
+        return db.Flight.findById(data.id)
+        .then(found => {
           return found.update(updates)
         })
-        .catch(err => {
-          console.log('err', err)
-          return err
-        })
+      }
     },
     deleteFlight: (__, data) => {
       return db.Flight.destroy({where: {id: data.id}})

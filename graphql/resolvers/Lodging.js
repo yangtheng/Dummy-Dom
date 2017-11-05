@@ -1,4 +1,5 @@
 const db = require('../connectors')
+const findOrCreateLocation = require('./findOrCreateLocation')
 
 const Lodging = {
   Lodging: {
@@ -18,25 +19,44 @@ const Lodging = {
     createLodging: (__, data) => {
       var newLodging = {}
       Object.keys(data).forEach(key => {
-        newLodging[key] = data[key]
+        if (key !== 'googlePlaceData' && key !== 'LocationId') {
+          newLodging[key] = data[key]
+        }
       })
-      return db.Lodging.create(newLodging)
+      if (data.googlePlaceData) {
+        return findOrCreateLocation(data.googlePlaceData)
+          .then(id => {
+            newLodging.LocationId = id
+            return db.Lodging.create(newLodging)
+          })
+      } else if (data.LocationId) {
+        newLodging.LocationId = data.LocationId
+        return db.Lodging.create(newLodging)
+      }
     },
     updateLodging: (__, data) => {
-      return db.Lodging.findById(data.id)
-        .then(found => {
-          var updates = {}
-          Object.keys(data).forEach(key => {
-            if (key !== 'id') {
-              updates[key] = data[key]
-            }
+      var updates = {}
+      Object.keys(data).forEach(key => {
+        if (key !== 'id' && key !== 'googlePlaceData') {
+          updates[key] = data[key]
+        }
+      })
+
+      if (data.googlePlaceData) {
+        return findOrCreateLocation(data.googlePlaceData)
+          .then(LocationId => {
+            updates.LocationId = LocationId
+            return db.Lodging.findById(data.id)
+              .then(foundLodging => {
+                return foundLodging.update(updates)
+              })
           })
+      } else {
+        return db.Lodging.findById(data.id)
+        .then(found => {
           return found.update(updates)
         })
-        .catch(err => {
-          console.log('err', err)
-          return err
-        })
+      }
     },
     deleteLodging: (__, data) => {
       return db.Lodging.destroy({where: {id: data.id}})
