@@ -44,7 +44,11 @@ const Itinerary = {
       console.log('context', context)
       return db.User.findById(context.user)
         .then(user => {
-          return user.getItineraries()
+          if (user) {
+            return user.getItineraries()
+          } else {
+            return []
+          }
         })
     },
     findItinerary: (__, data) => {
