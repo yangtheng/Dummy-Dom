@@ -15,6 +15,8 @@ app.use(cors())
 app.use('/graphql', bodyParser.json())
 
 function verifyToken (req, res, next) {
+  console.log('endpoint', req.body.operationName)
+  // console.log(req.headers)
   // 3 possibilities here.
   // http req was set to no auth (no authorization req). hence no header
   // auth was required but no header given. (forgot to attach token)
@@ -24,14 +26,14 @@ function verifyToken (req, res, next) {
   if (authHeader) {
     var token = authHeader.substring(7)
   }
-  // console.log('token', token)
+  console.log('token', token)
 
-  if (token && token !== 'undefined' && token !== '') {
+  if (token && token !== 'undefined' && token !== '' && token !== 'null') {
     // console.log('pre verify')
     var user = jwt.verify(token, process.env.JWT)
     if (user) {
       req.user = user.id
-      // console.log('req.user', req.user)
+      console.log('req.user', req.user)
     }
   }
   next()

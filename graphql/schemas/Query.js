@@ -10,7 +10,7 @@ const Query = `
     allCountries: [Country!]!
     allUsers: [User!]!
     allItineraries: [Itinerary]
-    itinerariesByUser(id: ID!): [Itinerary]
+    itinerariesByUser: [Itinerary]
     findUser(id: ID!): User
     findItinerary(id: ID!): Itinerary
     findLocation(id: ID!): Location

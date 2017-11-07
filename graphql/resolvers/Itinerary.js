@@ -39,9 +39,10 @@ const Itinerary = {
     allItineraries: () => {
       return db.Itinerary.findAll()
     },
-    itinerariesByUser: (__, data) => {
+    itinerariesByUser: (__, data, context) => {
       // this returns all itineraries for that user, regardless of owner or collab
-      return db.User.findById(data.id)
+      console.log('context', context)
+      return db.User.findById(context.user)
         .then(user => {
           return user.getItineraries()
         })
