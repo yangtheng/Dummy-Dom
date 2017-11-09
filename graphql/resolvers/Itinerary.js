@@ -51,8 +51,12 @@ const Itinerary = {
           }
         })
     },
-    findItinerary: (__, data) => {
+    findItinerary: (__, data, context) => {
+      console.log('context.user', context.user)
       return db.Itinerary.findById(data.id)
+        .catch(err => {
+          return err
+        })
     },
     findCountriesItineraries: (__, data) => {
       return db.CountriesItineraries.find({

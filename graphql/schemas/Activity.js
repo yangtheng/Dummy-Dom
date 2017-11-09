@@ -3,8 +3,8 @@ const Activity = `
     id: ID!
     ItineraryId: ID!
     itinerary: Itinerary!
-    LocationId: ID!
-    location: Location!
+    LocationId: ID
+    location: Location
     loadSequence: Int
     date: Int
     name: String

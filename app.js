@@ -33,7 +33,7 @@ function verifyToken (req, res, next) {
     var user = jwt.verify(token, process.env.JWT)
     if (user) {
       req.user = user.id
-      console.log('req.user', req.user)
+      // console.log('req.user', req.user)
     }
   }
   next()
