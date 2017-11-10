@@ -10,9 +10,9 @@ const Mutation = `
 
     createToken(email:String!, password:String!): Token
 
-    createItinerary(UserId: Int!, countryCode: String, name:String!,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
+    createItinerary(UserId: Int!, countryCode: String, name:String!, days: Int!, startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
 
-    updateItineraryDetails(id: ID!, name:String,startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
+    updateItineraryDetails(id: ID!, name:String, days: Int, startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
 
     createCountriesItineraries(ItineraryId: Int!, countryCode: String!): CountriesItineraries
 
