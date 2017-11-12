@@ -15,6 +15,8 @@ module.exports = {
         notes: casual.sentences(3),
         // startDate: (new Date(casual.date()).getTime() / 1000).toFixed(0),
         // endDate: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        startDay: 1,
+        endDay: 6,
         startDate: 1508025600, // 15th oct
         startTime: 1508061600, // 10am checkin
         endDate: 1508457600, // 20th oct

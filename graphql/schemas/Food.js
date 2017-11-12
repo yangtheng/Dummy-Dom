@@ -6,6 +6,7 @@ const Food = `
     ItineraryId: ID!
     itinerary: Itinerary!
     loadSequence: Int!
+    day: Int
     date: Int
     name: String
     notes: String

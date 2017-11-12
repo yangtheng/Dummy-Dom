@@ -29,6 +29,9 @@ module.exports = {
       loadSequence: {
         type: Sequelize.INTEGER
       },
+      day: {
+        type: Sequelize.INTEGER
+      },
       date: {
         type: Sequelize.INTEGER
       },
