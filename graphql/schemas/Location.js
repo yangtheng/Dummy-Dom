@@ -10,6 +10,7 @@ const Location = `
     closingHour: String
     address: String
     country: Country
+    openingHours: [String]
   }
 `
 

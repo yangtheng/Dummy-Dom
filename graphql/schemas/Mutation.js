@@ -20,7 +20,7 @@ const Mutation = `
 
     deleteItinerary(id: ID!): Boolean
 
-    createLocation(placeId: String!, CountryId: ID, name:String, latitude:String, longitude:String,openingHour:String,closingHour:String,address:String): Location
+    createLocation(placeId: String!, CountryId: ID, name:String, latitude:String, longitude:String,address:String, openingHours: String): Location
 
     createActivity(ItineraryId: ID!, googlePlaceData: googlePlaceData, LocationId: ID, day: Int, date: Int, loadSequence: Int, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
 

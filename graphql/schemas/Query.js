@@ -1,10 +1,3 @@
-// const Query = `
-//   type Query {
-//     findChirp: Chirp
-//     findBark: Bark
-//   }
-// `
-
 const Query = `
   type Query {
     allCountries: [Country!]!

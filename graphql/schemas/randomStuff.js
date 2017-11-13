@@ -29,6 +29,7 @@ const randomStuff = `
     openingHour: String
     closingHour: String
     address: String
+    openingHours: String
   }
 `
 module.exports = randomStuff

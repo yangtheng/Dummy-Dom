@@ -21,23 +21,20 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      name: {
+        type: Sequelize.STRING
+      },
       latitude: {
         type: Sequelize.FLOAT
       },
       longitude: {
         type: Sequelize.FLOAT
       },
-      openingHour: {
-        type: Sequelize.TIME
-      },
-      closingHour: {
-        type: Sequelize.TIME
-      },
       address: {
         type: Sequelize.STRING
       },
-      name: {
-        type: Sequelize.STRING
+      openingHours: {
+        type: Sequelize.JSON
       },
       createdAt: {
         allowNull: true,
