@@ -3,7 +3,7 @@ const Input = `
     type: String!
     id: Int!
     loadSequence: Int!
-    date: Int!
+    day: Int!
   }
   input googlePlaceData {
     placeId: String!
