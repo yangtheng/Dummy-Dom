@@ -12,7 +12,7 @@ const Query = `
     findLodging(id:ID!): Lodging
     findFlight(id:ID!): Flight
     findTransport(id:ID!): Transport
-    authorization: AuthorizationStatus
+    authorization: Boolean
     findCountriesItineraries(CountryId: ID!, ItineraryId: ID!): CountriesItineraries
     permissions(UserId: ID!, ItineraryId: ID!): UsersItineraries
   }

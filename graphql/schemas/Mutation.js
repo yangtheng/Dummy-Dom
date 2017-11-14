@@ -8,7 +8,7 @@ const Mutation = `
 
     deleteUser(id:ID!): Boolean
 
-    createToken(email:String!, password:String!): Token
+    createToken(email:String!, password:String!): String
 
     createItinerary(UserId: Int!, countryCode: String, name:String!, days: Int!, startDate:Int,endDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
 

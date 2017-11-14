@@ -17,5 +17,14 @@ const Itinerary = `
     flights: [Flight]
     transports: [Transport]
   }
+  type CountriesItineraries {
+    CountryId: ID!
+    ItineraryId: ID!
+  }
+  type UsersItineraries {
+    UserId: ID!
+    ItineraryId: ID!
+    permissions: String!
+  }
 `
 module.exports = Itinerary

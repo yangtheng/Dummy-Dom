@@ -20,9 +20,9 @@ const User = {
     },
     authorization: (__, data, context) => {
       if (context.user) {
-        return {status: true}
+        return true
       } else {
-        return {status: false}
+        return false
       }
     }
   },
@@ -65,13 +65,9 @@ const User = {
         .then(compared => {
           if (compared) {
             var token = jwt.sign({id: found.id, email: found.email}, process.env.JWT)
-            return {
-              token: token
-            }
+            return token
           } else {
-            return {
-              token: 'unauthorized. password incorrect'
-            }
+            return 'unauthorized. password incorrect'
           }
         })
       })
