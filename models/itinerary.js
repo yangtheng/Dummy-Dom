@@ -2,6 +2,7 @@
 module.exports = function (sequelize, DataTypes) {
   var Itinerary = sequelize.define('Itinerary', {
     name: DataTypes.STRING,
+    days: DataTypes.INTEGER,
     startDate: DataTypes.INTEGER,
     endDate: DataTypes.INTEGER,
     pax: DataTypes.INTEGER,

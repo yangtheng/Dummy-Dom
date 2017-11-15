@@ -13,6 +13,7 @@ module.exports = {
         startLoadSequence: 3,
         endLoadSequence: 4,
         // date: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        day: 1,
         date: 1508025600, //15th oct
         departureTime: 1508058000, // 9am after flight
         arrivalTime: 1508061600, //10am

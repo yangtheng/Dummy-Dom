@@ -11,6 +11,9 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
+      days: {
+        type: Sequelize.INTEGER
+      },
       startDate: {
         type: Sequelize.INTEGER
       },

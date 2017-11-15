@@ -9,6 +9,7 @@ module.exports = {
     for (var i = 1; i <= 50; i++) {
       seedArr.push({
         name: `Itinerary ${i}`,
+        days: 6,
         startDate: 1508025600, // 15th oct 2017
         endDate: 1508457600, // 20th oct 2017
         // startDate: date,

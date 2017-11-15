@@ -10,7 +10,7 @@ const LoadSequence = {
             .then(found => {
               found.update({
                 loadSequence: e.loadSequence,
-                date: e.date,
+                day: e.day,
                 startTime: e.startTime,
                 endTime: e.endTime
               })
@@ -20,7 +20,7 @@ const LoadSequence = {
           .then(found => {
             found.update({
               startLoadSequence: e.loadSequence,
-              startDate: e.date,
+              startDay: e.day,
               startTime: e.startTime
             })
           })
@@ -29,7 +29,7 @@ const LoadSequence = {
           .then(found => {
             found.update({
               loadSequence: e.loadSequence,
-              date: e.date,
+              day: e.day,
               startTime: e.startTime,
               endTime: e.endTime
             })
@@ -39,7 +39,7 @@ const LoadSequence = {
           .then(found => {
             found.update({
               departureLoadSequence: e.loadSequence,
-              departureDate: e.date,
+              departureDay: e.day,
               departureTime: e.startTime,
               arrivalTime: e.endTime
             })
@@ -49,7 +49,7 @@ const LoadSequence = {
           .then(found => {
             found.update({
               startLoadSequence: e.loadSequence,
-              date: e.date,
+              day: e.day,
               departureTime: e.startTime,
               arrivalTime: e.endTime
             })
@@ -59,7 +59,7 @@ const LoadSequence = {
           .then(found => {
             found.update({
               endLoadSequence: e.loadSequence,
-              endDate: e.date,
+              endDay: e.day,
               endTime: e.endTime
             })
           })

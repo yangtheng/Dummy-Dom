@@ -6,10 +6,9 @@ const Location = `
     name: String
     latitude: Float
     longitude: Float
-    openingHour: String
-    closingHour: String
     address: String
     country: Country
+    openingHours: [String]
   }
 `
 

@@ -10,6 +10,8 @@ module.exports = function (sequelize, DataTypes) {
     departureGate: DataTypes.STRING,
     departureLoadSequence: DataTypes.INTEGER,
     arrivalLoadSequence: DataTypes.INTEGER,
+    departureDay: DataTypes.INTEGER,
+    arrivalDay: DataTypes.INTEGER,
     departureDate: DataTypes.INTEGER,
     departureTime: DataTypes.INTEGER,
     arrivalDate: DataTypes.INTEGER,

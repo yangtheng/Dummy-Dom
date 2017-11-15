@@ -11,6 +11,7 @@ module.exports = {
         LocationId: i,
         loadSequence: 6,
         // date: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        day: 1,
         date: 1508025600,
         name: `Activity ${i}`,
         notes: casual.sentences(3),

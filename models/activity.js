@@ -4,6 +4,7 @@ module.exports = function (sequelize, DataTypes) {
     LocationId: DataTypes.INTEGER,
     ItineraryId: DataTypes.INTEGER,
     loadSequence: DataTypes.INTEGER,
+    day: DataTypes.INTEGER,
     date: DataTypes.INTEGER,
     name: DataTypes.STRING,
     notes: DataTypes.TEXT,

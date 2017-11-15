@@ -41,6 +41,9 @@ module.exports = {
       endLoadSequence: {
         type: Sequelize.INTEGER
       },
+      day: {
+        type: Sequelize.INTEGER
+      },
       date: {
         type: Sequelize.INTEGER
       },

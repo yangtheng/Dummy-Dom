@@ -6,9 +6,8 @@ module.exports = function (sequelize, DataTypes) {
     name: DataTypes.STRING,
     latitude: DataTypes.FLOAT,
     longitude: DataTypes.FLOAT,
-    openingHour: DataTypes.TIME,
-    closingHour: DataTypes.TIME,
-    address: DataTypes.STRING
+    address: DataTypes.STRING,
+    openingHours: DataTypes.JSON
   })
 
   Location.associate = function (models) {

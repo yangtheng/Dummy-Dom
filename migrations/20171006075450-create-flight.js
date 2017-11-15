@@ -53,6 +53,12 @@ module.exports = {
       arrivalLoadSequence: {
         type: Sequelize.INTEGER
       },
+      departureDay: {
+        type: Sequelize.INTEGER
+      },
+      arrivalDay: {
+        type: Sequelize.INTEGER
+      },
       departureDate: {
         type: Sequelize.INTEGER
       },

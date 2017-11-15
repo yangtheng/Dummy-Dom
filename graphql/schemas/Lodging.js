@@ -9,6 +9,8 @@ const Lodging = `
     endLoadSequence: Int!
     name: String
     notes: String
+    startDay: Int
+    endDay: Int
     startDate: Int
     startTime: Int
     endDate: Int
