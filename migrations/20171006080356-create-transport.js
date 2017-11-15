@@ -41,10 +41,10 @@ module.exports = {
       endLoadSequence: {
         type: Sequelize.INTEGER
       },
-      startDay: {
+      departureDay: {
         type: Sequelize.INTEGER
       },
-      endDay: {
+      arrivalDay: {
         type: Sequelize.INTEGER
       },
       departureTime: {

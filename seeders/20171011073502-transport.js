@@ -12,10 +12,10 @@ module.exports = {
         ArrivalLocationId: Math.floor(Math.random() * 50) + 1,
         startLoadSequence: 3,
         endLoadSequence: 4,
-        startDay: 1,
-        endDay: 1,
+        departureDay: 1,
+        arrivalDay: 1,
         departureTime: 32400, // 9am after flight
-        arrivalTime: 36000, //10am
+        arrivalTime: 36000, // 10am
         name: `Transport ${i}`,
         notes: casual.sentences(3),
         cost: (Math.floor(Math.random() * 20) + 1) * 10,
