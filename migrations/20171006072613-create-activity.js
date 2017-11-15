@@ -29,7 +29,10 @@ module.exports = {
       loadSequence: {
         type: Sequelize.INTEGER
       },
-      day: {
+      startDay: {
+        type: Sequelize.INTEGER
+      },
+      endDay: {
         type: Sequelize.INTEGER
       },
       name: {

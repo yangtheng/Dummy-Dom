@@ -3,7 +3,8 @@ module.exports = function (sequelize, DataTypes) {
   var Food = sequelize.define('Food', {
     LocationId: DataTypes.INTEGER,
     ItineraryId: DataTypes.INTEGER,
-    day: DataTypes.INTEGER,
+    startDay: DataTypes.INTEGER,
+    endDay: DataTypes.INTEGER,
     loadSequence: DataTypes.INTEGER,
     name: DataTypes.STRING,
     notes: DataTypes.TEXT,

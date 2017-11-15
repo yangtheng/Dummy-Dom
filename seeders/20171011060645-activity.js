@@ -10,7 +10,8 @@ module.exports = {
         ItineraryId: i,
         LocationId: i,
         loadSequence: 6,
-        day: 1,
+        startDay: 1,
+        endDay: 1,
         name: `Activity ${i}`,
         notes: casual.sentences(3),
         startTime: 50400, // 2pm 1970

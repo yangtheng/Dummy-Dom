@@ -6,7 +6,8 @@ const Activity = `
     LocationId: ID
     location: Location
     loadSequence: Int
-    day: Int
+    startDay: Int
+    endDay: Int
     name: String
     notes: String
     startTime: Int

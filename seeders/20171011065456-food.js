@@ -10,7 +10,8 @@ module.exports = {
         ItineraryId: i,
         LocationId: i,
         loadSequence: 7,
-        day: 1,
+        startDay: 1,
+        endDay: 1,
         name: `Restaurant ${i}`,
         notes: casual.sentences(3),
         startTime: 64800, //6pm dinner

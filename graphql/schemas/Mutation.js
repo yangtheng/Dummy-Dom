@@ -22,9 +22,9 @@ const Mutation = `
 
     createLocation(placeId: String!, CountryId: ID, name:String, latitude:String, longitude:String,address:String, openingHours: String): Location
 
-    createActivity(ItineraryId: ID!, googlePlaceData: googlePlaceData, LocationId: ID, day: Int, loadSequence: Int, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
+    createActivity(ItineraryId: ID!, googlePlaceData: googlePlaceData, LocationId: ID, startDay: Int, endDay: Int, loadSequence: Int, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
 
-    updateActivity(id: ID!, googlePlaceData: googlePlaceData, day: Int, loadSequence: Int, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
+    updateActivity(id: ID!, googlePlaceData: googlePlaceData, startDay: Int, endDay: Int, loadSequence: Int, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachment: String): Activity
 
     deleteActivity(id:ID!): Boolean
 
