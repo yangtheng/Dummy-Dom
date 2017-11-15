@@ -11,9 +11,7 @@ const Lodging = `
     notes: String
     startDay: Int
     endDay: Int
-    startDate: Int
     startTime: Int
-    endDate: Int
     endTime: Int
     cost: Int
     currency: String

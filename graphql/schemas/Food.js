@@ -7,7 +7,6 @@ const Food = `
     itinerary: Itinerary!
     loadSequence: Int!
     day: Int
-    date: Int
     name: String
     notes: String
     startTime: Int

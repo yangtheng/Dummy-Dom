@@ -44,9 +44,6 @@ module.exports = {
       day: {
         type: Sequelize.INTEGER
       },
-      date: {
-        type: Sequelize.INTEGER
-      },
       departureTime: {
         type: Sequelize.INTEGER
       },

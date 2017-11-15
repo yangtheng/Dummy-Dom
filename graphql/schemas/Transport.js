@@ -9,7 +9,6 @@ const Transport = `
     startLoadSequence: Int
     endLoadSequence: Int
     day: Int
-    date: Int
     departureTime: Int!
     arrivalTime: Int!
     name: String

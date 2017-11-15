@@ -7,7 +7,6 @@ const Activity = `
     location: Location
     loadSequence: Int
     day: Int
-    date: Int
     name: String
     notes: String
     startTime: Int

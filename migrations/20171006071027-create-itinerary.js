@@ -17,9 +17,6 @@ module.exports = {
       startDate: {
         type: Sequelize.INTEGER
       },
-      endDate: {
-        type: Sequelize.INTEGER
-      },
       pax: {
         type: Sequelize.INTEGER
       },

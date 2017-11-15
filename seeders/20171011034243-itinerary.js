@@ -9,11 +9,8 @@ module.exports = {
     for (var i = 1; i <= 50; i++) {
       seedArr.push({
         name: `Itinerary ${i}`,
-        days: 6,
         startDate: 1508025600, // 15th oct 2017
-        endDate: 1508457600, // 20th oct 2017
-        // startDate: date,
-        // endDate: parseInt(date) + 400000,
+        days: 6,
         pax: Math.floor(Math.random() * 4) + 1,
         budget: (Math.floor(Math.random() * 8) + 2) * 1000,
         travelInsurance: faker.internet.url(),

@@ -4,7 +4,6 @@ const Itinerary = `
     name: String!
     days: Int!
     startDate: Int
-    endDate: Int
     pax: Int
     travelInsurance: String
     budget: Int

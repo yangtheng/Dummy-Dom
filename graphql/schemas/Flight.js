@@ -14,8 +14,6 @@ const Flight = `
     arrivalLoadSequence: Int
     departureDay: Int
     arrivalDay: Int
-    departureDate: Int
-    arrivalDate: Int
     departureTime: Int
     boardingTime: Int
     arrivalTime: Int

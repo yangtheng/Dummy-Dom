@@ -16,18 +16,11 @@ module.exports = {
         arrivalGate: `Gate ${Math.floor(Math.random() * 10) + 1}`,
         departureLoadSequence: 1,
         arrivalLoadSequence: 2,
-        // departureDate: (new Date(casual.date()).getTime() / 1000).toFixed(0),
-        // arrivalDate: (new Date(casual.date()).getTime() / 1000).toFixed(0),
         departureDay: 1,
         arrivalDay: 1,
-        departureDate: 1508025600, // 15th oct
-        arrivalDate: 1508025600, // 15th oct
-        departureTime: 1508047200, // 6am flight
-        boardingTime: 1508043600, // 5am boarding
-        arrivalTime: 1508058000, // 9am arrival.
-        // departureTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
-        // boardingTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
-        // arrivalTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
+        departureTime: 21600, // 6am flight
+        boardingTime: 18000, // 5am boarding
+        arrivalTime: 32400, // 9am arrival.
         name: `Airport ${i}`,
         notes: casual.sentences(3),
         cost: (Math.floor(Math.random() * 20) + 1) * 100,

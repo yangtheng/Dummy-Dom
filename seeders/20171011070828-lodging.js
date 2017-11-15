@@ -13,14 +13,10 @@ module.exports = {
         endLoadSequence: 10,
         name: `Lodging ${i}`,
         notes: casual.sentences(3),
-        // startDate: (new Date(casual.date()).getTime() / 1000).toFixed(0),
-        // endDate: (new Date(casual.date()).getTime() / 1000).toFixed(0),
         startDay: 1,
         endDay: 6,
-        startDate: 1508025600, // 15th oct
-        startTime: 1508061600, // 10am checkin
-        endDate: 1508457600, // 20th oct
-        endTime: 1508504400, // 1pm checkout
+        startTime: 36000, // 10am checkin
+        endTime: 46800, // 1pm checkout
         cost: Math.floor(Math.random() * 100) + 1,
         currency: casual.currency_code,
         bookingStatus: true,

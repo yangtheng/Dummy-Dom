@@ -59,12 +59,6 @@ module.exports = {
       arrivalDay: {
         type: Sequelize.INTEGER
       },
-      departureDate: {
-        type: Sequelize.INTEGER
-      },
-      arrivalDate: {
-        type: Sequelize.INTEGER
-      },
       departureTime: {
         type: Sequelize.INTEGER
       },

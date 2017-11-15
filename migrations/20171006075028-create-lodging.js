@@ -44,13 +44,7 @@ module.exports = {
       endDay: {
         type: Sequelize.INTEGER
       },
-      startDate: {
-        type: Sequelize.INTEGER
-      },
       startTime: {
-        type: Sequelize.INTEGER
-      },
-      endDate: {
         type: Sequelize.INTEGER
       },
       endTime: {

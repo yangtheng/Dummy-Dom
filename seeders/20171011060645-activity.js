@@ -10,15 +10,11 @@ module.exports = {
         ItineraryId: i,
         LocationId: i,
         loadSequence: 6,
-        // date: (new Date(casual.date()).getTime() / 1000).toFixed(0),
         day: 1,
-        date: 1508025600,
         name: `Activity ${i}`,
         notes: casual.sentences(3),
-        // startTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
-        // endTime: (new Date(casual.date()).getTime() / 1000).toFixed(0),
-        startTime: 1508076000, // 2pm
-        endTime:  1508083200, // 4pm
+        startTime: 50400, // 2pm 1970
+        endTime:  57600, // 4pm
         cost: Math.floor(Math.random() * 100) + 1,
         currency: casual.currency_code,
         bookingStatus: true,
