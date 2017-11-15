@@ -20,7 +20,7 @@ module.exports = {
         startDate: 1508025600, // 15th oct
         startTime: 1508061600, // 10am checkin
         endDate: 1508457600, // 20th oct
-        endTime: 1508504400, // 1pm checkout
+        endTime: 1508061600 + 7200, // 1pm checkout
         cost: Math.floor(Math.random() * 100) + 1,
         currency: casual.currency_code,
         bookingStatus: true,

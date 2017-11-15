@@ -18,9 +18,7 @@ const randomStuff = `
     type: String!
     id: Int!
     loadSequence: Int!
-    date: Int!
-    startTime: Int
-    endTime: Int
+    day: Int!
   }
   input googlePlaceData {
     placeId: String!
