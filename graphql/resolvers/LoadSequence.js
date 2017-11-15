@@ -10,9 +10,7 @@ const LoadSequence = {
             .then(found => {
               found.update({
                 loadSequence: e.loadSequence,
-                day: e.day,
-                startTime: e.startTime,
-                endTime: e.endTime
+                day: e.day
               })
             })
         } else if (e.type === 'LodgingCheckin') {
@@ -20,8 +18,7 @@ const LoadSequence = {
           .then(found => {
             found.update({
               startLoadSequence: e.loadSequence,
-              startDay: e.day,
-              startTime: e.startTime
+              startDay: e.day
             })
           })
         } else if (e.type === 'Food') {
@@ -29,9 +26,7 @@ const LoadSequence = {
           .then(found => {
             found.update({
               loadSequence: e.loadSequence,
-              day: e.day,
-              startTime: e.startTime,
-              endTime: e.endTime
+              day: e.day
             })
           })
         } else if (e.type === 'Flight') {
@@ -39,9 +34,7 @@ const LoadSequence = {
           .then(found => {
             found.update({
               departureLoadSequence: e.loadSequence,
-              departureDay: e.day,
-              departureTime: e.startTime,
-              arrivalTime: e.endTime
+              departureDay: e.day
             })
           })
         } else if (e.type === 'Transport') {
@@ -49,9 +42,7 @@ const LoadSequence = {
           .then(found => {
             found.update({
               startLoadSequence: e.loadSequence,
-              day: e.day,
-              departureTime: e.startTime,
-              arrivalTime: e.endTime
+              day: e.day
             })
           })
         } else if (e.type === 'LodgingCheckout') {
@@ -59,8 +50,7 @@ const LoadSequence = {
           .then(found => {
             found.update({
               endLoadSequence: e.loadSequence,
-              endDay: e.day,
-              endTime: e.endTime
+              endDay: e.day
             })
           })
         } else {

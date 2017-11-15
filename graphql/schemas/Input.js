@@ -4,8 +4,6 @@ const Input = `
     id: Int!
     loadSequence: Int!
     day: Int!
-    startTime: Int
-    endTime: Int
   }
   input googlePlaceData {
     placeId: String!
