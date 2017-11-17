@@ -10,7 +10,7 @@ const LoadSequence = {
             .then(found => {
               found.update({
                 loadSequence: e.loadSequence,
-                day: e.day
+                startDay: e.day
               })
             })
         } else if (e.type === 'LodgingCheckin') {
@@ -26,7 +26,7 @@ const LoadSequence = {
           .then(found => {
             found.update({
               loadSequence: e.loadSequence,
-              day: e.day
+              startDay: e.day
             })
           })
         } else if (e.type === 'Flight') {
@@ -42,7 +42,7 @@ const LoadSequence = {
           .then(found => {
             found.update({
               startLoadSequence: e.loadSequence,
-              day: e.day
+              departureDay: e.day
             })
           })
         } else if (e.type === 'LodgingCheckout') {
