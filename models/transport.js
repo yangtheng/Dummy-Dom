@@ -31,6 +31,7 @@ module.exports = function (sequelize, DataTypes) {
       as: 'TransportDeparture',
       foreignKey: 'DepartureLocationId'
     })
+    Transport.hasMany(models.Attachment)
   }
 
   return Transport
