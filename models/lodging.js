@@ -23,7 +23,6 @@ module.exports = function (sequelize, DataTypes) {
   Lodging.associate = function (models) {
     Lodging.belongsTo(models.Itinerary)
     Lodging.belongsTo(models.Location)
-    Lodging.hasMany(models.Attachment)
   }
 
   return Lodging

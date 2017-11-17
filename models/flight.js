@@ -35,7 +35,6 @@ module.exports = function (sequelize, DataTypes) {
       as: 'FlightArrival',
       foreignKey: 'ArrivalLocationId'
     })
-    Flight.hasMany(models.Attachment)
   }
 
   return Flight

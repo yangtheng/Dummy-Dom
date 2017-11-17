@@ -21,7 +21,6 @@ module.exports = function (sequelize, DataTypes) {
   Activity.associate = function (models) {
     Activity.belongsTo(models.Itinerary)
     Activity.belongsTo(models.Location)
-    Activity.hadMany(models.Attachment)
   }
 
   return Activity
