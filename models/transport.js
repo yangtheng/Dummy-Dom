@@ -17,7 +17,6 @@ module.exports = function (sequelize, DataTypes) {
     bookingStatus: DataTypes.BOOLEAN,
     bookedThrough: DataTypes.STRING,
     bookingConfirmation: DataTypes.STRING,
-    attachment: DataTypes.STRING,
     type: DataTypes.STRING
   })
 
@@ -37,6 +36,6 @@ module.exports = function (sequelize, DataTypes) {
   Transport.beforeDestroy((instance, options) => {
     return sequelize.models.Attachment.destroy({where: {TransportId: instance.id}})
   })
-  
+
   return Transport
 }

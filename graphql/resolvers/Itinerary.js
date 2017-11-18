@@ -172,14 +172,11 @@ const Itinerary = {
           db.Lodging.destroy({where: {ItineraryId: id}})
           db.Flight.destroy({where: {ItineraryId: id}})
           db.Transport.destroy({where: {ItineraryId: id}})
+        })
+        .then(() => {
           return db.Itinerary.destroy({
             where: {id: id}
           })
-        })
-        .then(deleteChain => {
-          // if Itinerary.destroy returns true, associated rows must hv also been deleted. deleting itinerary but not assocs will return foreign key constraint
-          console.log('chained status', deleteChain)
-          return deleteChain
         })
     }
   }

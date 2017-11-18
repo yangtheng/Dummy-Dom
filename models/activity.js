@@ -14,8 +14,7 @@ module.exports = function (sequelize, DataTypes) {
     currency: DataTypes.STRING,
     bookingStatus: DataTypes.BOOLEAN,
     bookedThrough: DataTypes.STRING,
-    bookingConfirmation: DataTypes.STRING,
-    attachment: DataTypes.STRING
+    bookingConfirmation: DataTypes.STRING
   })
 
   Activity.associate = function (models) {

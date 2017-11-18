@@ -65,9 +65,6 @@ module.exports = {
       bookingConfirmation: {
         type: Sequelize.STRING
       },
-      attachment: {
-        type: Sequelize.STRING
-      },
       roomType: {
         type: Sequelize.STRING
       },

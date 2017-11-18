@@ -15,7 +15,6 @@ module.exports = function (sequelize, DataTypes) {
     bookingStatus: DataTypes.BOOLEAN,
     bookedThrough: DataTypes.STRING,
     bookingConfirmation: DataTypes.STRING,
-    attachment: DataTypes.STRING,
     type: DataTypes.STRING
   })
 

@@ -21,7 +21,6 @@ module.exports = {
         bookingStatus: true,
         bookedThrough: faker.internet.url(),
         bookingConfirmation: faker.internet.url(),
-        attachment: faker.internet.avatar(),
         type: faker.commerce.department(),
         createdAt: new Date(),
         updatedAt: new Date()

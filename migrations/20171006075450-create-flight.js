@@ -89,9 +89,6 @@ module.exports = {
       bookingConfirmation: {
         type: Sequelize.STRING
       },
-      attachment: {
-        type: Sequelize.STRING
-      },
       createdAt: {
         allowNull: true,
         type: Sequelize.DATE
