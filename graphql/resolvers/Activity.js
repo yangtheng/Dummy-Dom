@@ -20,6 +20,7 @@ const Activity = {
   },
   Mutation: {
     createActivity: (__, data) => {
+      console.log('attachments array', data.attachments)
       var newActivity = {}
       Object.keys(data).forEach(key => {
         if (key !== 'googlePlaceData' && key !== 'LocationId') {
@@ -31,6 +32,15 @@ const Activity = {
           .then(id => {
             newActivity.LocationId = id
             return db.Activity.create(newActivity)
+              .then(created => {
+                data.attachments.forEach(url => {
+                  return db.Attachment.create({ActivityId: created.id, url: url})
+                })
+                return created.id
+              })
+              .then((createdId) => {
+                return db.Activity.findById(createdId)
+              })
           })
       } else if (data.LocationId) {
         newActivity.LocationId = data.LocationId
