@@ -23,8 +23,9 @@ const Food = require('./Food')
 const Lodging = require('./Lodging')
 const Transport = require('./Transport')
 const Input = require('./Input')
+const Attachment = require('./Attachment')
 
 module.exports = makeExecutableSchema({
-  typeDefs: [SchemaDefinition, Query, Mutation, Country, User, Itinerary, Location, Activity, Flight, Food, Transport, Lodging, Input],
+  typeDefs: [SchemaDefinition, Query, Mutation, Country, User, Itinerary, Location, Activity, Flight, Food, Transport, Lodging, Input, Attachment],
   resolvers: mergedResolvers
 })

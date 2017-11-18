@@ -8,6 +8,9 @@ const Transport = {
     },
     arrivalLocation (transport) {
       return transport.getTransportArrival()
+    },
+    attachments (transport) {
+      return transport.getAttachments()
     }
   },
   Query: {

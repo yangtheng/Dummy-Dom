@@ -8,6 +8,9 @@ const Food = {
     },
     location (food) {
       return food.getLocation()
+    },
+    attachments (food) {
+      return food.getAttachments()
     }
   },
   Query: {

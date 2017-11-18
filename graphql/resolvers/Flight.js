@@ -8,6 +8,9 @@ const Flight = {
     },
     arrivalLocation (flight) {
       return flight.getFlightArrival()
+    },
+    attachments (flight) {
+      return flight.getAttachments()
     }
   },
   Query: {

@@ -20,7 +20,8 @@ var db = {
   Food: sequelize.import('../models/food'),
   Lodging: sequelize.import('../models/lodging'),
   Flight: sequelize.import('../models/flight'),
-  Transport: sequelize.import('../models/transport')
+  Transport: sequelize.import('../models/transport'),
+  Attachment: sequelize.import('../models/attachment')
 }
 
 Object.keys(db).forEach(function (modelName) {

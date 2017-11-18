@@ -8,6 +8,9 @@ const Activity = {
     },
     location (activity) {
       return activity.getLocation()
+    },
+    attachments (activity) {
+      return activity.getAttachments()
     }
   },
   Query: {

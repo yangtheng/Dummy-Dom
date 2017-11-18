@@ -19,7 +19,7 @@ const Transport = `
     bookingStatus: Boolean
     bookedThrough: String
     bookingConfirmation: String
-    attachment: String
+    attachments: [Attachment]
     type: String
   }
 `

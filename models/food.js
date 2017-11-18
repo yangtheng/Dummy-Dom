@@ -22,6 +22,7 @@ module.exports = function (sequelize, DataTypes) {
   Food.associate = function (models) {
     Food.belongsTo(models.Itinerary)
     Food.belongsTo(models.Location)
+    Food.hasMany(models.Attachment)
   }
 
   return Food

@@ -24,7 +24,7 @@ const Flight = `
     bookingStatus: Boolean
     bookedThrough: String
     bookingConfirmation: String
-    attachment: String
+    attachments: [Attachment]
   }
 `
 module.exports = Flight

@@ -18,7 +18,7 @@ const Lodging = `
     bookingStatus: Boolean
     bookedThrough: String
     bookingConfirmation: String
-    attachment: String
+    attachments: [Attachment]
     roomType: String
   }
 `

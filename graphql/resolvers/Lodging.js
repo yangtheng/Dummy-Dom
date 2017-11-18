@@ -8,6 +8,9 @@ const Lodging = {
     },
     location (lodging) {
       return lodging.getLocation()
+    },
+    attachments (lodging) {
+      return lodging.getAttachments()
     }
   },
   Query: {
