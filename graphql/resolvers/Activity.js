@@ -72,9 +72,12 @@ const Activity = {
       }
     },
     deleteActivity: (__, data) => {
-      return db.Activity.destroy({where: {id: data.id}})
-        .then(status => {
-          return status
+      return db.Attachment.destroy({where: {ActivityId: data.id}})
+        .then(() => {
+          return db.Activity.destroy({where: {id: data.id}})
+            .then(status => {
+              return status
+            })
         })
     }
   }
