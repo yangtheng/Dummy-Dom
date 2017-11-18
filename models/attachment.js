@@ -10,12 +10,16 @@ module.exports = function (sequelize, DataTypes) {
   })
 
   Attachment.associate = function (models) {
-    Attachment.belongsTo(models.Activity)
+    Attachment.belongsTo(models.Activity, {onDelete: 'CASCADE', hooks: true})
     Attachment.belongsTo(models.Food)
     Attachment.belongsTo(models.Flight)
     Attachment.belongsTo(models.Transport)
     Attachment.belongsTo(models.Lodging)
   }
+
+  Attachment.beforeCreate((instance, options) => {
+    instance.url = 'changedinhook'
+  })
 
   return Attachment
 }

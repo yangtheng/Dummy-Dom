@@ -11,6 +11,8 @@ module.exports = {
       ActivityId: {
         allowNull: true,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        hooks: true,
         references: {
           model: {
             tableName: 'Activities'
