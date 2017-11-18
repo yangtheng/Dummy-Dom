@@ -38,5 +38,9 @@ module.exports = function (sequelize, DataTypes) {
     Flight.hasMany(models.Attachment)
   }
 
+  Flight.beforeDestroy((instance, options) => {
+    return sequelize.models.Attachment.destroy({where: {FlightId: instance.id}})
+  })
+
   return Flight
 }

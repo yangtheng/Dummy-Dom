@@ -11,10 +11,10 @@ module.exports = function (sequelize, DataTypes) {
 
   Attachment.associate = function (models) {
     Attachment.belongsTo(models.Activity, {onDelete: 'CASCADE', hooks: true})
-    Attachment.belongsTo(models.Food)
-    Attachment.belongsTo(models.Flight)
-    Attachment.belongsTo(models.Transport)
-    Attachment.belongsTo(models.Lodging)
+    Attachment.belongsTo(models.Food, {onDelete: 'CASCADE', hooks: true})
+    Attachment.belongsTo(models.Flight, {onDelete: 'CASCADE', hooks: true})
+    Attachment.belongsTo(models.Transport, {onDelete: 'CASCADE', hooks: true})
+    Attachment.belongsTo(models.Lodging, {onDelete: 'CASCADE', hooks: true})
   }
 
   Attachment.beforeCreate((instance, options) => {

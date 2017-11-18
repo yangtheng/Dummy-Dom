@@ -23,6 +23,8 @@ module.exports = {
       FoodId: {
         allowNull: true,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        hooks: true,
         references: {
           model: {
             tableName: 'Food'
@@ -33,6 +35,8 @@ module.exports = {
       FlightId: {
         allowNull: true,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        hooks: true,
         references: {
           model: {
             tableName: 'Flights'
@@ -43,6 +47,8 @@ module.exports = {
       TransportId: {
         allowNull: true,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        hooks: true,
         references: {
           model: {
             tableName: 'Transports'
@@ -53,6 +59,8 @@ module.exports = {
       LodgingId: {
         allowNull: true,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        hooks: true,
         references: {
           model: {
             tableName: 'Lodgings'

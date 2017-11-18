@@ -62,13 +62,14 @@ const Food = {
       }
     },
     deleteFood: (__, data) => {
-      return db.Attachment.destroy({where: {FoodId: data.id}})
-        .then(() => {
-          return db.Food.destroy({where: {id: data.id}})
-            .then(status => {
-              return status
-            })
-        })
+      // return db.Attachment.destroy({where: {FoodId: data.id}})
+      //   .then(() => {
+      //     return db.Food.destroy({where: {id: data.id}})
+      //       .then(status => {
+      //         return status
+      //       })
+      //   })
+      return db.Food.destroy({where: {id: data.id}, individualHooks: true})
     }
   }
 }
