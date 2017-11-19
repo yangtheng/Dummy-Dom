@@ -17,9 +17,5 @@ module.exports = function (sequelize, DataTypes) {
     Attachment.belongsTo(models.Lodging, {onDelete: 'CASCADE', hooks: true})
   }
 
-  Attachment.beforeCreate((instance, options) => {
-    instance.url = 'changedinhook'
-  })
-
   return Attachment
 }
