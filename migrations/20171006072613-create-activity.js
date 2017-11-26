@@ -62,6 +62,9 @@ module.exports = {
       bookingConfirmation: {
         type: Sequelize.STRING
       },
+      backgroundImage: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: true,
         type: Sequelize.DATE

@@ -19,6 +19,7 @@ const Food = `
     bookingConfirmation: String
     attachments: [Attachment]
     type: String
+    backgroundImage: String
   }
 `
 module.exports = Food

@@ -20,6 +20,7 @@ const Lodging = `
     bookingConfirmation: String
     attachments: [Attachment]
     roomType: String
+    backgroundImage: String
   }
 `
 module.exports = Lodging

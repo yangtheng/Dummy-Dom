@@ -11,7 +11,7 @@ const Attachment = {
       var eventId = data.type + 'Id' // set the foreign key
       return db.Attachment.create({
         [eventId]: data.id,
-        url: data.url
+        fileName: data.fileName
       })
     },
     deleteAttachment: (__, data) => {

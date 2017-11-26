@@ -17,7 +17,8 @@ module.exports = function (sequelize, DataTypes) {
     bookingStatus: DataTypes.BOOLEAN,
     bookedThrough: DataTypes.STRING,
     bookingConfirmation: DataTypes.STRING,
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    backgroundImage: DataTypes.STRING
   })
 
   Transport.associate = function (models) {

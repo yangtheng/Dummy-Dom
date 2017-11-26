@@ -6,7 +6,7 @@ const Attachment = `
     FlightId: ID
     TransportId: ID
     LodgingId: ID
-    url: String!
+    fileName: String
   }
 `
 module.exports = Attachment
