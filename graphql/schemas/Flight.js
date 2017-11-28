@@ -10,13 +10,13 @@ const Flight = `
     departureGate: String
     arrivalTerminal: String
     arrivalGate: String
-    departureLoadSequence: Int
-    arrivalLoadSequence: Int
-    departureDay: Int
-    arrivalDay: Int
-    departureTime: Int
+    startLoadSequence: Int
+    endLoadSequence: Int
+    startDay: Int
+    endDay: Int
+    startTime: Int
     boardingTime: Int
-    arrivalTime: Int
+    endTime: Int
     name: String
     notes: String
     cost: Int

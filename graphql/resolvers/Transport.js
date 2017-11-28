@@ -64,13 +64,6 @@ const Transport = {
       }
     },
     deleteTransport: (__, data) => {
-      // return db.Attachment.destroy({where: {TransportId: data.id}})
-      //   .then(() => {
-      //     return db.Transport.destroy({where: {id: data.id}})
-      //       .then(status => {
-      //         return status
-      //       })
-      //   })
       return db.Transport.destroy({where: {id: data.id}, individualHooks: true})
     }
   }

@@ -47,25 +47,25 @@ module.exports = {
       arrivalGate: {
         type: Sequelize.STRING
       },
-      departureLoadSequence: {
+      startLoadSequence: {
         type: Sequelize.INTEGER
       },
-      arrivalLoadSequence: {
+      endLoadSequence: {
         type: Sequelize.INTEGER
       },
-      departureDay: {
+      startDay: {
         type: Sequelize.INTEGER
       },
-      arrivalDay: {
+      endDay: {
         type: Sequelize.INTEGER
       },
-      departureTime: {
+      startTime: {
         type: Sequelize.INTEGER
       },
       boardingTime: {
         type: Sequelize.INTEGER
       },
-      arrivalTime: {
+      endTime: {
         type: Sequelize.INTEGER
       },
       name: {

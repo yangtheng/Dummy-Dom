@@ -8,10 +8,10 @@ const Transport = `
     ItineraryId: ID!
     startLoadSequence: Int
     endLoadSequence: Int
-    departureDay: Int
-    arrivalDay: Int
-    departureTime: Int!
-    arrivalTime: Int!
+    startDay: Int
+    endDay: Int
+    startTime: Int!
+    endTime: Int!
     name: String
     notes: String
     cost: Int

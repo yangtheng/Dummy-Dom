@@ -64,13 +64,6 @@ const Flight = {
       }
     },
     deleteFlight: (__, data) => {
-      // return db.Attachment.destroy({where: {FlightId: data.id}})
-      //   .then(() => {
-      //     return db.Flight.destroy({where: {id: data.id}})
-      //       .then(status => {
-      //         return status
-      //       })
-      //   })
       return db.Flight.destroy({where: {id: data.id}, individualHooks: true})
     }
   }

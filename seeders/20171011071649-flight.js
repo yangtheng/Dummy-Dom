@@ -14,13 +14,13 @@ module.exports = {
         departureGate: `Gate ${Math.floor(Math.random() * 10) + 1}`,
         arrivalTerminal: `Terminal ${Math.floor(Math.random() * 4) + 1}`,
         arrivalGate: `Gate ${Math.floor(Math.random() * 10) + 1}`,
-        departureLoadSequence: 1,
-        arrivalLoadSequence: 2,
-        departureDay: 1,
-        arrivalDay: 1,
-        departureTime: 21600, // 6am flight
+        startLoadSequence: 1,
+        endLoadSequence: 2,
+        startDay: 1,
+        endDay: 1,
+        startTime: 21600, // 6am flight
         boardingTime: 18000, // 5am boarding
-        arrivalTime: 32400, // 9am arrival.
+        endTime: 32400, // 9am arrival.
         name: `Airport ${i}`,
         notes: casual.sentences(3),
         cost: (Math.floor(Math.random() * 20) + 1) * 100,

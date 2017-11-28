@@ -33,8 +33,8 @@ const LoadSequence = {
           return db.Flight.findById(e.id)
           .then(found => {
             found.update({
-              departureLoadSequence: e.loadSequence,
-              departureDay: e.day
+              startLoadSequence: e.loadSequence,
+              startDay: e.day
             })
           })
         } else if (e.type === 'Transport') {
@@ -42,7 +42,7 @@ const LoadSequence = {
           .then(found => {
             found.update({
               startLoadSequence: e.loadSequence,
-              departureDay: e.day
+              startDay: e.day
             })
           })
         } else if (e.type === 'LodgingCheckout') {

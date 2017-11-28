@@ -62,13 +62,6 @@ const Lodging = {
       }
     },
     deleteLodging: (__, data) => {
-      // return db.Attachment.destroy({where: {LodgingId: data.id}})
-      //   .then(() => {
-      //     return db.Lodging.destroy({where: {id: data.id}})
-      //       .then(status => {
-      //         return status
-      //       })
-      //   })
       return db.Lodging.destroy({where: {id: data.id}, individualHooks: true})
     }
   }

@@ -28,15 +28,15 @@ const Mutation = `
 
     deleteActivity(id:ID!): Boolean
 
-    createFlight(ItineraryId: ID!, departureGooglePlaceData: googlePlaceData, arrivalGooglePlaceData: googlePlaceData, DepartureLocationId: ID, ArrivalLocationId: ID, arrivalTerminal: String, arrivalGate: String, departureTerminal: String, departureGate: String,departureLoadSequence: Int, arrivalLoadSequence: Int, departureDay: Int, arrivalDay: Int, departureTime: Int, arrivalTime: Int, boardingTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String): Flight
+    createFlight(ItineraryId: ID!, departureGooglePlaceData: googlePlaceData, arrivalGooglePlaceData: googlePlaceData, DepartureLocationId: ID, ArrivalLocationId: ID, arrivalTerminal: String, arrivalGate: String, departureTerminal: String, departureGate: String,startLoadSequence: Int, endLoadSequence: Int, startDay: Int, endDay: Int, startTime: Int, endTime: Int, boardingTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String): Flight
 
-    updateFlight(id: ID!, departureGooglePlaceData: googlePlaceData, arrivalGooglePlaceData: googlePlaceData, DepartureLocationId: ID, ArrivalLocationId: ID, arrivalTerminal: String, arrivalGate: String, departureTerminal: String, departureGate: String,departureLoadSequence: Int, arrivalLoadSequence: Int, departureDay: Int, arrivalDay: Int, departureTime: Int, arrivalTime: Int, boardingTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String): Flight
+    updateFlight(id: ID!, departureGooglePlaceData: googlePlaceData, arrivalGooglePlaceData: googlePlaceData, DepartureLocationId: ID, ArrivalLocationId: ID, arrivalTerminal: String, arrivalGate: String, departureTerminal: String, departureGate: String,startLoadSequence: Int, endLoadSequence: Int, startDay: Int, endDay: Int, startTime: Int, endTime: Int, boardingTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String): Flight
 
     deleteFlight(id:ID!): Boolean
 
-    createLodging(ItineraryId: ID!, googlePlaceData: googlePlaceData, LocationId: ID, startLoadSequence: Int, endLoadSequence:Int, name: String, notes: String, departureDay: Int, arrivalDay: Int, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, roomType: String, backgroundImage: String): Lodging
+    createLodging(ItineraryId: ID!, googlePlaceData: googlePlaceData, LocationId: ID, startLoadSequence: Int, endLoadSequence:Int, name: String, notes: String, startDay: Int, endDay: Int, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, roomType: String, backgroundImage: String): Lodging
 
-    updateLodging(id: ID!, googlePlaceData: googlePlaceData, startLoadSequence: Int, endLoadSequence:Int, name: String, notes: String, departureDay: Int, arrivalDay: Int,  startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, roomType: String, backgroundImage: String): Lodging
+    updateLodging(id: ID!, googlePlaceData: googlePlaceData, startLoadSequence: Int, endLoadSequence:Int, name: String, notes: String, startDay: Int, endDay: Int,  startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, roomType: String, backgroundImage: String): Lodging
 
     deleteLodging(id:ID!): Boolean
 
@@ -46,9 +46,9 @@ const Mutation = `
 
     deleteFood(id:ID!): Boolean
 
-    createTransport(ItineraryId: ID!, departureGooglePlaceData: googlePlaceData, arrivalGooglePlaceData: googlePlaceData, DepartureLocationId: ID, ArrivalLocationId: ID, startLoadSequence: Int, endLoadSequence: Int, departureDay: Int, arrivalDay: Int, departureTime: Int, arrivalTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, type: String, backgroundImage: String): Transport
+    createTransport(ItineraryId: ID!, departureGooglePlaceData: googlePlaceData, arrivalGooglePlaceData: googlePlaceData, DepartureLocationId: ID, ArrivalLocationId: ID, startLoadSequence: Int, endLoadSequence: Int, startDay: Int, endDay: Int, startTime: Int, endTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, type: String, backgroundImage: String): Transport
 
-    updateTransport(id: ID!, departureGooglePlaceData: googlePlaceData, arrivalGooglePlaceData: googlePlaceData, DepartureLocationId: ID, ArrivalLocationId: ID, loadSequence: Int, departureDay: Int, arrivalDay: Int, departureTime: Int, arrivalTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, type: String, backgroundImage: String): Transport
+    updateTransport(id: ID!, departureGooglePlaceData: googlePlaceData, arrivalGooglePlaceData: googlePlaceData, DepartureLocationId: ID, ArrivalLocationId: ID, loadSequence: Int, startDay: Int, endDay: Int, startTime: Int, endTime: Int, name: String, notes: String, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, type: String, backgroundImage: String): Transport
 
     deleteTransport(id:ID!): Boolean
 

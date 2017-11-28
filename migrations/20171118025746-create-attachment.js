@@ -68,7 +68,7 @@ module.exports = {
           key: 'id'
         }
       },
-      url: {
+      fileName: {
         type: Sequelize.STRING
       },
       createdAt: {
