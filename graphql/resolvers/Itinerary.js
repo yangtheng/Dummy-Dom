@@ -34,96 +34,70 @@ const Itinerary = {
     transports (itinerary) {
       return itinerary.getTransports()
     },
-    // events (itinerary) {
-    //   var ItineraryId = itinerary.id
-    //
-    //   var eventsActivity = db.Activity.findAll({where: {ItineraryId: ItineraryId}})
-    //     .then(activities => {
-    //       var arrActivity = []
-    //       var attachmentPromises = []
-    //
-    //       activities.forEach(e => {
-    //         arrActivity.push({day: e.startDay, type: 'Activity', id: e.id, loadSequence: e.loadSequence, data: e})
-    //         attachmentPromises.push(e.getAttachments())
-    //       })
-    //
-    //       return Promise.all(attachmentPromises)
-    //         .then((values) => {
-    //           values.forEach((value, i) => {
-    //             arrActivity[i].attachments = value
-    //           })
-    //           return arrActivity
-    //         })
-    //     })
-    //   var eventsFood = db.Food.findAll({where: {ItineraryId: ItineraryId}})
-    //     .then(food => {
-    //       var arrFood = []
-    //       var attachmentPromises = []
-    //       food.forEach(e => {
-    //         arrFood.push({day: e.startDay, type: 'Food', id: e.id, loadSequence: e.loadSequence, data: e})
-    //         attachmentPromises.push(e.getAttachments())
-    //       })
-    //       return arrFood
-    //     })
-    //   var eventsFlight = db.Flight.findAll({where: {ItineraryId: ItineraryId}})
-    //     .then(flight => {
-    //       var arrFlight = []
-    //       var attachmentPromises = []
-    //       flight.forEach(e => {
-    //         arrFlight.push({day: e.startDay, type: 'Flight', start: true, id: e.id, loadSequence: e.startLoadSequence, data: e})
-    //         arrFlight.push({day: e.endDay, type: 'Flight', start: false, id: e.id, loadSequence: e.endLoadSequence, data: e})
-    //         attachmentPromises.push(e.getAttachments())
-    //       })
-    //       return arrFlight
-    //     })
-    //   var eventsTransport = db.Transport.findAll({where: {ItineraryId: ItineraryId}})
-    //     .then(transport => {
-    //       var arrTransport = []
-    //       var attachmentPromises = []
-    //       transport.forEach(e => {
-    //         arrTransport.push({day: e.startDay, type: 'Transport', start: true, id: e.id, loadSequence: e.startLoadSequence, data: e})
-    //         arrTransport.push({day: e.endDay, type: 'Transport', start: false, id: e.id, loadSequence: e.endLoadSequence, data: e})
-    //         attachmentPromises.push(e.getAttachments())
-    //       })
-    //       return arrTransport
-    //     })
-    //   var eventsLodging = db.Lodging.findAll({where: {ItineraryId: ItineraryId}})
-    //     .then(lodging => {
-    //       var arrLodging = []
-    //       var attachmentPromises = []
-    //       lodging.forEach(e => {
-    //         arrLodging.push({day: e.startDay, type: 'Lodging', start: true, id: e.id, loadSequence: e.startLoadSequence, data: e})
-    //         arrLodging.push({day: e.endDay, type: 'Lodging', start: false, id: e.id, loadSequence: e.endLoadSequence, data: e})
-    //         attachmentPromises.push(e.getAttachments())
-    //       })
-    //       return arrLodging
-    //     })
-    //
-    //   return Promise.all([eventsActivity, eventsFood, eventsFlight, eventsTransport, eventsLodging])
-    //       .then(values => {
-    //         var events = values.reduce(function (a, b) {
-    //           return a.concat(b)
-    //         })
-    //
-    //         var sorted = events.sort(function (a, b) {
-    //           return a.day - b.day || a.loadSequence - b.loadSequence
-    //         })
-    //         var stringified = JSON.stringify(sorted)
-    //         return stringified
-    //       })
-    // }
     events (itinerary) {
-      // pool all models tgt and sort.
-      var eventData = db.Activity.findById(1)
-      return eventData.then(results => {
-        // console.log('results', results.dataValues)
-        return {
-          type: 'Activity',
-          id: 1,
-          loadSequence: 1,
-          data: results
-        }
-      })
+      var ItineraryId = itinerary.id
+
+      var eventsActivity = db.Activity.findAll({where: {ItineraryId: ItineraryId}})
+        .then(activities => {
+          var arrActivity = []
+
+          activities.forEach(e => {
+            arrActivity.push({day: e.startDay, type: 'Activity', id: e.id, loadSequence: e.loadSequence, data: e})
+          })
+
+          return arrActivity
+        })
+
+      var eventsFood = db.Food.findAll({where: {ItineraryId: ItineraryId}})
+        .then(food => {
+          var arrFood = []
+          food.forEach(e => {
+            arrFood.push({day: e.startDay, type: 'Food', id: e.id, loadSequence: e.loadSequence, data: e})
+          })
+          return arrFood
+        })
+      var eventsFlight = db.Flight.findAll({where: {ItineraryId: ItineraryId}})
+        .then(flight => {
+          var arrFlight = []
+          flight.forEach(e => {
+            arrFlight.push({day: e.startDay, type: 'Flight', start: true, id: e.id, loadSequence: e.startLoadSequence, data: e})
+            arrFlight.push({day: e.endDay, type: 'Flight', start: false, id: e.id, loadSequence: e.endLoadSequence, data: e})
+          })
+          return arrFlight
+        })
+
+      var eventsTransport = db.Transport.findAll({where: {ItineraryId: ItineraryId}})
+        .then(transport => {
+          var arrTransport = []
+          transport.forEach(e => {
+            arrTransport.push({day: e.startDay, type: 'Transport', start: true, id: e.id, loadSequence: e.startLoadSequence, data: e})
+            arrTransport.push({day: e.endDay, type: 'Transport', start: false, id: e.id, loadSequence: e.endLoadSequence, data: e})
+          })
+          return arrTransport
+        })
+
+      var eventsLodging = db.Lodging.findAll({where: {ItineraryId: ItineraryId}})
+        .then(lodging => {
+          var arrLodging = []
+          lodging.forEach(e => {
+            arrLodging.push({day: e.startDay, type: 'Lodging', start: true, id: e.id, loadSequence: e.startLoadSequence, data: e})
+            arrLodging.push({day: e.endDay, type: 'Lodging', start: false, id: e.id, loadSequence: e.endLoadSequence, data: e})
+          })
+          return arrLodging
+        })
+
+      return Promise.all([eventsActivity, eventsFood, eventsFlight, eventsTransport, eventsLodging])
+        .then(values => {
+          var events = values.reduce(function (a, b) {
+            return a.concat(b)
+          })
+
+          var sorted = events.sort(function (a, b) {
+            return a.day - b.day || a.loadSequence - b.loadSequence
+          })
+          console.log('sorted', sorted)
+          return sorted
+        })
     }
   },
   EventUnion: {
