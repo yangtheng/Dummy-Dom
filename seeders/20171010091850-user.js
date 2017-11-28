@@ -11,7 +11,7 @@ module.exports = {
       var name = `${faker.name.firstName()} ${faker.name.lastName()}`
       var email = name.replace(' ', '_') + '@gmail.com'
       var password = `password${i}`
-      var hash = bcrypt.hashSync(password, 10)
+      var hash = bcrypt.hashSync(password, 5)
 
       seedArr.push({
         CountryId: i,
