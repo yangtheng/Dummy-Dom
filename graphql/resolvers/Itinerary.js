@@ -42,6 +42,10 @@ const Itinerary = {
           var arrActivity = []
           activities.forEach(e => {
             arrActivity.push({day: e.startDay, type: 'Activity', id: e.id, loadSequence: e.loadSequence, data: e})
+            // e.getAttachments()
+            //   .then(attachments => {
+            //     arrActivity.attachments = attachments
+            //   })
           })
           return arrActivity
         })
