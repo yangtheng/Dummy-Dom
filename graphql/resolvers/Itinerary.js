@@ -33,6 +33,62 @@ const Itinerary = {
     },
     transports (itinerary) {
       return itinerary.getTransports()
+    },
+    events (itinerary) {
+      var ItineraryId = itinerary.id
+
+      var eventsActivity = db.Activity.findAll({where: {ItineraryId: ItineraryId}})
+        .then(activities => {
+          var arrActivity = []
+          activities.forEach(e => {
+            arrActivity.push({day: e.startDay, type: 'Activity', id: e.id, loadSequence: e.loadSequence, data: e})
+          })
+          return arrActivity
+        })
+      var eventsFood = db.Food.findAll({where: {ItineraryId: ItineraryId}})
+        .then(food => {
+          var arrFood = []
+          food.forEach(e => {
+            arrFood.push({day: e.startDay, type: 'Food', id: e.id, loadSequence: e.loadSequence, data: e})
+          })
+          return arrFood
+        })
+      var eventsFlight = db.Flight.findAll({where: {ItineraryId: ItineraryId}})
+        .then(flight => {
+          var arrFlight = []
+          flight.forEach(e => {
+            arrFlight.push({day: e.departureDay, type: 'Flight', start: true, id: e.id, loadSequence: e.departureLoadSequence, data: e})
+            arrFlight.push({day: e.arrivalDay, type: 'Flight', start: false, id: e.id, loadSequence: e.arrivalLoadSequence, data: e})
+          })
+          return arrFlight
+        })
+      var eventsTransport = db.Transport.findAll({where: {ItineraryId: ItineraryId}})
+        .then(transport => {
+          var arrTransport = []
+          transport.forEach(e => {
+            arrTransport.push({day: e.departureDay, type: 'Transport', start: true, id: e.id, loadSequence: e.departureLoadSequence, data: e})
+            arrTransport.push({day: e.arrivalDay, type: 'Transport', start: false, id: e.id, loadSequence: e.arrivalLoadSequence, data: e})
+          })
+          return arrTransport
+        })
+      var eventsLodging = db.Lodging.findAll({where: {ItineraryId: ItineraryId}})
+        .then(lodging => {
+          var arrLodging = []
+          lodging.forEach(e => {
+            arrLodging.push({day: e.startDay, type: 'Lodging', start: true, id: e.id, loadSequence: e.startLoadSequence, data: e})
+            arrLodging.push({day: e.endDay, type: 'Lodging', start: false, id: e.id, loadSequence: e.endLoadSequence, data: e})
+          })
+          return arrLodging
+        })
+
+      return Promise.all([eventsActivity, eventsFood, eventsFlight, eventsTransport, eventsLodging])
+          .then(values => {
+            var events = values.reduce(function (a, b) {
+              return a.concat(b)
+            })
+            var stringified = JSON.stringify(events)
+            return stringified
+          })
     }
   },
   Query: {
@@ -52,7 +108,6 @@ const Itinerary = {
         })
     },
     findItinerary: (__, data, context) => {
-      console.log('context.user', context.user)
       return db.Itinerary.findById(data.id)
         .catch(err => {
           return err

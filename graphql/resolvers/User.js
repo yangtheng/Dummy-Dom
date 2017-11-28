@@ -57,6 +57,7 @@ const User = {
       })
     },
     createToken: (__, data) => {
+      console.log('data', data)
       return db.User.findOne({
         where: {email: data.email}
       })
@@ -65,6 +66,8 @@ const User = {
         .then(compared => {
           if (compared) {
             var token = jwt.sign({id: found.id, email: found.email}, process.env.JWT)
+            console.log('jwt', process.env.JWT)
+            console.log('token')
             return token
           } else {
             return 'unauthorized. password incorrect'
