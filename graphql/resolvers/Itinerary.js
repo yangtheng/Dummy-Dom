@@ -70,8 +70,8 @@ const Itinerary = {
           var arrFlight = []
           var attachmentPromises = []
           flight.forEach(e => {
-            arrFlight.push({day: e.departureDay, type: 'Flight', start: true, id: e.id, loadSequence: e.departureLoadSequence, data: e})
-            arrFlight.push({day: e.arrivalDay, type: 'Flight', start: false, id: e.id, loadSequence: e.arrivalLoadSequence, data: e})
+            arrFlight.push({day: e.startDay, type: 'Flight', start: true, id: e.id, loadSequence: e.startLoadSequence, data: e})
+            arrFlight.push({day: e.endDay, type: 'Flight', start: false, id: e.id, loadSequence: e.endLoadSequence, data: e})
             attachmentPromises.push(e.getAttachments())
           })
           return arrFlight
@@ -81,8 +81,8 @@ const Itinerary = {
           var arrTransport = []
           var attachmentPromises = []
           transport.forEach(e => {
-            arrTransport.push({day: e.departureDay, type: 'Transport', start: true, id: e.id, loadSequence: e.startLoadSequence, data: e})
-            arrTransport.push({day: e.arrivalDay, type: 'Transport', start: false, id: e.id, loadSequence: e.endLoadSequence, data: e})
+            arrTransport.push({day: e.startDay, type: 'Transport', start: true, id: e.id, loadSequence: e.startLoadSequence, data: e})
+            arrTransport.push({day: e.endDay, type: 'Transport', start: false, id: e.id, loadSequence: e.endLoadSequence, data: e})
             attachmentPromises.push(e.getAttachments())
           })
           return arrTransport
