@@ -70,8 +70,8 @@ const Itinerary = {
         .then(transport => {
           var arrTransport = []
           transport.forEach(e => {
-            arrTransport.push({day: e.departureDay, type: 'Transport', start: true, id: e.id, loadSequence: e.departureLoadSequence, data: e})
-            arrTransport.push({day: e.arrivalDay, type: 'Transport', start: false, id: e.id, loadSequence: e.arrivalLoadSequence, data: e})
+            arrTransport.push({day: e.departureDay, type: 'Transport', start: true, id: e.id, loadSequence: e.startLoadSequence, data: e})
+            arrTransport.push({day: e.arrivalDay, type: 'Transport', start: false, id: e.id, loadSequence: e.endLoadSequence, data: e})
           })
           return arrTransport
         })
@@ -90,7 +90,11 @@ const Itinerary = {
             var events = values.reduce(function (a, b) {
               return a.concat(b)
             })
-            var stringified = JSON.stringify(events)
+
+            var sorted = events.sort(function (a, b) {
+              return a.day - b.day || a.loadSequence - b.loadSequence
+            })
+            var stringified = JSON.stringify(sorted)
             return stringified
           })
     }
