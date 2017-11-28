@@ -40,47 +40,61 @@ const Itinerary = {
       var eventsActivity = db.Activity.findAll({where: {ItineraryId: ItineraryId}})
         .then(activities => {
           var arrActivity = []
+          var attachmentPromises = []
+
           activities.forEach(e => {
             arrActivity.push({day: e.startDay, type: 'Activity', id: e.id, loadSequence: e.loadSequence, data: e})
-            // e.getAttachments()
-            //   .then(attachments => {
-            //     arrActivity.attachments = attachments
-            //   })
+            attachmentPromises.push(e.getAttachments())
           })
-          return arrActivity
+
+          return Promise.all(attachmentPromises)
+            .then((values) => {
+              values.forEach((value, i) => {
+                arrActivity[i].attachments = value
+              })
+              return arrActivity
+            })
         })
       var eventsFood = db.Food.findAll({where: {ItineraryId: ItineraryId}})
         .then(food => {
           var arrFood = []
+          var attachmentPromises = []
           food.forEach(e => {
             arrFood.push({day: e.startDay, type: 'Food', id: e.id, loadSequence: e.loadSequence, data: e})
+            attachmentPromises.push(e.getAttachments())
           })
           return arrFood
         })
       var eventsFlight = db.Flight.findAll({where: {ItineraryId: ItineraryId}})
         .then(flight => {
           var arrFlight = []
+          var attachmentPromises = []
           flight.forEach(e => {
             arrFlight.push({day: e.departureDay, type: 'Flight', start: true, id: e.id, loadSequence: e.departureLoadSequence, data: e})
             arrFlight.push({day: e.arrivalDay, type: 'Flight', start: false, id: e.id, loadSequence: e.arrivalLoadSequence, data: e})
+            attachmentPromises.push(e.getAttachments())
           })
           return arrFlight
         })
       var eventsTransport = db.Transport.findAll({where: {ItineraryId: ItineraryId}})
         .then(transport => {
           var arrTransport = []
+          var attachmentPromises = []
           transport.forEach(e => {
             arrTransport.push({day: e.departureDay, type: 'Transport', start: true, id: e.id, loadSequence: e.startLoadSequence, data: e})
             arrTransport.push({day: e.arrivalDay, type: 'Transport', start: false, id: e.id, loadSequence: e.endLoadSequence, data: e})
+            attachmentPromises.push(e.getAttachments())
           })
           return arrTransport
         })
       var eventsLodging = db.Lodging.findAll({where: {ItineraryId: ItineraryId}})
         .then(lodging => {
           var arrLodging = []
+          var attachmentPromises = []
           lodging.forEach(e => {
             arrLodging.push({day: e.startDay, type: 'Lodging', start: true, id: e.id, loadSequence: e.startLoadSequence, data: e})
             arrLodging.push({day: e.endDay, type: 'Lodging', start: false, id: e.id, loadSequence: e.endLoadSequence, data: e})
+            attachmentPromises.push(e.getAttachments())
           })
           return arrLodging
         })
