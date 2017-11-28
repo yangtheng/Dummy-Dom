@@ -15,7 +15,7 @@ const Itinerary = `
     lodgings: [Lodging]
     flights: [Flight]
     transports: [Transport]
-    events: String
+    events: Event
   }
   type CountriesItineraries {
     CountryId: ID!
