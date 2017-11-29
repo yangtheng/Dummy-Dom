@@ -1,11 +1,16 @@
 const Event = `
   type Event {
     type: String
-    id: ID
+    modelId: ID
     day: Int
     loadSequence: Int
     start: Boolean
-    data: EventUnion
+    activity: Activity
+    food: Food
+    transport: Transport
+    flight: Flight
+    lodging: Lodging
   }
 `
 module.exports = Event
+// data: EventUnion
