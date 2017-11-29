@@ -42,7 +42,7 @@ const Itinerary = {
           var arrActivity = []
 
           activities.forEach(e => {
-            arrActivity.push({day: e.startDay, type: 'Activity', modelId: e.id, loadSequence: e.loadSequence, activity: e})
+            arrActivity.push({day: e.startDay, type: 'Activity', modelId: e.id, loadSequence: e.loadSequence, Activity: e})
           })
 
           return arrActivity
@@ -52,7 +52,7 @@ const Itinerary = {
         .then(food => {
           var arrFood = []
           food.forEach(e => {
-            arrFood.push({day: e.startDay, type: 'Food', modelId: e.id, loadSequence: e.loadSequence, food: e})
+            arrFood.push({day: e.startDay, type: 'Food', modelId: e.id, loadSequence: e.loadSequence, Food: e})
           })
           return arrFood
         })
@@ -60,8 +60,8 @@ const Itinerary = {
         .then(flight => {
           var arrFlight = []
           flight.forEach(e => {
-            arrFlight.push({day: e.startDay, type: 'Flight', start: true, modelId: e.id, loadSequence: e.startLoadSequence, flight: e})
-            arrFlight.push({day: e.endDay, type: 'Flight', start: false, modelId: e.id, loadSequence: e.endLoadSequence, flight: e})
+            arrFlight.push({day: e.startDay, type: 'Flight', start: true, modelId: e.id, loadSequence: e.startLoadSequence, Flight: e})
+            arrFlight.push({day: e.endDay, type: 'Flight', start: false, modelId: e.id, loadSequence: e.endLoadSequence, Flight: e})
           })
           return arrFlight
         })
@@ -70,8 +70,8 @@ const Itinerary = {
         .then(transport => {
           var arrTransport = []
           transport.forEach(e => {
-            arrTransport.push({day: e.startDay, type: 'Transport', start: true, modelId: e.id, loadSequence: e.startLoadSequence, transport: e})
-            arrTransport.push({day: e.endDay, type: 'Transport', start: false, modelId: e.id, loadSequence: e.endLoadSequence, transport: e})
+            arrTransport.push({day: e.startDay, type: 'Transport', start: true, modelId: e.id, loadSequence: e.startLoadSequence, Transport: e})
+            arrTransport.push({day: e.endDay, type: 'Transport', start: false, modelId: e.id, loadSequence: e.endLoadSequence, Transport: e})
           })
           return arrTransport
         })
@@ -80,8 +80,8 @@ const Itinerary = {
         .then(lodging => {
           var arrLodging = []
           lodging.forEach(e => {
-            arrLodging.push({day: e.startDay, type: 'Lodging', start: true, modelId: e.id, loadSequence: e.startLoadSequence, lodging: e})
-            arrLodging.push({day: e.endDay, type: 'Lodging', start: false, modelId: e.id, loadSequence: e.endLoadSequence, lodging: e})
+            arrLodging.push({day: e.startDay, type: 'Lodging', start: true, modelId: e.id, loadSequence: e.startLoadSequence, Lodging: e})
+            arrLodging.push({day: e.endDay, type: 'Lodging', start: false, modelId: e.id, loadSequence: e.endLoadSequence, Lodging: e})
           })
           return arrLodging
         })

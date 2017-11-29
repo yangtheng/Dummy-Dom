@@ -5,11 +5,11 @@ const Event = `
     day: Int
     loadSequence: Int
     start: Boolean
-    activity: Activity
-    food: Food
-    transport: Transport
-    flight: Flight
-    lodging: Lodging
+    Activity: Activity
+    Food: Food
+    Transport: Transport
+    Flight: Flight
+    Lodging: Lodging
   }
 `
 module.exports = Event
