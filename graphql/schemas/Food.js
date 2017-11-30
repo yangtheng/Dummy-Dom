@@ -10,6 +10,7 @@ const Food = `
     endDay: Int
     name: String
     notes: String
+    type: String
     startTime: Int
     endTime: Int
     cost: Int
@@ -18,7 +19,6 @@ const Food = `
     bookedThrough: String
     bookingConfirmation: String
     attachments: [Attachment]
-    type: String
     backgroundImage: String
   }
 `

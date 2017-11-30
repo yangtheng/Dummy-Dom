@@ -40,9 +40,9 @@ const Mutation = `
 
     deleteLodging(id:ID!): Boolean
 
-    createFood(ItineraryId: ID!, googlePlaceData: googlePlaceData, LocationId: ID, startDay: Int,  endDay: Int, loadSequence: Int, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, type: String, backgroundImage: String): Food
+    createFood(ItineraryId: ID!, googlePlaceData: googlePlaceData, LocationId: ID, startDay: Int,  endDay: Int, loadSequence: Int, name: String, type: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachments: [String], backgroundImage: String): Food
 
-    updateFood(id: ID!, googlePlaceData: googlePlaceData, startDay: Int, endDay: Int, loadSequence: Int, name: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, type: String, backgroundImage: String): Food
+    updateFood(id: ID!, googlePlaceData: googlePlaceData, startDay: Int, endDay: Int, loadSequence: Int, name: String, type: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String): Food
 
     deleteFood(id:ID!): Boolean
 
