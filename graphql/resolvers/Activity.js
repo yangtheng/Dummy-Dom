@@ -45,6 +45,17 @@ const Activity = {
       } else if (data.LocationId) {
         newActivity.LocationId = data.LocationId
         return db.Activity.create(newActivity)
+      } else {
+        return db.Activity.create(newActivity)
+          .then(created => {
+            data.attachments.forEach(fileName => {
+              return db.Attachment.create({ActivityId: created.id, fileName: fileName})
+            })
+            return created.id
+          })
+          .then((createdId) => {
+            return db.Activity.findById(createdId)
+          })
       }
     },
     updateActivity: (__, data) => {
