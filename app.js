@@ -26,7 +26,7 @@ function verifyToken (req, res, next) {
   if (authHeader) {
     var token = authHeader.substring(7)
   }
-  console.log('token', token)
+  // console.log('token', token)
 
   if (token && token !== 'undefined' && token !== '' && token !== 'null') {
     // console.log('pre verify')

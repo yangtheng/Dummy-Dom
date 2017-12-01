@@ -14,5 +14,11 @@ const Input = `
     address: String
     openingHours: String
   }
+  input attachmentInfo {
+    fileName: String
+    fileAlias: String
+    fileType: String
+    fileSize: String
+  }
 `
 module.exports = Input

@@ -32,8 +32,8 @@ const Food = {
             newFood.LocationId = id
             return db.Food.create(newFood)
             .then(created => {
-              data.attachments.forEach(fileName => {
-                return db.Attachment.create({FoodId: created.id, fileName: fileName})
+              data.attachments.forEach(info => {
+                return db.Attachment.create({FoodId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
               })
               return created.id
             })
@@ -47,8 +47,8 @@ const Food = {
       } else {
         return db.Food.create(newFood)
         .then(created => {
-          data.attachments.forEach(fileName => {
-            return db.Attachment.create({FoodId: created.id, fileName: fileName})
+          data.attachments.forEach(info => {
+            return db.Attachment.create({FoodId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
           })
           return created.id
         })
