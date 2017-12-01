@@ -7,6 +7,9 @@ const Attachment = `
     TransportId: ID
     LodgingId: ID
     fileName: String
+    fileAlias: String
+    fileType: String
+    fileSize: String
   }
 `
 module.exports = Attachment

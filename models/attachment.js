@@ -6,7 +6,10 @@ module.exports = function (sequelize, DataTypes) {
     FlightId: DataTypes.INTEGER,
     TransportId: DataTypes.INTEGER,
     LodgingId: DataTypes.INTEGER,
-    fileName: DataTypes.STRING
+    fileName: DataTypes.STRING,
+    fileAlias: DataTypes.STRING,
+    fileType: DataTypes.STRING,
+    fileSize: DataTypes.STRING
   })
 
   Attachment.associate = function (models) {
