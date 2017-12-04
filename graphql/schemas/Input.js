@@ -1,6 +1,6 @@
 const Input = `
   input LoadSequence {
-    type: String!
+    event: String!
     id: Int!
     loadSequence: Int!
     day: Int!
@@ -13,6 +13,12 @@ const Input = `
     longitude: Float
     address: String
     openingHours: String
+  }
+  input attachmentInfo {
+    fileName: String
+    fileAlias: String
+    fileType: String
+    fileSize: String
   }
 `
 module.exports = Input

@@ -100,13 +100,6 @@ const Itinerary = {
         })
     }
   },
-  // EventUnion: {
-  //   __resolveType (data, ctx, info) {
-  //     console.log('resolvetype', data)
-  //     var model = data._modelOptions.name.singular
-  //     return info.schema.getType(model)
-  //   }
-  // },
   Query: {
     allItineraries: () => {
       return db.Itinerary.findAll()

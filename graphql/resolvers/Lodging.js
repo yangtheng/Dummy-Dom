@@ -31,10 +31,31 @@ const Lodging = {
           .then(id => {
             newLodging.LocationId = id
             return db.Lodging.create(newLodging)
+              .then(created => {
+                console.log('attachments', data.attachments)
+                data.attachments.forEach(info => {
+                  return db.Attachment.create({LodgingId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
+                })
+                return created.id
+              })
+              .then((createdId) => {
+                return db.Lodging.findById(createdId)
+              })
           })
       } else if (data.LocationId) {
         newLodging.LocationId = data.LocationId
         return db.Lodging.create(newLodging)
+      } else {
+        return db.Lodging.create(newLodging)
+          .then(created => {
+            data.attachments.forEach(info => {
+              return db.Attachment.create({LodgingId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
+            })
+            return created.id
+          })
+          .then((createdId) => {
+            return db.Lodging.findById(createdId)
+          })
       }
     },
     updateLodging: (__, data) => {

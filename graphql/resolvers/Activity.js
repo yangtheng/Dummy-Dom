@@ -33,8 +33,8 @@ const Activity = {
             newActivity.LocationId = id
             return db.Activity.create(newActivity)
               .then(created => {
-                data.attachments.forEach(fileName => {
-                  return db.Attachment.create({ActivityId: created.id, fileName: fileName})
+                data.attachments.forEach(info => {
+                  return db.Attachment.create({ActivityId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
                 })
                 return created.id
               })
@@ -48,8 +48,8 @@ const Activity = {
       } else {
         return db.Activity.create(newActivity)
           .then(created => {
-            data.attachments.forEach(fileName => {
-              return db.Attachment.create({ActivityId: created.id, fileName: fileName})
+            data.attachments.forEach(info => {
+              return db.Attachment.create({ActivityId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
             })
             return created.id
           })

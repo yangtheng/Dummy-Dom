@@ -25,9 +25,8 @@ const Transport = require('./Transport')
 const Input = require('./Input')
 const Attachment = require('./Attachment')
 const Event = require('./Event')
-const EventUnion = require('./EventUnion')
 
 module.exports = makeExecutableSchema({
-  typeDefs: [SchemaDefinition, Query, Mutation, Country, User, Itinerary, Location, Activity, Flight, Food, Transport, Lodging, Input, Attachment, Event, EventUnion],
+  typeDefs: [SchemaDefinition, Query, Mutation, Country, User, Itinerary, Location, Activity, Flight, Food, Transport, Lodging, Input, Attachment, Event],
   resolvers: mergedResolvers
 })
