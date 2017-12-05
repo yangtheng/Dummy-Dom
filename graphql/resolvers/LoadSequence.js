@@ -5,7 +5,7 @@ const LoadSequence = {
     changingLoadSequence: (__, data) => {
       var input = data.input
       input.forEach(e => {
-        if (e.event === 'Activity') {
+        if (e.type === 'Activity') {
           return db.Activity.findById(e.id)
             .then(found => {
               found.update({
@@ -13,7 +13,7 @@ const LoadSequence = {
                 startDay: e.day
               })
             })
-        } else if (e.event === 'LodgingCheckin') {
+        } else if (e.type === 'LodgingCheckin') {
           return db.Lodging.findById(e.id)
           .then(found => {
             found.update({
@@ -21,7 +21,7 @@ const LoadSequence = {
               startDay: e.day
             })
           })
-        } else if (e.event === 'LodgingCheckout') {
+        } else if (e.type === 'LodgingCheckout') {
           return db.Lodging.findById(e.id)
           .then(found => {
             found.update({
@@ -29,7 +29,7 @@ const LoadSequence = {
               endDay: e.day
             })
           })
-        } else if (e.event === 'Food') {
+        } else if (e.type === 'Food') {
           return db.Food.findById(e.id)
           .then(found => {
             found.update({
@@ -37,7 +37,7 @@ const LoadSequence = {
               startDay: e.day
             })
           })
-        } else if (e.event === 'Flight') {
+        } else if (e.type === 'Flight') {
           return db.Flight.findById(e.id)
           .then(found => {
             found.update({
@@ -45,7 +45,7 @@ const LoadSequence = {
               startDay: e.day
             })
           })
-        } else if (e.event === 'Transport') {
+        } else if (e.type === 'Transport') {
           return db.Transport.findById(e.id)
           .then(found => {
             found.update({
@@ -54,7 +54,7 @@ const LoadSequence = {
             })
           })
         } else {
-          // if event doesnt match anything
+          // if type doesnt match anything
           return false
         }
       })

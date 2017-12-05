@@ -1,6 +1,6 @@
 const Input = `
   input LoadSequence {
-    event: String!
+    type: String!
     id: Int!
     loadSequence: Int!
     day: Int!

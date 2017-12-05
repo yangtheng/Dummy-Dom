@@ -8,7 +8,7 @@ const Attachment = {
   },
   Mutation: {
     createAttachment: (__, data) => {
-      var eventId = data.event + 'Id' // set the foreign key
+      var eventId = data.eventModel + 'Id' // set the foreign key
       return db.Attachment.create({
         [eventId]: data.id,
         fileName: data.fileName,

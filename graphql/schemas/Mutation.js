@@ -52,7 +52,7 @@ const Mutation = `
 
     deleteTransport(id:ID!): Boolean
 
-    createAttachment(event: String!, id: ID!, fileName: String, fileAlias: String, fileType: String, fileSize: String): Attachment
+    createAttachment(eventModel: String!, id: ID!, fileName: String, fileAlias: String, fileType: String, fileSize: String): Attachment
 
     deleteAttachment(id: ID!): Boolean
   }
