@@ -5,6 +5,7 @@ const Activity = `
     itinerary: Itinerary!
     LocationId: ID
     location: Location
+    locationAlias: String
     loadSequence: Int
     startDay: Int
     endDay: Int

@@ -1,8 +1,9 @@
 const Food = `
   type Food {
     id: ID!
-    LocationId: ID!
-    location: Location!
+    LocationId: ID
+    location: Location
+    locationAlias: String
     ItineraryId: ID!
     itinerary: Itinerary!
     loadSequence: Int!

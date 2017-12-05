@@ -26,6 +26,12 @@ module.exports = {
           key: 'id'
         }
       },
+      departureLocationAlias: {
+        type: Sequelize.STRING
+      },
+      arrivalLocationAlias: {
+        type: Sequelize.STRING
+      },
       ItineraryId: {
         type: Sequelize.INTEGER,
         references: {
