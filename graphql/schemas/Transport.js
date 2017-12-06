@@ -1,11 +1,13 @@
 const Transport = `
   type Transport {
     id: ID!
-    DepartureLocationId: ID!
-    departureLocation: Location!
-    ArrivalLocationId: ID!
-    arrivalLocation: Location!
     ItineraryId: ID!
+    DepartureLocationId: ID
+    departureLocation: Location
+    ArrivalLocationId: ID
+    arrivalLocation: Location
+    departureLocationAlias: String
+    arrivalLocationAlias: String
     startLoadSequence: Int
     endLoadSequence: Int
     startDay: Int

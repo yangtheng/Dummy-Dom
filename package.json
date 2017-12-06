@@ -28,7 +28,7 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.13.5"
   },
-  "bin":{
+  "bin": {
     "dbbot": "./dbbot.js"
   }
 }

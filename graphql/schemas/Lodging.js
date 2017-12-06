@@ -1,12 +1,13 @@
 const Lodging = `
   type Lodging {
     id: ID!
-    LocationId: ID!
-    location: Location!
+    LocationId: ID
+    location: Location
+    locationAlias: String
     ItineraryId: ID!
     itinerary: Itinerary
-    startLoadSequence: Int!
-    endLoadSequence: Int!
+    startLoadSequence: Int
+    endLoadSequence: Int
     name: String
     notes: String
     startDay: Int

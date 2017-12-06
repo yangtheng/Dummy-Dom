@@ -22,24 +22,48 @@ const Transport = {
     createTransport: (__, data) => {
       var newTransport = {}
       Object.keys(data).forEach(key => {
-        if (key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData' && key !== 'DepartureLocationId' && key !== 'ArrivalLocationId') {
+        if (key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData') {
           newTransport[key] = data[key]
         }
       })
-      var departure = findOrCreateLocation(data.departureGooglePlaceData)
-      var arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
-      return Promise.all([departure, arrival])
+      if (data.departureGooglePlaceData && data.arrivalGooglePlaceData) {
+        var departure = findOrCreateLocation(data.departureGooglePlaceData)
+        var arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
+        return Promise.all([departure, arrival])
         .then(values => {
           console.log(values)
           newTransport.DepartureLocationId = values[0]
           newTransport.ArrivalLocationId = values[1]
           return db.Transport.create(newTransport)
+          .then(created => {
+            console.log('attachments', data.attachments)
+            data.attachments.forEach(info => {
+              return db.Attachment.create({TransportId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
+            })
+            return created.id
+          })
+          .then((createdId) => {
+            return db.Transport.findById(createdId)
+          })
         })
+      } else {
+        return db.Transport.create(newTransport)
+          .then(created => {
+            console.log('attachments', data.attachments)
+            data.attachments.forEach(info => {
+              return db.Attachment.create({TransportId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
+            })
+            return created.id
+          })
+          .then((createdId) => {
+            return db.Transport.findById(createdId)
+          })
+      }
     },
     updateTransport: (__, data) => {
       var updates = {}
       Object.keys(data).forEach(key => {
-        if (key !== 'id' && key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData' && key !== 'DepartureLocationId' && key !== 'ArrivalLocationId') {
+        if (key !== 'id' && key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData') {
           updates[key] = data[key]
         }
       })

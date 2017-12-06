@@ -21,7 +21,11 @@ const LoadSequence = {
               startDay: e.day
             })
           })
+<<<<<<< HEAD
         } else if (e.type === 'Lodging' && !e.start) {
+=======
+        } else if (e.type === 'LodgingCheckout') {
+>>>>>>> 7a6bf6fba24e6b05c8ef04898d71adc4d83c6e91
           return db.Lodging.findById(e.id)
           .then(found => {
             found.update({
@@ -61,6 +65,7 @@ const LoadSequence = {
               startDay: e.day
             })
           })
+<<<<<<< HEAD
         } else if (e.type === 'Transport' && !e.start) {
           return db.Transport.findById(e.id)
           .then(found => {
@@ -69,6 +74,8 @@ const LoadSequence = {
               endDay: e.day
             })
           })
+=======
+>>>>>>> 7a6bf6fba24e6b05c8ef04898d71adc4d83c6e91
         } else {
           // if type doesnt match anything
           return false

@@ -22,24 +22,49 @@ const Flight = {
     createFlight: (__, data) => {
       var newFlight = {}
       Object.keys(data).forEach(key => {
-        if (key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData' && key !== 'DepartureLocationId' && key !== 'ArrivalLocationId') {
+        if (key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData') {
           newFlight[key] = data[key]
         }
       })
-      var departure = findOrCreateLocation(data.departureGooglePlaceData)
-      var arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
-      return Promise.all([departure, arrival])
+
+      if (data.departureGooglePlaceData && data.arrivalGooglePlaceData) {
+        var departure = findOrCreateLocation(data.departureGooglePlaceData)
+        var arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
+        return Promise.all([departure, arrival])
         .then(values => {
           console.log(values)
           newFlight.DepartureLocationId = values[0]
           newFlight.ArrivalLocationId = values[1]
           return db.Flight.create(newFlight)
+          .then(created => {
+            console.log('attachments', data.attachments)
+            data.attachments.forEach(info => {
+              return db.Attachment.create({FlightId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
+            })
+            return created.id
+          })
+          .then((createdId) => {
+            return db.Flight.findById(createdId)
+          })
         })
+      } else {
+        return db.Flight.create(newFlight)
+          .then(created => {
+            console.log('attachments', data.attachments)
+            data.attachments.forEach(info => {
+              return db.Attachment.create({FlightId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
+            })
+            return created.id
+          })
+          .then((createdId) => {
+            return db.Flight.findById(createdId)
+          })
+      }
     },
     updateFlight: (__, data) => {
       var updates = {}
       Object.keys(data).forEach(key => {
-        if (key !== 'id' && key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData' && key !== 'DepartureLocationId' && key !== 'ArrivalLocationId') {
+        if (key !== 'id' && key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData') {
           updates[key] = data[key]
         }
       })
