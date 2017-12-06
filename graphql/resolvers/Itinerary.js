@@ -95,7 +95,7 @@ const Itinerary = {
           var sorted = events.sort(function (a, b) {
             return a.day - b.day || a.loadSequence - b.loadSequence
           })
-          console.log('sorted', sorted)
+          // console.log('sorted', sorted)
           return sorted
         })
     }
