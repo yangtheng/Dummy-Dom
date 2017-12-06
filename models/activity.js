@@ -3,6 +3,7 @@ module.exports = function (sequelize, DataTypes) {
   var Activity = sequelize.define('Activity', {
     LocationId: DataTypes.INTEGER,
     ItineraryId: DataTypes.INTEGER,
+    locationAlias: DataTypes.STRING,
     loadSequence: DataTypes.INTEGER,
     startDay: DataTypes.INTEGER,
     endDay: DataTypes.INTEGER,
