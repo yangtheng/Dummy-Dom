@@ -27,7 +27,7 @@ const Activity = {
           newActivity[key] = data[key]
         }
       })
-      console.log('backend new activity', newActivity)
+      // console.log('backend new activity', newActivity)
 
       if (data.googlePlaceData) {
         return findOrCreateLocation(data.googlePlaceData)
