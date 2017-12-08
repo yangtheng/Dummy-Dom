@@ -13,7 +13,7 @@ const LoadSequence = {
                 startDay: e.day
               })
             })
-        } else if (e.type === 'LodgingCheckin') {
+        } else if (e.type === 'Lodging' && e.start) {
           return db.Lodging.findById(e.id)
           .then(found => {
             found.update({
@@ -21,7 +21,7 @@ const LoadSequence = {
               startDay: e.day
             })
           })
-        } else if (e.type === 'LodgingCheckout') {
+        } else if (e.type === 'Lodging' && !e.start) {
           return db.Lodging.findById(e.id)
           .then(found => {
             found.update({
@@ -37,7 +37,7 @@ const LoadSequence = {
               startDay: e.day
             })
           })
-        } else if (e.type === 'Flight') {
+        } else if (e.type === 'Flight' && e.start) {
           return db.Flight.findById(e.id)
           .then(found => {
             found.update({
@@ -45,12 +45,28 @@ const LoadSequence = {
               startDay: e.day
             })
           })
-        } else if (e.type === 'Transport') {
+        } else if (e.type === 'Flight' && !e.start) {
+          return db.Flight.findById(e.id)
+          .then(found => {
+            found.update({
+              endLoadSequence: e.loadSequence,
+              endDay: e.day
+            })
+          })
+        } else if (e.type === 'Transport' && e.start) {
           return db.Transport.findById(e.id)
           .then(found => {
             found.update({
               startLoadSequence: e.loadSequence,
               startDay: e.day
+            })
+          })
+        } else if (e.type === 'Transport' && !e.start) {
+          return db.Transport.findById(e.id)
+          .then(found => {
+            found.update({
+              endLoadSequence: e.loadSequence,
+              endDay: e.day
             })
           })
         } else {
