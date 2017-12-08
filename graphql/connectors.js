@@ -19,7 +19,8 @@ var db = {
   Activity: sequelize.import('../models/activity'),
   Food: sequelize.import('../models/food'),
   Lodging: sequelize.import('../models/lodging'),
-  Flight: sequelize.import('../models/flight'),
+  FlightBooking: sequelize.import('../models/flightbooking'),
+  FlightInstance: sequelize.import('../models/flightinstance'),
   Transport: sequelize.import('../models/transport'),
   Attachment: sequelize.import('../models/attachment')
 }

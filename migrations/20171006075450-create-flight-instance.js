@@ -1,12 +1,30 @@
 'use strict'
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('Flights', {
+    return queryInterface.createTable('FlightInstances', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      FlightBookingId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'FlightBookings'
+          },
+          key: 'id'
+        }
+      },
+      flightNumber: {
+        type: Sequelize.INTEGER
+      },
+      airlineCode: {
+        type: Sequelize.STRING
+      },
+      airlineName: {
+        type: Sequelize.STRING
       },
       DepartureLocationId: {
         type: Sequelize.INTEGER,
@@ -26,15 +44,6 @@ module.exports = {
           key: 'id'
         }
       },
-      ItineraryId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'Itineraries'
-          },
-          key: 'id'
-        }
-      },
       departureTerminal: {
         type: Sequelize.STRING
       },
@@ -47,11 +56,11 @@ module.exports = {
       arrivalGate: {
         type: Sequelize.STRING
       },
-      startLoadSequence: {
-        type: Sequelize.INTEGER
+      startDate: {
+        type: Sequelize.STRING
       },
-      endLoadSequence: {
-        type: Sequelize.INTEGER
+      endDate: {
+        type: Sequelize.STRING
       },
       startDay: {
         type: Sequelize.INTEGER
@@ -62,35 +71,17 @@ module.exports = {
       startTime: {
         type: Sequelize.INTEGER
       },
-      boardingTime: {
-        type: Sequelize.INTEGER
-      },
       endTime: {
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      startLoadSequence: {
+        type: Sequelize.INTEGER
+      },
+      endLoadSequence: {
+        type: Sequelize.INTEGER
       },
       notes: {
         type: Sequelize.TEXT
-      },
-      cost: {
-        type: Sequelize.INTEGER
-      },
-      currency: {
-        type: Sequelize.STRING
-      },
-      bookingStatus: {
-        type: Sequelize.BOOLEAN
-      },
-      bookedThrough: {
-        type: Sequelize.STRING
-      },
-      bookingConfirmation: {
-        type: Sequelize.STRING
-      },
-      backgroundImage: {
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: true,
@@ -103,6 +94,6 @@ module.exports = {
     })
   },
   down: function (queryInterface, Sequelize) {
-    return queryInterface.dropTable('Flights')
+    return queryInterface.dropTable('FlightInstances')
   }
 }

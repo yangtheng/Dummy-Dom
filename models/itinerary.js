@@ -12,7 +12,7 @@ module.exports = function (sequelize, DataTypes) {
   Itinerary.associate = function (models) {
     Itinerary.hasMany(models.Activity)
     Itinerary.hasMany(models.Food)
-    Itinerary.hasMany(models.Flight)
+    Itinerary.hasMany(models.FlightBooking)
     Itinerary.hasMany(models.Lodging)
     Itinerary.hasMany(models.Transport)
     Itinerary.belongsToMany(models.User, {through: 'UsersItineraries'})

@@ -7,35 +7,33 @@ module.exports = {
     var seedArr = []
     for (var i = 1; i <= 50; i++) {
       seedArr.push({
-        ItineraryId: i,
+        FlightBookingId: i,
+        flightNumber: 1234,
+        airlineCode: 'JS',
+        airlineName: 'Air Koryo',
         DepartureLocationId: i,
         ArrivalLocationId: Math.floor(Math.random() * 50) + 1,
         departureTerminal: `Terminal ${Math.floor(Math.random() * 4) + 1}`,
-        departureGate: `Gate ${Math.floor(Math.random() * 10) + 1}`,
         arrivalTerminal: `Terminal ${Math.floor(Math.random() * 4) + 1}`,
+        departureGate: `Gate ${Math.floor(Math.random() * 10) + 1}`,
         arrivalGate: `Gate ${Math.floor(Math.random() * 10) + 1}`,
-        startLoadSequence: 1,
-        endLoadSequence: 2,
+        startDate: 1508025600, // 15th oct 2017
+        endDate: 1508025600,
         startDay: 1,
         endDay: 1,
+        startLoadSequence: 1,
+        endLoadSequence: 2,
         startTime: 21600, // 6am flight
-        boardingTime: 18000, // 5am boarding
-        endTime: 32400, // 9am arrival.
-        name: `Airport ${i}`,
+        endTime: 32400, // 9am arrival
         notes: casual.sentences(3),
-        cost: (Math.floor(Math.random() * 20) + 1) * 100,
-        currency: casual.currency_code,
-        bookingStatus: true,
-        bookedThrough: faker.internet.url(),
-        bookingConfirmation: faker.internet.url(),
         createdAt: new Date(),
         updatedAt: new Date()
       })
     }
-    return queryInterface.bulkInsert('Flights', seedArr, {})
+    return queryInterface.bulkInsert('FlightInstances', seedArr, {})
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Flights', null, {})
+    return queryInterface.bulkDelete('FlightInstances', null, {})
   }
 }

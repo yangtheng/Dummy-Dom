@@ -3,7 +3,7 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
     // var seedArr = []
-    // var eventsId = ['ActivityId', 'FoodId', 'FlightId', 'TransportId', 'LodgingId']
+    // var eventsId = ['ActivityId', 'FoodId', 'FlightBookingId', 'TransportId', 'LodgingId']
     // eventsId.forEach(e => {
     //   for (var i = 1; i <= 50; i++) {
     //     seedArr.push({

@@ -32,14 +32,14 @@ module.exports = {
           key: 'id'
         }
       },
-      FlightId: {
+      FlightBookingId: {
         allowNull: true,
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         hooks: true,
         references: {
           model: {
-            tableName: 'Flights'
+            tableName: 'FlightBookings'
           },
           key: 'id'
         }

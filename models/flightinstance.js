@@ -1,0 +1,38 @@
+'use strict'
+module.exports = function (sequelize, DataTypes) {
+  var FlightInstance = sequelize.define('FlightInstance', {
+    FlightBookingId: DataTypes.INTEGER,
+    flightNumber: DataTypes.INTEGER,
+    airlineCode: DataTypes.STRING,
+    airlineName: DataTypes.STRING,
+    DepartureLocationId: DataTypes.INTEGER,
+    ArrivalLocationId: DataTypes.INTEGER,
+    departureTerminal: DataTypes.STRING,
+    arrivalTerminal: DataTypes.STRING,
+    departureGate: DataTypes.STRING,
+    arrivalGate: DataTypes.STRING,
+    startDate: DataTypes.INTEGER,
+    endDate: DataTypes.INTEGER,
+    startDay: DataTypes.INTEGER,
+    endDay: DataTypes.INTEGER,
+    startTime: DataTypes.INTEGER,
+    endTime: DataTypes.INTEGER,
+    startLoadSequence: DataTypes.INTEGER,
+    endLoadSequence: DataTypes.INTEGER,
+    notes: DataTypes.TEXT
+  })
+
+  FlightInstance.associate = function (models) {
+    FlightInstance.belongsTo(models.FlightBooking)
+    FlightInstance.belongsTo(models.Location, {
+      as: 'FlightDeparture',
+      foreignKey: 'DepartureLocationId'
+    })
+    FlightInstance.belongsTo(models.Location, {
+      as: 'FlightArrival',
+      foreignKey: 'ArrivalLocationId'
+    })
+  }
+
+  return FlightInstance
+}
