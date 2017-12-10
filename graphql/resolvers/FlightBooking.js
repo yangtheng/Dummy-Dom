@@ -32,75 +32,44 @@ const FlightBooking = {
       return db.FlightBooking.create(newFlightBooking)
         .then(created => {
           data.attachments.forEach(info => {
-            return db.Attachment.create({FlightId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
+            return db.Attachment.create({FlightBookingId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
           })
           return created.id // id of create FlightBooking
-        })
+        }) // close attachment creation
         .then(createdId => {
+          var promiseArr = []
           data.flightInstances.forEach(instance => {
             var newFlightInstance = {}
             Object.keys(instance).forEach(key => {
               if (key !== 'departureIATA' && key !== 'arrivalIATA') {
-                newFlightInstance[key] = instance.key
+                newFlightInstance[key] = instance[key]
               }
             })
-            // convert iata to location
-            // console.log('departureIATA', instance.departureIATA, 'arrivalIATA', instance.arrivalIATA)
+            newFlightInstance.FlightBookingId = createdId
 
             var DepartureLocationId = findOrCreateAirportLocation(instance.departureIATA)
             var ArrivalLocationId = findOrCreateAirportLocation(instance.arrivalIATA)
 
-            Promise.all([DepartureLocationId, ArrivalLocationId])
+            var flightInstancePromise = Promise.all([DepartureLocationId, ArrivalLocationId])
               .then(values => {
-                console.log('departure/arrival Locationid', values)
+                newFlightInstance.DepartureLocationId = values[0]
+                newFlightInstance.ArrivalLocationId = values[1]
+                return db.FlightInstance.create(newFlightInstance)
               })
-            // findOrCreateAirportLocation(instance.departureIATA)
-            //   .then(id => {
-            //     console.log('DepartureLocationId', id)
-            //   })
-          })
-          // create flightinstances
+            // array of promises for each flight instance
+            promiseArr.push(flightInstancePromise)
+          }) // close forEach loop
+
+          // await for all flight instances to be created before returning entire flight booking
+          return Promise.all(promiseArr)
+            .then(values => {
+              // console.log('promisearr', values)
+              return createdId
+            })
+        }) // close flightinstance creation
+        .then(createdId => {
+          return db.FlightBooking.findById(createdId)
         })
-      // var newFlight = {}
-      // Object.keys(data).forEach(key => {
-      //   if (key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData') {
-      //     newFlight[key] = data[key]
-      //   }
-      // })
-      //
-      // if (data.departureGooglePlaceData && data.arrivalGooglePlaceData) {
-      //   var departure = findOrCreateLocation(data.departureGooglePlaceData)
-      //   var arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
-      //   return Promise.all([departure, arrival])
-      //   .then(values => {
-      //     console.log(values)
-      //     newFlight.DepartureLocationId = values[0]
-      //     newFlight.ArrivalLocationId = values[1]
-      //     return db.Flight.create(newFlight)
-      //     .then(created => {
-      //       console.log('attachments', data.attachments)
-      //       data.attachments.forEach(info => {
-      //         return db.Attachment.create({FlightId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
-      //       })
-      //       return created.id
-      //     })
-      //     .then((createdId) => {
-      //       return db.Flight.findById(createdId)
-      //     })
-      //   })
-      // } else {
-      //   return db.Flight.create(newFlight)
-      //     .then(created => {
-      //       console.log('attachments', data.attachments)
-      //       data.attachments.forEach(info => {
-      //         return db.Attachment.create({FlightId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
-      //       })
-      //       return created.id
-      //     })
-      //     .then((createdId) => {
-      //       return db.Flight.findById(createdId)
-      //     })
-      // }
     },
     // updateFlightBooking: (__, data) => {
     //   var updates = {}
