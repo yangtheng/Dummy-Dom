@@ -10,7 +10,7 @@ const Query = `
     findActivity(id: ID!): Activity
     findFood(id:ID!): Food
     findLodging(id:ID!): Lodging
-    findFlight(id:ID!): Flight
+    findFlightBooking(id:ID!): FlightBooking
     findTransport(id:ID!): Transport
     authorization: Boolean
     findCountriesItineraries(CountryId: ID!, ItineraryId: ID!): CountriesItineraries

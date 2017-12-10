@@ -13,11 +13,11 @@ module.exports = function (sequelize, DataTypes) {
   Location.associate = function (models) {
     Location.hasMany(models.Activity)
     Location.hasMany(models.Food)
-    Location.hasMany(models.Flight, {
+    Location.hasMany(models.FlightInstance, {
       as: 'FlightArrival',
       foreignKey: 'ArrivalLocationId'
     })
-    Location.hasMany(models.Flight, {
+    Location.hasMany(models.FlightInstance, {
       as: 'FlightDeparture',
       foreignKey: 'DepartureLocationId'
     })

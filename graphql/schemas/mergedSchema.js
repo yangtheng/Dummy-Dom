@@ -18,7 +18,8 @@ const User = require('./User')
 const Itinerary = require('./Itinerary')
 const Location = require('./Location')
 const Activity = require('./Activity')
-const Flight = require('./Flight')
+const FlightBooking = require('./FlightBooking')
+const FlightInstance = require('./FlightInstance')
 const Food = require('./Food')
 const Lodging = require('./Lodging')
 const Transport = require('./Transport')
@@ -27,6 +28,6 @@ const Attachment = require('./Attachment')
 const Event = require('./Event')
 
 module.exports = makeExecutableSchema({
-  typeDefs: [SchemaDefinition, Query, Mutation, Country, User, Itinerary, Location, Activity, Flight, Food, Transport, Lodging, Input, Attachment, Event],
+  typeDefs: [SchemaDefinition, Query, Mutation, Country, User, Itinerary, Location, Activity, FlightBooking, FlightInstance, Food, Transport, Lodging, Input, Attachment, Event],
   resolvers: mergedResolvers
 })

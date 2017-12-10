@@ -13,7 +13,7 @@ const Itinerary = `
     activities: [Activity]
     food: [Food]
     lodgings: [Lodging]
-    flights: [Flight]
+    flightBookings: [FlightBooking]
     transports: [Transport]
     events: [Event]
   }

@@ -15,8 +15,7 @@ function findOrCreateLocation (google) {
               CountryId: country.id,
               latitude: google.latitude,
               longitude: google.longitude,
-              openingHour: google.openingHour,
-              closingHour: google.closingHour,
+              openingHours: google.openingHours,
               address: google.address
             })
             .then(createdLocation => {

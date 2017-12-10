@@ -28,8 +28,8 @@ const Itinerary = {
     lodgings (itinerary) {
       return itinerary.getLodgings()
     },
-    flights (itinerary) {
-      return itinerary.getFlights()
+    flightBookings (itinerary) {
+      return itinerary.getFlightBookings()
     },
     transports (itinerary) {
       return itinerary.getTransports()
@@ -56,15 +56,15 @@ const Itinerary = {
           })
           return arrFood
         })
-      var eventsFlight = db.Flight.findAll({where: {ItineraryId: ItineraryId}})
-        .then(flight => {
-          var arrFlight = []
-          flight.forEach(e => {
-            arrFlight.push({day: e.startDay, type: 'Flight', start: true, modelId: e.id, loadSequence: e.startLoadSequence, Flight: e})
-            arrFlight.push({day: e.endDay, type: 'Flight', start: false, modelId: e.id, loadSequence: e.endLoadSequence, Flight: e})
-          })
-          return arrFlight
-        })
+      // var eventsFlight = db.Flight.findAll({where: {ItineraryId: ItineraryId}})
+      //   .then(flight => {
+      //     var arrFlight = []
+      //     flight.forEach(e => {
+      //       arrFlight.push({day: e.startDay, type: 'Flight', start: true, modelId: e.id, loadSequence: e.startLoadSequence, Flight: e})
+      //       arrFlight.push({day: e.endDay, type: 'Flight', start: false, modelId: e.id, loadSequence: e.endLoadSequence, Flight: e})
+      //     })
+      //     return arrFlight
+      //   })
 
       var eventsTransport = db.Transport.findAll({where: {ItineraryId: ItineraryId}})
         .then(transport => {
@@ -86,18 +86,18 @@ const Itinerary = {
           return arrLodging
         })
 
-      return Promise.all([eventsActivity, eventsFood, eventsFlight, eventsTransport, eventsLodging])
-        .then(values => {
-          var events = values.reduce(function (a, b) {
-            return a.concat(b)
-          })
-
-          var sorted = events.sort(function (a, b) {
-            return a.day - b.day || a.loadSequence - b.loadSequence
-          })
-          // console.log('sorted', sorted)
-          return sorted
-        })
+      // return Promise.all([eventsActivity, eventsFood, eventsFlight, eventsTransport, eventsLodging])
+      //   .then(values => {
+      //     var events = values.reduce(function (a, b) {
+      //       return a.concat(b)
+      //     })
+      //
+      //     var sorted = events.sort(function (a, b) {
+      //       return a.day - b.day || a.loadSequence - b.loadSequence
+      //     })
+      //     // console.log('sorted', sorted)
+      //     return sorted
+      //   })
     }
   },
   Query: {
@@ -234,7 +234,7 @@ const Itinerary = {
           db.Activity.destroy({where: {ItineraryId: id}})
           db.Food.destroy({where: {ItineraryId: id}})
           db.Lodging.destroy({where: {ItineraryId: id}})
-          db.Flight.destroy({where: {ItineraryId: id}})
+          db.FlightBooking.destroy({where: {ItineraryId: id}})
           db.Transport.destroy({where: {ItineraryId: id}})
         })
         .then(() => {

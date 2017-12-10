@@ -8,7 +8,7 @@ const Event = `
     Activity: Activity
     Food: Food
     Transport: Transport
-    Flight: Flight
+    FlightBooking: FlightBooking
     Lodging: Lodging
   }
 `
