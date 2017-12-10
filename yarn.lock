@@ -394,10 +394,6 @@ cors@^2.8.4:
     object-assign "^4"
     vary "^1"
 
-country-list@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/country-list/-/country-list-1.1.0.tgz#3ea3608857e17458657d129e1d737e4c2f79775b"
-
 create-error-class@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/create-error-class/-/create-error-class-3.0.2.tgz#06be7abef947a3f14a30fd610671d401bca8b7b6"

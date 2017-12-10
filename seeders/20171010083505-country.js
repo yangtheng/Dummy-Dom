@@ -1,15 +1,13 @@
 'use strict'
-const countryList = require('country-list')()
+const countries = require('../data/countries.json')
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    var countries = countryList.getNames()
-    var codes = countryList.getCodes()
     var seedArr = []
     for (var i = 0; i < countries.length; i++) {
       seedArr.push({
-        name: countries[i],
-        code: codes[i],
+        name: countries[i].name,
+        code: countries[i].code,
         createdAt: new Date(),
         updatedAt: new Date()
       })

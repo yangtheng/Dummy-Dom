@@ -23,7 +23,7 @@ module.exports = function (sequelize, DataTypes) {
   })
 
   FlightInstance.associate = function (models) {
-    FlightInstance.belongsTo(models.FlightBooking)
+    FlightInstance.belongsTo(models.FlightBooking, {onDelete: 'CASCADE', hooks: true})
     FlightInstance.belongsTo(models.Location, {
       as: 'FlightDeparture',
       foreignKey: 'DepartureLocationId'

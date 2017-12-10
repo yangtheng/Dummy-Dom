@@ -21,7 +21,8 @@ module.exports = function (sequelize, DataTypes) {
   }
 
   FlightBooking.beforeDestroy((instance, options) => {
-    return sequelize.models.Attachments.destroy({where: {FlightBookingId: instance.id}})
+    sequelize.models.Attachment.destroy({where: {FlightBookingId: instance.id}})
+    sequelize.models.FlightInstance.destroy({where: {FlightBookingId: instance.id}})
   })
 
   return FlightBooking
