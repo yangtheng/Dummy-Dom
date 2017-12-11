@@ -66,6 +66,16 @@ const FlightBooking = {
           return db.FlightBooking.findById(createdId)
         })
     },
+    updateFlightBooking: (__, data) => {
+      var updates = {}
+      Object.keys(data).forEach(key => {
+        updates[key] = data[key]
+      })
+      return db.FlightBooking.findById(data.id)
+        .then(found => {
+          return found.update(updates)
+        })
+    },
     // updateFlightBooking: (__, data) => {
     //   var updates = {}
     //   Object.keys(data).forEach(key => {
@@ -93,7 +103,7 @@ const FlightBooking = {
     //     })
     //   }
     // },
-    // delete hooks should delete instances too
+    // delete hook deletes both attachments and flight instances
     deleteFlightBooking: (__, data) => {
       return db.FlightBooking.destroy({where: {id: data.id}, individualHooks: true})
     }
