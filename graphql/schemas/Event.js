@@ -8,9 +8,10 @@ const Event = `
     Activity: Activity
     Food: Food
     Transport: Transport
-    FlightBooking: FlightBooking
+    Flight: FlightEvent
     Lodging: Lodging
   }
 `
 module.exports = Event
-// data: EventUnion
+
+// flight event is a row containing flight instance + booking. modelId refers to FlightBookingId

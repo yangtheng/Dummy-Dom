@@ -1,11 +1,10 @@
 'use strict'
-const countryList = require('country-list')()
+const countries = require('../data/countries.json')
 const faker = require('faker')
 const bcrypt = require('bcrypt')
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    var countries = countryList.getNames()
     var seedArr = []
     for (var i = 1; i <= countries.length; i++) {
       var name = `${faker.name.firstName()} ${faker.name.lastName()}`

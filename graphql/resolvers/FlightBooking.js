@@ -1,5 +1,4 @@
 const db = require('../connectors')
-// const findOrCreateLocation = require('./findOrCreateLocation')
 const findOrCreateAirportLocation = require('./findOrCreateAirportLocation')
 
 const FlightBooking = {
@@ -19,10 +18,6 @@ const FlightBooking = {
   Mutation: {
     // create flight and instances at one go
     createFlightBooking: (__, data) => {
-      // console.log('data', data)
-      // console.log('attachments', data.attachments)
-      // console.log('flightInstances', data.flightInstances)
-
       var newFlightBooking = {}
       Object.keys(data).forEach(key => {
         if (key !== 'attachments' && key !== 'flightInstances') {
@@ -34,7 +29,7 @@ const FlightBooking = {
           data.attachments.forEach(info => {
             return db.Attachment.create({FlightBookingId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
           })
-          return created.id // id of create FlightBooking
+          return created.id
         }) // close attachment creation
         .then(createdId => {
           var promiseArr = []

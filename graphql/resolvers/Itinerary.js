@@ -16,24 +16,24 @@ const Itinerary = {
           return db.User.findById(ownerId)
         })
     },
-    users (itinerary) {
-      return itinerary.getUsers()
-    },
-    activities (itinerary) {
-      return itinerary.getActivities()
-    },
-    food (itinerary) {
-      return itinerary.getFood()
-    },
-    lodgings (itinerary) {
-      return itinerary.getLodgings()
-    },
-    flightBookings (itinerary) {
-      return itinerary.getFlightBookings()
-    },
-    transports (itinerary) {
-      return itinerary.getTransports()
-    },
+    // users (itinerary) {
+    //   return itinerary.getUsers()
+    // },
+    // activities (itinerary) {
+    //   return itinerary.getActivities()
+    // },
+    // food (itinerary) {
+    //   return itinerary.getFood()
+    // },
+    // lodgings (itinerary) {
+    //   return itinerary.getLodgings()
+    // },
+    // flightBookings (itinerary) {
+    //   return itinerary.getFlightBookings()
+    // },
+    // transports (itinerary) {
+    //   return itinerary.getTransports()
+    // },
     events (itinerary) {
       var ItineraryId = itinerary.id
 
@@ -56,15 +56,50 @@ const Itinerary = {
           })
           return arrFood
         })
-      // var eventsFlight = db.Flight.findAll({where: {ItineraryId: ItineraryId}})
-      //   .then(flight => {
-      //     var arrFlight = []
-      //     flight.forEach(e => {
-      //       arrFlight.push({day: e.startDay, type: 'Flight', start: true, modelId: e.id, loadSequence: e.startLoadSequence, Flight: e})
-      //       arrFlight.push({day: e.endDay, type: 'Flight', start: false, modelId: e.id, loadSequence: e.endLoadSequence, Flight: e})
-      //     })
-      //     return arrFlight
-      //   })
+
+      var eventsFlight = db.FlightBooking.findAll({where: {ItineraryId: ItineraryId}})
+      .then(bookings => {
+        var arrBookingPromises = []
+
+        bookings.forEach(booking => {
+          var eventRowsForThisBooking = booking.getFlightInstances()
+            .then(instances => {
+              var eventRows = []
+
+              instances.forEach(instance => {
+                var eventRow = {}
+                // row data is divided into instance and booking
+                eventRow.instance = instance
+                eventRow.booking = booking
+                // console.log('instance row with booking', eventRow)
+                eventRows.push(eventRow)
+              })
+              // console.log('eventRows', eventRows)
+              return eventRows
+            })
+
+          arrBookingPromises.push(eventRowsForThisBooking)
+        })
+
+        var arrFlight = []
+        return Promise.all(arrBookingPromises)
+          .then(values => {
+            var flattened = values.reduce(function (a, b) {
+              return a.concat(b)
+            })
+            // console.log('flattened promises', flattened)
+            return flattened
+          })
+          .then(flattened => {
+            console.log('flattened', flattened)
+            //modelId refers to flightBooking id
+            flattened.forEach(eventRow => {
+              arrFlight.push({day: eventRow.instance.startDay, type: 'Flight', start: true, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.startLoadSequence, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}})
+              arrFlight.push({day: eventRow.instance.endDay, type: 'Flight', start: false, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.endLoadSequence, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}})
+            })
+            return arrFlight
+          })
+      })
 
       var eventsTransport = db.Transport.findAll({where: {ItineraryId: ItineraryId}})
         .then(transport => {
@@ -86,18 +121,19 @@ const Itinerary = {
           return arrLodging
         })
 
-      // return Promise.all([eventsActivity, eventsFood, eventsFlight, eventsTransport, eventsLodging])
-      //   .then(values => {
-      //     var events = values.reduce(function (a, b) {
-      //       return a.concat(b)
-      //     })
-      //
-      //     var sorted = events.sort(function (a, b) {
-      //       return a.day - b.day || a.loadSequence - b.loadSequence
-      //     })
-      //     // console.log('sorted', sorted)
-      //     return sorted
-      //   })
+      return Promise.all([eventsActivity, eventsFood, eventsFlight, eventsTransport, eventsLodging])
+        .then(values => {
+          // console.log('all returning event models', values)
+          var events = values.reduce(function (a, b) {
+            return a.concat(b)
+          })
+
+          var sorted = events.sort(function (a, b) {
+            return a.day - b.day || a.loadSequence - b.loadSequence
+          })
+          // console.log('sorted', sorted)
+          return sorted
+        })
     }
   },
   Query: {

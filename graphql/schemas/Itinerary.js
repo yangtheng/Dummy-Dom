@@ -10,11 +10,6 @@ const Itinerary = `
     countries: [Country]
     owner: User
     users: [User!]
-    activities: [Activity]
-    food: [Food]
-    lodgings: [Lodging]
-    flightBookings: [FlightBooking]
-    transports: [Transport]
     events: [Event]
   }
   type CountriesItineraries {
@@ -28,3 +23,9 @@ const Itinerary = `
   }
 `
 module.exports = Itinerary
+
+// activities: [Activity]
+// food: [Food]
+// lodgings: [Lodging]
+// flightBookings: [FlightBooking]
+// transports: [Transport]

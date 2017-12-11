@@ -6,7 +6,7 @@ module.exports = {
   up: function (queryInterface, Sequelize) {
     var seedArr = []
     for (var i = 1; i <= 50; i++) {
-      seedArr.push({
+      var booking1 = {
         ItineraryId: i,
         paxAdults: 2,
         paxChildren: 2,
@@ -20,7 +20,8 @@ module.exports = {
         backgroundImage: faker.internet.url(),
         createdAt: new Date(),
         updatedAt: new Date()
-      })
+      }
+      seedArr.push(booking1)
     }
     return queryInterface.bulkInsert('FlightBookings', seedArr, {})
   },
