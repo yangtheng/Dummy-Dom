@@ -258,20 +258,8 @@ const Itinerary = {
     deleteItinerary: (__, data) => {
       // need to gate by user permissions in context
       const id = data.id
-      return db.UsersItineraries.destroy({where: {ItineraryId: id}})
-        .then(() => {
-          db.CountriesItineraries.destroy({where: {ItineraryId: id}})
-          db.Activity.destroy({where: {ItineraryId: id}})
-          db.Food.destroy({where: {ItineraryId: id}})
-          db.Lodging.destroy({where: {ItineraryId: id}})
-          db.FlightBooking.destroy({where: {ItineraryId: id}})
-          db.Transport.destroy({where: {ItineraryId: id}})
-        })
-        .then(() => {
-          return db.Itinerary.destroy({
-            where: {id: id}
-          })
-        })
+      return db.Itinerary.destroy({where: {id: id}, individualHooks: true})
+      // beforeDestroy hook in itinerary handles destroying all association
     }
   }
 }
