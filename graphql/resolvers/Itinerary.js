@@ -91,8 +91,8 @@ const Itinerary = {
             return flattened
           })
           .then(flattened => {
-            console.log('flattened', flattened)
-            //modelId refers to flightBooking id
+            // console.log('flattened', flattened)
+            // modelId refers to flightBooking id
             flattened.forEach(eventRow => {
               arrFlight.push({day: eventRow.instance.startDay, type: 'Flight', start: true, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.startLoadSequence, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}})
               arrFlight.push({day: eventRow.instance.endDay, type: 'Flight', start: false, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.endLoadSequence, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}})
@@ -142,7 +142,7 @@ const Itinerary = {
     },
     itinerariesByUser: (__, data, context) => {
       // this returns all itineraries for that user, regardless of owner or collab
-      console.log('context', context)
+      // console.log('context', context)
       return db.User.findById(context.user)
         .then(user => {
           if (user) {
@@ -179,38 +179,32 @@ const Itinerary = {
     createItinerary: (__, data) => {
       var newItinerary = {}
       var UserId = data.UserId
-      console.log('owner', UserId)
+      // console.log('owner', UserId)
 
       Object.keys(data).forEach(key => {
-        if (key !== 'UserId' && key !== 'countryCode') {
+        if (key !== 'UserId' && key !== 'CountryId') {
           newItinerary[key] = data[key]
         }
       })
 
-      if (data.countryCode) {
-        var CountryId = null
-        return db.Country.find({where: {code: data.countryCode}})
-          .then(foundCountry => {
-            CountryId = foundCountry.id
+      if (data.CountryId) {
+        newItinerary.CountryId = data.CountryId
+
+        return db.Itinerary.create(newItinerary)
+          .then(createdItinerary => {
+            db.CountriesItineraries.create({
+              ItineraryId: createdItinerary.id,
+              CountryId: data.CountryId
+            })
+            db.UsersItineraries.create({
+              ItineraryId: createdItinerary.id,
+              UserId: data.UserId,
+              permissions: 'owner'
+            })
+            return createdItinerary
           })
-          .then(() => {
-            console.log('country id is', CountryId)
-            return db.Itinerary.create(newItinerary)
-              .then(createdItinerary => {
-                db.CountriesItineraries.create({
-                  ItineraryId: createdItinerary.id,
-                  CountryId: CountryId
-                })
-                db.UsersItineraries.create({
-                  ItineraryId: createdItinerary.id,
-                  UserId: data.UserId,
-                  permissions: 'owner'
-                })
-                return createdItinerary
-              })
-              .then(createdItinerary => {
-                return db.Itinerary.findById(createdItinerary.id)
-              })
+          .then(createdItinerary => {
+            return db.Itinerary.findById(createdItinerary.id)
           })
       } else {
         return db.Itinerary.create(newItinerary)
