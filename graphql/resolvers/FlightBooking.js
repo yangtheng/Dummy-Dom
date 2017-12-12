@@ -16,7 +16,7 @@ const FlightBooking = {
     }
   },
   Mutation: {
-    // create flight and instances at one go
+    // CRUD handle both booking and instances tgt
     createFlightBooking: (__, data) => {
       var newFlightBooking = {}
       Object.keys(data).forEach(key => {
@@ -69,41 +69,49 @@ const FlightBooking = {
     updateFlightBooking: (__, data) => {
       var updates = {}
       Object.keys(data).forEach(key => {
-        updates[key] = data[key]
+        if (key !== 'id' && key !== 'flightInstances') {
+          updates[key] = data[key]
+        }
       })
       return db.FlightBooking.findById(data.id)
+        .then(found => {
+          var arrInstancePromises = []
+          data.flightInstances.forEach(instance => {
+            var updates = {}
+            Object.keys(instance).forEach(key => {
+              if (key !== 'id' && key !== 'departureIATA' && key !== 'arrivalIATA') {
+                updates[key] = instance[key]
+              }
+            })
+            // ASSUMING UPDATING FLIGHT INSTANCES PASSES IATA TO BACKEND
+            var DepartureLocationId = findOrCreateAirportLocation(instance.departureIATA)
+            var ArrivalLocationId = findOrCreateAirportLocation(instance.arrivalIATA)
+
+            var instancePromise = Promise.all([DepartureLocationId, ArrivalLocationId])
+            .then(values => {
+              updates.DepartureLocationId = values[0]
+              updates.ArrivalLocationId = values[1]
+              return updates
+            })
+            .then(updates => {
+              return db.FlightInstance.findById(instance.id)
+                .then(found => {
+                  return found.update(updates)
+                })
+            })
+            arrInstancePromises.push(instancePromise)
+          }) // close forEach instance
+
+          return Promise.all(arrInstancePromises)
+            .then(returning => {
+              console.log('returning instance promises', returning)
+              return found
+            })
+        })
         .then(found => {
           return found.update(updates)
         })
     },
-    // updateFlightBooking: (__, data) => {
-    //   var updates = {}
-    //   Object.keys(data).forEach(key => {
-    //     if (key !== 'id' && key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData') {
-    //       updates[key] = data[key]
-    //     }
-    //   })
-    //   if (data.departureGooglePlaceData && data.arrivalGooglePlaceData) {
-    //     var departure = findOrCreateLocation(data.departureGooglePlaceData)
-    //     var arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
-    //     return Promise.all([departure, arrival])
-    //       .then(values => {
-    //         console.log(values)
-    //         updates.DepartureLocationId = values[0]
-    //         updates.ArrivalLocationId = values[1]
-    //         return db.Flight.findById(data.id)
-    //           .then(foundFlight => {
-    //             return foundFlight.update(updates)
-    //           })
-    //       })
-    //   } else {
-    //     return db.Flight.findById(data.id)
-    //     .then(found => {
-    //       return found.update(updates)
-    //     })
-    //   }
-    // },
-    // delete hook deletes both attachments and flight instances
     deleteFlightBooking: (__, data) => {
       return db.FlightBooking.destroy({where: {id: data.id}, individualHooks: true})
     }

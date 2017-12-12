@@ -17,13 +17,13 @@ function findOrCreateAirportLocation (iata) {
   var query = airport.name
   var region = airport.countryCode
   var placeSearchUri = `https://maps.googleapis.com/maps/api/place/textsearch/json?key=${apiKey}&query=${query}&region=${region}&type=airport`
-  
+
   var placeId = fetch(placeSearchUri)
     .then(response => {
       return response.json()
     })
     .then(json => {
-      console.log('json', json)
+      // console.log('json', json)
       return json.results[0].place_id //take first result (typically only 1)
     })
     .catch(err => console.log(err))
