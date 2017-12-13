@@ -19,88 +19,7 @@ const Itinerary = {
     events (itinerary) {
       var ItineraryId = itinerary.id
 
-      // var eventsActivity = db.Activity.findAll({where: {ItineraryId: ItineraryId}})
-      //   .then(activities => {
-      //     var arrActivity = []
-      //
-      //     activities.forEach(e => {
-      //       arrActivity.push({day: e.startDay, type: 'Activity', modelId: e.id, loadSequence: e.loadSequence, Activity: e})
-      //     })
-      //
-      //     return arrActivity
-      //   })
-      //
-      // var eventsFood = db.Food.findAll({where: {ItineraryId: ItineraryId}})
-      //   .then(food => {
-      //     var arrFood = []
-      //     food.forEach(e => {
-      //       arrFood.push({day: e.startDay, type: 'Food', modelId: e.id, loadSequence: e.loadSequence, Food: e})
-      //     })
-      //     return arrFood
-      //   })
-      //
-      // var eventsTransport = db.Transport.findAll({where: {ItineraryId: ItineraryId}})
-      //   .then(transport => {
-      //     var arrTransport = []
-      //     transport.forEach(e => {
-      //       arrTransport.push({day: e.startDay, type: 'Transport', start: true, modelId: e.id, loadSequence: e.startLoadSequence, Transport: e})
-      //       arrTransport.push({day: e.endDay, type: 'Transport', start: false, modelId: e.id, loadSequence: e.endLoadSequence, Transport: e})
-      //     })
-      //     return arrTransport
-      //   })
-      //
-      // var eventsLodging = db.Lodging.findAll({where: {ItineraryId: ItineraryId}})
-      //   .then(lodging => {
-      //     var arrLodging = []
-      //     lodging.forEach(e => {
-      //       arrLodging.push({day: e.startDay, type: 'Lodging', start: true, modelId: e.id, loadSequence: e.startLoadSequence, Lodging: e})
-      //       arrLodging.push({day: e.endDay, type: 'Lodging', start: false, modelId: e.id, loadSequence: e.endLoadSequence, Lodging: e})
-      //     })
-      //     return arrLodging
-      //   })
-      //
-      // var eventsFlight = db.FlightBooking.findAll({where: {ItineraryId: ItineraryId}})
-      //   .then(bookings => {
-      //     var arrBookingPromises = []
-      //
-      //     bookings.forEach(booking => {
-      //       var eventRowsForThisBooking = booking.getFlightInstances()
-      //       .then(instances => {
-      //         var eventRows = []
-      //
-      //         instances.forEach(instance => {
-      //           var eventRow = {}
-      //           eventRow.instance = instance
-      //           eventRow.booking = booking
-      //           eventRows.push(eventRow)
-      //         })
-      //         return eventRows
-      //       })
-      //
-      //       arrBookingPromises.push(eventRowsForThisBooking)
-      //     })
-      //
-      //     var arrFlight = []
-      //     return Promise.all(arrBookingPromises)
-      //     .then(values => {
-      //       var flattened = values.reduce(function (a, b) {
-      //         return a.concat(b)
-      //       })
-      //       // console.log('flattened promises', flattened)
-      //       return flattened
-      //     })
-      //     .then(flattened => {
-      //       // console.log('flattened', flattened)
-      //       // modelId refers to flightBooking id
-      //       flattened.forEach(eventRow => {
-      //         arrFlight.push({day: eventRow.instance.startDay, type: 'Flight', start: true, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.startLoadSequence, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}})
-      //         arrFlight.push({day: eventRow.instance.endDay, type: 'Flight', start: false, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.endLoadSequence, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}})
-      //       })
-      //       return arrFlight
-      //     })
-      //   })
-
-      // REFACTORED EVENTS MODELS
+      // REFACTORED EVENTS
       var models = ['Activity', 'Food', 'Transport', 'Lodging', 'FlightBooking']
       var eventModelPromises = []
 
@@ -173,7 +92,7 @@ const Itinerary = {
           var sorted = events.sort(function (a, b) {
             return a.day - b.day || a.loadSequence - b.loadSequence
           })
-          console.log('sorted', sorted)
+          // console.log('sorted', sorted)
           return sorted
         })
     }
