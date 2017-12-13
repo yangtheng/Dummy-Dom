@@ -161,7 +161,6 @@ const Itinerary = {
                 return arrModel
               })
             }
-            
           })
         eventModelPromises.push(eventModel) // each event model returns promise(arr)
       })
