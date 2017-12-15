@@ -9,7 +9,7 @@ module.exports = {
     for (var i = 1; i <= 50; i++) {
       seedArr.push({
         name: `Itinerary ${i}`,
-        startDate: 1508025600, // 15th oct 2017
+        startDate: 1515974400, // 15th jan 2018
         days: 6,
         pax: Math.floor(Math.random() * 4) + 1,
         budget: (Math.floor(Math.random() * 8) + 2) * 1000,
