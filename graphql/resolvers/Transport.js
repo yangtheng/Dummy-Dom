@@ -1,5 +1,6 @@
 const db = require('../connectors')
 const findOrCreateLocation = require('./helpers/findOrCreateLocation')
+const createAllAttachments = require('./helpers/createAllAttachments')
 
 const Transport = {
   Transport: {
@@ -20,45 +21,39 @@ const Transport = {
   },
   Mutation: {
     createTransport: (__, data) => {
-      var newTransport = {}
+      var temp = {}
       Object.keys(data).forEach(key => {
         if (key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData') {
-          newTransport[key] = data[key]
+          temp[key] = data[key]
         }
       })
+
       if (data.departureGooglePlaceData && data.arrivalGooglePlaceData) {
         var departure = findOrCreateLocation(data.departureGooglePlaceData)
         var arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
-        return Promise.all([departure, arrival])
-        .then(values => {
-          console.log(values)
-          newTransport.DepartureLocationId = values[0]
-          newTransport.ArrivalLocationId = values[1]
-          return db.Transport.create(newTransport)
-          .then(created => {
-            console.log('attachments', data.attachments)
-            data.attachments.forEach(info => {
-              return db.Attachment.create({TransportId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
-            })
-            return created.id
+        var newTransport = Promise.all([departure, arrival])
+          .then(values => {
+            temp.DepartureLocationId = values[0]
+            temp.ArrivalLocationId = values[1]
+            return temp
           })
-          .then((createdId) => {
-            return db.Transport.findById(createdId)
-          })
-        })
       } else {
+        newTransport = Promise.resolve(temp)
+      }
+
+      return newTransport.then(newTransport => {
         return db.Transport.create(newTransport)
           .then(created => {
-            console.log('attachments', data.attachments)
-            data.attachments.forEach(info => {
-              return db.Attachment.create({TransportId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
-            })
+            if (data.attachments) {
+              createAllAttachments(data.attachments, 'Activity', created.id)
+                // check if helper returns true/false
+            }
             return created.id
           })
-          .then((createdId) => {
+          .then(createdId => {
             return db.Transport.findById(createdId)
           })
-      }
+      })
     },
     updateTransport: (__, data) => {
       var updates = {}
@@ -67,6 +62,8 @@ const Transport = {
           updates[key] = data[key]
         }
       })
+
+      // updates only if both departure and arrival are given. what about updating only 1?
       if (data.departureGooglePlaceData && data.arrivalGooglePlaceData) {
         var departure = findOrCreateLocation(data.departureGooglePlaceData)
         var arrival = findOrCreateLocation(data.arrivalGooglePlaceData)

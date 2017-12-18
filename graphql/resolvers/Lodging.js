@@ -1,5 +1,6 @@
 const db = require('../connectors')
 const findOrCreateLocation = require('./helpers/findOrCreateLocation')
+const createAllAttachments = require('./helpers/createAllAttachments')
 
 const Lodging = {
   Lodging: {
@@ -44,11 +45,9 @@ const Lodging = {
         return db.Lodging.create(newLodging)
           .then(created => {
             if (data.attachments) {
-              data.attachments.forEach(info => {
-                return db.Attachment.create({LodgingId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
-              })
+              createAllAttachments(data.attachments, 'Lodging', created.id)
+                // check if helper returns true/false
             }
-            // need promise.all to ensure attachments finish
             return created.id
           })
           .then(createdId => {

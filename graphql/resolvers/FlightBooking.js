@@ -1,5 +1,6 @@
 const db = require('../connectors')
 const findOrCreateAirportLocation = require('./helpers/findOrCreateAirportLocation')
+const createAllAttachments = require('./helpers/createAllAttachments')
 
 const FlightBooking = {
   FlightBooking: {
@@ -27,11 +28,12 @@ const FlightBooking = {
 
       return db.FlightBooking.create(newFlightBooking)
         .then(created => {
-          data.attachments.forEach(info => {
-            return db.Attachment.create({FlightBookingId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
-          })
+          if (data.attachments) {
+            createAllAttachments(data.attachments, 'FlightBooking', created.id)
+              // check if helper returns true/false
+          }
           return created.id
-        }) // close attachment creation
+        })
         .then(createdId => {
           var promiseArr = []
           data.flightInstances.forEach(instance => {
