@@ -33,7 +33,7 @@ function findOrCreateLocation (google) {
             console.log('errr lat lng missing')
             return
           }
-          var apiKey = 'AIzaSyDwlTicqOxDlB2u3MhiEusUJyo_QQy-MZU'
+          var apiKey = process.env.GOOGLE_API_KEY
           var reverseGeocodeUri = `https://maps.googleapis.com/maps/api/geocode/json?key=${apiKey}&latlng=${latitude},${longitude}`
 
           return fetch(reverseGeocodeUri)

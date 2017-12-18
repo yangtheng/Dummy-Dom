@@ -12,7 +12,7 @@ function findOrCreateAirportLocation (iata) {
     }
   })
 
-  var apiKey = 'AIzaSyDwlTicqOxDlB2u3MhiEusUJyo_QQy-MZU'
+  var apiKey = process.env.GOOGLE_API_KEY
 
   var query = airport.name
   var region = airport.countryCode
@@ -24,7 +24,7 @@ function findOrCreateAirportLocation (iata) {
     })
     .then(json => {
       // console.log('json', json)
-      return json.results[0].place_id //take first result (typically only 1)
+      return json.results[0].place_id // take first result (typically only 1)
     })
     .catch(err => console.log(err))
 
