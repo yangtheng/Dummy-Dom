@@ -1,5 +1,5 @@
 const db = require('../connectors')
-const findOrCreateLocation = require('./findOrCreateLocation')
+const findOrCreateLocation = require('./helpers/findOrCreateLocation')
 
 const Food = {
   Food: {
@@ -20,66 +20,66 @@ const Food = {
   },
   Mutation: {
     createFood: (__, data) => {
-      var newFood = {}
+      var temp = {}
       Object.keys(data).forEach(key => {
         if (key !== 'googlePlaceData' && key !== 'LocationId') {
-          newFood[key] = data[key]
-        }
-      })
-      if (data.googlePlaceData) {
-        return findOrCreateLocation(data.googlePlaceData)
-          .then(id => {
-            newFood.LocationId = id
-            return db.Food.create(newFood)
-              .then(created => {
-                data.attachments.forEach(info => {
-                  return db.Attachment.create({FoodId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
-                })
-                return created.id
-              })
-              .then((createdId) => {
-                return db.Food.findById(createdId)
-              })
-          })
-      } else if (data.LocationId) {
-        newFood.LocationId = data.LocationId
-        return db.Food.create(newFood)
-      } else {
-        return db.Food.create(newFood)
-          .then(created => {
-            data.attachments.forEach(info => {
-              return db.Attachment.create({FoodId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
-            })
-            return created.id
-          })
-          .then((createdId) => {
-            return db.Food.findById(createdId)
-          })
-      }
-    },
-    updateFood: (__, data) => {
-      var updates = {}
-      Object.keys(data).forEach(key => {
-        if (key !== 'id' && key !== 'googlePlaceData') {
-          updates[key] = data[key]
+          temp[key] = data[key]
         }
       })
 
       if (data.googlePlaceData) {
-        return findOrCreateLocation(data.googlePlaceData)
+        var newFood = findOrCreateLocation(data.googlePlaceData)
           .then(LocationId => {
-            updates.LocationId = LocationId
-            return db.Food.findById(data.id)
-              .then(foundFood => {
-                return foundFood.update(updates)
+            temp.LocationId = LocationId
+            return temp
+          })
+      } else if (data.LocationId) {
+        temp.LocationId = data.LocationId
+        newFood = Promise.resolve(temp)
+      } else if (!data.LocationId && !data.googlePlaceData) {
+        newFood = Promise.resolve(temp)
+      }
+
+      return newFood.then(newFood => {
+        return db.Food.create(newFood)
+          .then(created => {
+            if (data.attachments) {
+              data.attachments.forEach(info => {
+                return db.Attachment.create({FoodId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
               })
+            }
+            // need promise.all to ensure attachments finish
+            return created.id
+          })
+          .then(createdId => {
+            return db.Food.findById(createdId)
+          })
+      })
+    },
+    updateFood: (__, data) => {
+      var temp = {}
+      Object.keys(data).forEach(key => {
+        if (key !== 'id' && key !== 'googlePlaceData') {
+          temp[key] = data[key]
+        }
+      })
+
+      if (data.googlePlaceData) {
+        var updateObj = findOrCreateLocation(data.googlePlaceData)
+          .then(LocationId => {
+            temp.LocationId = LocationId
+            return temp
           })
       } else {
-        return db.Food.findById(data.id)
-        .then(found => {
-          return found.update(updates)
-        })
+        updateObj = Promise.resolve(temp)
       }
+
+      return updateObj.then(updateObj => {
+        return db.Food.findById(data.id)
+          .then(found => {
+            return found.update(updateObj)
+          })
+      })
     },
     deleteFood: (__, data) => {
       return db.Food.destroy({where: {id: data.id}, individualHooks: true})

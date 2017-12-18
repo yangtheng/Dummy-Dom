@@ -1,5 +1,5 @@
-const db = require('../connectors')
-const airports = require('../../data/airports.json')
+const db = require('../../connectors')
+const airports = require('../../../data/airports.json')
 const fetch = require('node-fetch')
 const findOrCreateLocation = require('./findOrCreateLocation')
 

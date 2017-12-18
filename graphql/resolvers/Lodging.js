@@ -1,5 +1,5 @@
 const db = require('../connectors')
-const findOrCreateLocation = require('./findOrCreateLocation')
+const findOrCreateLocation = require('./helpers/findOrCreateLocation')
 
 const Lodging = {
   Lodging: {
@@ -20,67 +20,66 @@ const Lodging = {
   },
   Mutation: {
     createLodging: (__, data) => {
-      var newLodging = {}
+      var temp = {}
       Object.keys(data).forEach(key => {
         if (key !== 'googlePlaceData' && key !== 'LocationId') {
-          newLodging[key] = data[key]
-        }
-      })
-      if (data.googlePlaceData) {
-        return findOrCreateLocation(data.googlePlaceData)
-          .then(id => {
-            newLodging.LocationId = id
-            return db.Lodging.create(newLodging)
-              .then(created => {
-                console.log('attachments', data.attachments)
-                data.attachments.forEach(info => {
-                  return db.Attachment.create({LodgingId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
-                })
-                return created.id
-              })
-              .then((createdId) => {
-                return db.Lodging.findById(createdId)
-              })
-          })
-      } else if (data.LocationId) {
-        newLodging.LocationId = data.LocationId
-        return db.Lodging.create(newLodging)
-      } else {
-        return db.Lodging.create(newLodging)
-          .then(created => {
-            data.attachments.forEach(info => {
-              return db.Attachment.create({LodgingId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
-            })
-            return created.id
-          })
-          .then((createdId) => {
-            return db.Lodging.findById(createdId)
-          })
-      }
-    },
-    updateLodging: (__, data) => {
-      var updates = {}
-      Object.keys(data).forEach(key => {
-        if (key !== 'id' && key !== 'googlePlaceData') {
-          updates[key] = data[key]
+          temp[key] = data[key]
         }
       })
 
       if (data.googlePlaceData) {
-        return findOrCreateLocation(data.googlePlaceData)
+        var newLodging = findOrCreateLocation(data.googlePlaceData)
           .then(LocationId => {
-            updates.LocationId = LocationId
-            return db.Lodging.findById(data.id)
-              .then(foundLodging => {
-                return foundLodging.update(updates)
+            temp.LocationId = LocationId
+            return temp
+          })
+      } else if (data.LocationId) {
+        temp.LocationId = data.LocationId
+        newLodging = Promise.resolve(temp)
+      } else if (!data.LocationId && !data.googlePlaceData) {
+        newLodging = Promise.resolve(temp)
+      }
+
+      return newLodging.then(newLodging => {
+        return db.Lodging.create(newLodging)
+          .then(created => {
+            if (data.attachments) {
+              data.attachments.forEach(info => {
+                return db.Attachment.create({LodgingId: created.id, fileName: info.fileName, fileAlias: info.fileAlias, fileType: info.fileType, fileSize: info.fileSize})
               })
+            }
+            // need promise.all to ensure attachments finish
+            return created.id
+          })
+          .then(createdId => {
+            return db.Lodging.findById(createdId)
+          })
+      })
+    },
+    updateLodging: (__, data) => {
+      var temp = {}
+      Object.keys(data).forEach(key => {
+        if (key !== 'id' && key !== 'googlePlaceData') {
+          temp[key] = data[key]
+        }
+      })
+
+      if (data.googlePlaceData) {
+        var updateObj = findOrCreateLocation(data.googlePlaceData)
+          .then(LocationId => {
+            temp.LocationId = LocationId
+            return temp
           })
       } else {
-        return db.Lodging.findById(data.id)
-        .then(found => {
-          return found.update(updates)
-        })
+        updateObj = Promise.resolve(temp)
       }
+
+      return updateObj.then(updateObj => {
+        return db.Lodging.findById(data.id)
+          .then(found => {
+            return found.update(updateObj)
+          })
+      })
     },
     deleteLodging: (__, data) => {
       return db.Lodging.destroy({where: {id: data.id}, individualHooks: true})

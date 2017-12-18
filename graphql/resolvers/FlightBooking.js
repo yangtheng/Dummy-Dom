@@ -1,5 +1,5 @@
 const db = require('../connectors')
-const findOrCreateAirportLocation = require('./findOrCreateAirportLocation')
+const findOrCreateAirportLocation = require('./helpers/findOrCreateAirportLocation')
 
 const FlightBooking = {
   FlightBooking: {
@@ -24,6 +24,7 @@ const FlightBooking = {
           newFlightBooking[key] = data[key]
         }
       })
+
       return db.FlightBooking.create(newFlightBooking)
         .then(created => {
           data.attachments.forEach(info => {

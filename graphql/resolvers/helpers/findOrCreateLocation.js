@@ -1,4 +1,4 @@
-const db = require('../connectors')
+const db = require('../../connectors')
 const fetch = require('node-fetch')
 
 // this fxn takes in googlePlaceData obj return LocationId

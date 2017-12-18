@@ -1,5 +1,5 @@
 const db = require('../connectors')
-const findOrCreateLocation = require('./findOrCreateLocation')
+const findOrCreateLocation = require('./helpers/findOrCreateLocation')
 
 const Transport = {
   Transport: {
