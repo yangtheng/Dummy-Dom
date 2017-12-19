@@ -10,7 +10,7 @@ module.exports = {
         ItineraryId: i,
         LocationId: i,
         startLoadSequence: 5,
-        endLoadSequence: 10,
+        endLoadSequence: 1,
         description: `Lodging ${i}`,
         notes: casual.sentences(3),
         startDay: 1,
