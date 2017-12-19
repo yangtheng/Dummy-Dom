@@ -22,7 +22,8 @@ module.exports = function (sequelize, DataTypes) {
   Activity.associate = function (models) {
     Activity.belongsTo(models.Itinerary)
     Activity.belongsTo(models.Location)
-    Activity.hasMany(models.Attachment, {onDelete: 'CASCADE', hooks: true})
+    // Activity.hasMany(models.Attachment, {onDelete: 'CASCADE', hooks: true})
+    Activity.hasMany(models.Attachment)
   }
 
   Activity.beforeDestroy((instance, options) => {

@@ -10,7 +10,7 @@ const Mutation = `
 
     createToken(email:String!, password:String!): String
 
-    createItinerary(UserId: Int!, countryCode: String, name:String!, days: Int!, startDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
+    createItinerary(UserId: Int!, CountryId: Int, name:String!, days: Int!, startDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
 
     updateItineraryDetails(id: ID!, name:String, days: Int, startDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
 
@@ -28,9 +28,9 @@ const Mutation = `
 
     deleteActivity(id:ID!): Boolean
 
-    createFlightBooking(ItineraryId: ID!, paxAdults: Int, paxChildren: Int, paxInfants: Int, cost: Int, currency: String, classCode: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String, attachments: [attachmentInput], flightInstances: [flightInstanceInput]): FlightBooking
+    createFlightBooking(ItineraryId: ID!, paxAdults: Int, paxChildren: Int, paxInfants: Int, cost: Int, currency: String, classCode: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String, attachments: [attachmentInput], flightInstances: [createFlightInstanceInput]): FlightBooking
 
-    updateFlightBooking(id: ID!, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String): FlightBooking
+    updateFlightBooking(id: ID!, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String, flightInstances: [updateFlightInstanceInput]): FlightBooking
 
     deleteFlightBooking(id:ID!): Boolean
 

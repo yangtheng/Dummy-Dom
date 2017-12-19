@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const fs = require('fs')
 
 const User = require('./User')
 const Country = require('./Country')
@@ -13,6 +14,19 @@ const Transport = require('./Transport')
 const LoadSequence = require('./LoadSequence')
 const Attachment = require('./Attachment')
 
+// const resolverFiles = {}
+// fs.readdirSync('./graphql/resolvers').forEach(file => {
+//   // console.log('file', typeof(file))
+//   if (file !== 'helpers' && file !== 'mergedResolvers.js') {
+//     // console.log('resolverfile', file)
+//     var modelName = file.split('.')[0]
+//     // resolverNames.push(name)
+//     resolverFiles[modelName] = require('./' + modelName)
+//   }
+// })
+// console.log(resolverFiles)
+
 const resolvers = _.merge(User, Country, Location, Itinerary, Activity, FlightBooking, FlightInstance, Food, Lodging, Transport, LoadSequence, Attachment)
 
+// const resolvers = _.merge(Object.keys(resolverFiles))
 module.exports = resolvers

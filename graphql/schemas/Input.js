@@ -21,7 +21,7 @@ const Input = `
     fileType: String
     fileSize: String
   }
-  input flightInstanceInput {
+  input createFlightInstanceInput {
     flightNumber: Int
     airlineCode: String
     airlineName: String
@@ -35,6 +35,25 @@ const Input = `
     endDate: Int
     startDay: Int
     endDay: Int
+    startTime: Int
+    endTime: Int
+    startLoadSequence: Int
+    endLoadSequence: Int
+    notes: String
+  }
+
+  input updateFlightInstanceInput {
+    id: ID!
+    departureIATA: String
+    arrivalIATA: String
+    departureTerminal: String
+    arrivalTerminal: String
+    departureGate: String
+    arrivalGate: String
+    startDay: Int
+    endDay: Int
+    startDate: Int
+    endDate: Int
     startTime: Int
     endTime: Int
     startLoadSequence: Int
