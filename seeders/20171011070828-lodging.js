@@ -11,7 +11,7 @@ module.exports = {
         LocationId: i,
         startLoadSequence: 5,
         endLoadSequence: 10,
-        name: `Lodging ${i}`,
+        description: `Lodging ${i}`,
         notes: casual.sentences(3),
         startDay: 1,
         endDay: 6,
@@ -22,7 +22,6 @@ module.exports = {
         bookingStatus: true,
         bookedThrough: faker.internet.url(),
         bookingConfirmation: faker.internet.url(),
-        roomType: 'Double',
         createdAt: new Date(),
         updatedAt: new Date()
       })

@@ -35,7 +35,7 @@ module.exports = {
       endLoadSequence: {
         type: Sequelize.INTEGER
       },
-      name: {
+      description: {
         type: Sequelize.STRING
       },
       notes: {
@@ -66,9 +66,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       bookingConfirmation: {
-        type: Sequelize.STRING
-      },
-      roomType: {
         type: Sequelize.STRING
       },
       backgroundImage: {

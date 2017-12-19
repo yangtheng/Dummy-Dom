@@ -12,14 +12,13 @@ module.exports = function (sequelize, DataTypes) {
     endDay: DataTypes.INTEGER,
     startTime: DataTypes.INTEGER,
     endTime: DataTypes.INTEGER,
-    name: DataTypes.STRING,
+    description: DataTypes.STRING,
     notes: DataTypes.TEXT,
     cost: DataTypes.INTEGER,
     currency: DataTypes.STRING,
     bookingStatus: DataTypes.BOOLEAN,
     bookedThrough: DataTypes.STRING,
     bookingConfirmation: DataTypes.STRING,
-    type: DataTypes.STRING,
     backgroundImage: DataTypes.STRING
   })
 

@@ -16,11 +16,10 @@ module.exports = {
         endDay: 1,
         startTime: 32400, // 9am after flight
         endTime: 36000, // 10am
-        name: `Transport ${i}`,
+        description: `Transport ${i}`,
         notes: casual.sentences(3),
         cost: (Math.floor(Math.random() * 20) + 1) * 10,
         currency: casual.currency_code,
-        type: 'Bus',
         bookingStatus: true,
         bookedThrough: faker.internet.url(),
         bookingConfirmation: faker.internet.url(),

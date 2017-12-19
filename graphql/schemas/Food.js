@@ -9,9 +9,8 @@ const Food = `
     loadSequence: Int!
     startDay: Int
     endDay: Int
-    name: String
+    description: String
     notes: String
-    type: String
     startTime: Int
     endTime: Int
     cost: Int

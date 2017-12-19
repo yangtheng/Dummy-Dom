@@ -8,7 +8,7 @@ const Lodging = `
     itinerary: Itinerary
     startLoadSequence: Int
     endLoadSequence: Int
-    name: String
+    description: String
     notes: String
     startDay: Int
     endDay: Int
@@ -20,7 +20,6 @@ const Lodging = `
     bookedThrough: String
     bookingConfirmation: String
     attachments: [Attachment]
-    roomType: String
     backgroundImage: String
   }
 `

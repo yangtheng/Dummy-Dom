@@ -12,7 +12,7 @@ module.exports = {
         loadSequence: 7,
         startDay: 1,
         endDay: 1,
-        name: `Restaurant ${i}`,
+        description: `Restaurant ${i}`,
         notes: casual.sentences(3),
         startTime: 64800, //6pm dinner
         endTime: 68400, //7pm end
@@ -21,7 +21,6 @@ module.exports = {
         bookingStatus: true,
         bookedThrough: faker.internet.url(),
         bookingConfirmation: faker.internet.url(),
-        type: faker.commerce.department(),
         createdAt: new Date(),
         updatedAt: new Date()
       })
