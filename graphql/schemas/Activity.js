@@ -9,7 +9,7 @@ const Activity = `
     loadSequence: Int
     startDay: Int
     endDay: Int
-    name: String
+    description: String
     notes: String
     startTime: Int
     endTime: Int

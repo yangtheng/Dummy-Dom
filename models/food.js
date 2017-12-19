@@ -7,7 +7,7 @@ module.exports = function (sequelize, DataTypes) {
     startDay: DataTypes.INTEGER,
     endDay: DataTypes.INTEGER,
     loadSequence: DataTypes.INTEGER,
-    name: DataTypes.STRING,
+    description: DataTypes.STRING,
     notes: DataTypes.TEXT,
     startTime: DataTypes.INTEGER,
     endTime: DataTypes.INTEGER,
@@ -16,7 +16,6 @@ module.exports = function (sequelize, DataTypes) {
     bookingStatus: DataTypes.BOOLEAN,
     bookedThrough: DataTypes.STRING,
     bookingConfirmation: DataTypes.STRING,
-    type: DataTypes.STRING,
     backgroundImage: DataTypes.STRING
   })
 

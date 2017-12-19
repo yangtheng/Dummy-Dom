@@ -7,7 +7,7 @@ module.exports = function (sequelize, DataTypes) {
     loadSequence: DataTypes.INTEGER,
     startDay: DataTypes.INTEGER,
     endDay: DataTypes.INTEGER,
-    name: DataTypes.STRING,
+    description: DataTypes.STRING,
     notes: DataTypes.TEXT,
     startTime: DataTypes.INTEGER,
     endTime: DataTypes.INTEGER,

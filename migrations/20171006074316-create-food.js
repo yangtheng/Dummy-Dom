@@ -38,7 +38,7 @@ module.exports = {
       endDay: {
         type: Sequelize.INTEGER
       },
-      name: {
+      description: {
         type: Sequelize.STRING
       },
       notes: {
@@ -63,9 +63,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       bookingConfirmation: {
-        type: Sequelize.STRING
-      },
-      type: {
         type: Sequelize.STRING
       },
       backgroundImage: {

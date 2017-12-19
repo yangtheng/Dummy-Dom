@@ -6,7 +6,7 @@ module.exports = function (sequelize, DataTypes) {
     startLoadSequence: DataTypes.INTEGER,
     endLoadSequence: DataTypes.INTEGER,
     locationAlias: DataTypes.STRING,
-    name: DataTypes.STRING,
+    description: DataTypes.STRING,
     notes: DataTypes.TEXT,
     startDay: DataTypes.INTEGER,
     endDay: DataTypes.INTEGER,
@@ -17,7 +17,6 @@ module.exports = function (sequelize, DataTypes) {
     bookingStatus: DataTypes.BOOLEAN,
     bookedThrough: DataTypes.STRING,
     bookingConfirmation: DataTypes.STRING,
-    roomType: DataTypes.STRING,
     backgroundImage: DataTypes.STRING
   })
 

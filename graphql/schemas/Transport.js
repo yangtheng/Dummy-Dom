@@ -14,7 +14,7 @@ const Transport = `
     endDay: Int
     startTime: Int!
     endTime: Int!
-    name: String
+    description: String
     notes: String
     cost: Int
     currency: String
@@ -22,7 +22,6 @@ const Transport = `
     bookedThrough: String
     bookingConfirmation: String
     attachments: [Attachment]
-    type: String
     backgroundImage: String
   }
 `
