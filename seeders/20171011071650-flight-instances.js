@@ -26,6 +26,7 @@ module.exports = {
         startTime: 21600, // 6am flight
         endTime: 32400, // 9am arrival
         notes: casual.sentences(3),
+        firstFlight: true,
         createdAt: new Date(),
         updatedAt: new Date()
       })

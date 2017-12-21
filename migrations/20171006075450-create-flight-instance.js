@@ -86,6 +86,9 @@ module.exports = {
       notes: {
         type: Sequelize.TEXT
       },
+      firstFlight: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: true,
         type: Sequelize.DATE

@@ -22,6 +22,7 @@ const FlightInstance = `
     startLoadSequence: Int
     endLoadSequence: Int
     notes: String
+    firstFlight: Boolean
   }
 `
 module.exports = FlightInstance

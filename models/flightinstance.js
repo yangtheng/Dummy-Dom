@@ -19,7 +19,8 @@ module.exports = function (sequelize, DataTypes) {
     endTime: DataTypes.INTEGER,
     startLoadSequence: DataTypes.INTEGER,
     endLoadSequence: DataTypes.INTEGER,
-    notes: DataTypes.TEXT
+    notes: DataTypes.TEXT,
+    firstFlight: DataTypes.BOOLEAN
   })
 
   FlightInstance.associate = function (models) {
