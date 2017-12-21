@@ -31,8 +31,6 @@ const Input = `
     arrivalTerminal: String
     departureGate: String
     arrivalGate: String
-    startDate: Int
-    endDate: Int
     startDay: Int
     endDay: Int
     startTime: Int
@@ -52,8 +50,6 @@ const Input = `
     arrivalGate: String
     startDay: Int
     endDay: Int
-    startDate: Int
-    endDate: Int
     startTime: Int
     endTime: Int
     startLoadSequence: Int

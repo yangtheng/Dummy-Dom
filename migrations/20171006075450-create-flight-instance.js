@@ -59,12 +59,6 @@ module.exports = {
       arrivalGate: {
         type: Sequelize.STRING
       },
-      startDate: {
-        type: Sequelize.STRING
-      },
-      endDate: {
-        type: Sequelize.STRING
-      },
       startDay: {
         type: Sequelize.INTEGER
       },

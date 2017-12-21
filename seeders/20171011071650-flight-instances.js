@@ -17,8 +17,6 @@ module.exports = {
         arrivalTerminal: `Terminal ${Math.floor(Math.random() * 4) + 1}`,
         departureGate: `Gate ${Math.floor(Math.random() * 10) + 1}`,
         arrivalGate: `Gate ${Math.floor(Math.random() * 10) + 1}`,
-        startDate: 1508025600, // 15th oct 2017
-        endDate: 1508025600,
         startDay: 1,
         endDay: 1,
         startLoadSequence: 1,

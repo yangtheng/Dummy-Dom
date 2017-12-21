@@ -13,8 +13,6 @@ const FlightInstance = `
     arrivalTerminal: String
     departureGate: String
     arrivalGate: String
-    startDate: Int
-    endDate: Int
     startDay: Int
     endDay: Int
     startTime: Int
