@@ -2,25 +2,25 @@ const db = require('../connectors')
 const findOrCreateLocation = require('./helpers/findOrCreateLocation')
 const createAllAttachments = require('./helpers/createAllAttachments')
 
-const Transport = {
-  Transport: {
-    departureLocation (transport) {
-      return transport.getTransportDeparture()
+const LandTransport = {
+  LandTransport: {
+    departureLocation (landTransport) {
+      return landTransport.getLandTransportDeparture()
     },
-    arrivalLocation (transport) {
-      return transport.getTransportArrival()
+    arrivalLocation (landTransport) {
+      return landTransport.getLandTransportArrival()
     },
-    attachments (transport) {
-      return transport.getAttachments()
+    attachments (landTransport) {
+      return landTransport.getAttachments()
     }
   },
   Query: {
-    findTransport: (__, data) => {
-      return db.Transport.findById(data.id)
+    findLandTransport: (__, data) => {
+      return db.LandTransport.findById(data.id)
     }
   },
   Mutation: {
-    createTransport: (__, data) => {
+    createLandTransport: (__, data) => {
       var temp = {}
       Object.keys(data).forEach(key => {
         if (key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData') {
@@ -42,20 +42,20 @@ const Transport = {
       }
 
       return newTransport.then(newTransport => {
-        return db.Transport.create(newTransport)
+        return db.LandTransport.create(newTransport)
           .then(created => {
             if (data.attachments) {
-              createAllAttachments(data.attachments, 'Activity', created.id)
+              createAllAttachments(data.attachments, 'LandTransport', created.id)
                 // check if helper returns true/false
             }
             return created.id
           })
           .then(createdId => {
-            return db.Transport.findById(createdId)
+            return db.LandTransport.findById(createdId)
           })
       })
     },
-    updateTransport: (__, data) => {
+    updateLandTransport: (__, data) => {
       var updates = {}
       Object.keys(data).forEach(key => {
         if (key !== 'id' && key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData') {
@@ -72,22 +72,22 @@ const Transport = {
             console.log(values)
             updates.DepartureLocationId = values[0]
             updates.ArrivalLocationId = values[1]
-            return db.Transport.findById(data.id)
+            return db.LandTransport.findById(data.id)
               .then(foundTransport => {
                 return foundTransport.update(updates)
               })
           })
       } else {
-        return db.Transport.findById(data.id)
+        return db.LandTransport.findById(data.id)
         .then(found => {
           return found.update(updates)
         })
       }
     },
-    deleteTransport: (__, data) => {
-      return db.Transport.destroy({where: {id: data.id}, individualHooks: true})
+    deleteLandTransport: (__, data) => {
+      return db.LandTransport.destroy({where: {id: data.id}, individualHooks: true})
     }
   }
 }
 
-module.exports = Transport
+module.exports = LandTransport

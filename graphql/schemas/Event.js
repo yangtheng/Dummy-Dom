@@ -7,9 +7,11 @@ const Event = `
     start: Boolean
     Activity: Activity
     Food: Food
-    Transport: Transport
-    Flight: FlightEvent
     Lodging: Lodging
+    Flight: FlightEvent
+    LandTransport: LandTransport
+    SeaTransport: SeaTransport
+    Train: Train
   }
 `
 module.exports = Event

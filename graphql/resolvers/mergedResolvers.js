@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const fs = require('fs')
+// const fs = require('fs')
 
 const User = require('./User')
 const Country = require('./Country')
@@ -10,7 +10,9 @@ const FlightBooking = require('./FlightBooking')
 const FlightInstance = require('./FlightInstance')
 const Food = require('./Food')
 const Lodging = require('./Lodging')
-const Transport = require('./Transport')
+const LandTransport = require('./LandTransport')
+const SeaTransport = require('./SeaTransport')
+const Train = require('./Train')
 const LoadSequence = require('./LoadSequence')
 const Attachment = require('./Attachment')
 
@@ -26,7 +28,7 @@ const Attachment = require('./Attachment')
 // })
 // console.log(resolverFiles)
 
-const resolvers = _.merge(User, Country, Location, Itinerary, Activity, FlightBooking, FlightInstance, Food, Lodging, Transport, LoadSequence, Attachment)
+const resolvers = _.merge(User, Country, Location, Itinerary, Activity, FlightBooking, FlightInstance, Food, Lodging, LandTransport, SeaTransport, Train, LoadSequence, Attachment)
 
 // const resolvers = _.merge(Object.keys(resolverFiles))
 module.exports = resolvers

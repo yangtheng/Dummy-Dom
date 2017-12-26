@@ -22,12 +22,28 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: 'DepartureLocationId'
     })
     Location.hasMany(models.Lodging)
-    Location.hasMany(models.Transport, {
-      as: 'TransportArrival',
+    Location.hasMany(models.LandTransport, {
+      as: 'LandTransportArrival',
       foreignKey: 'ArrivalLocationId'
     })
-    Location.hasMany(models.Transport, {
-      as: 'TransportDeparture',
+    Location.hasMany(models.LandTransport, {
+      as: 'LandTransportDeparture',
+      foreignKey: 'DepartureLocationId'
+    })
+    Location.hasMany(models.SeaTransport, {
+      as: 'SeaTransportArrival',
+      foreignKey: 'ArrivalLocationId'
+    })
+    Location.hasMany(models.SeaTransport, {
+      as: 'SeaTransportDeparture',
+      foreignKey: 'DepartureLocationId'
+    })
+    Location.hasMany(models.Train, {
+      as: 'TrainArrival',
+      foreignKey: 'ArrivalLocationId'
+    })
+    Location.hasMany(models.Train, {
+      as: 'TrainDeparture',
       foreignKey: 'DepartureLocationId'
     })
     Location.belongsTo(models.Country)

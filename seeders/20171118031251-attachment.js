@@ -3,7 +3,8 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
     var seedArr = []
-    var eventsId = ['ActivityId', 'FoodId', 'FlightBookingId', 'TransportId', 'LodgingId']
+    var eventsId = ['ActivityId', 'FoodId', 'FlightBookingId', 'LodgingId', 'LandTransportId']
+    // dont seed sea and train yet
     eventsId.forEach(e => {
       for (var i = 1; i <= 50; i++) {
         seedArr.push({
@@ -18,6 +19,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    // return queryInterface.bulkDelete('Attachments', null, {})
+    return queryInterface.bulkDelete('Attachments', null, {})
   }
 }

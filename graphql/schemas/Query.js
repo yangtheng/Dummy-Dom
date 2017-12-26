@@ -11,7 +11,9 @@ const Query = `
     findFood(id:ID!): Food
     findLodging(id:ID!): Lodging
     findFlightBooking(id:ID!): FlightBooking
-    findTransport(id:ID!): Transport
+    findLandTransport(id:ID!): LandTransport
+    findSeaTransport(id: ID!): SeaTransport
+    findTrain(id: ID!): Train
     authorization: Boolean
     findCountriesItineraries(CountryId: ID!, ItineraryId: ID!): CountriesItineraries
     permissions(UserId: ID!, ItineraryId: ID!): UsersItineraries

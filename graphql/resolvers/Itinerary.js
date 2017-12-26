@@ -20,7 +20,7 @@ const Itinerary = {
       var ItineraryId = itinerary.id
 
       // REFACTORED EVENTS
-      var models = ['Activity', 'Food', 'Transport', 'Lodging', 'FlightBooking']
+      var models = ['Activity', 'Food', 'Lodging', 'FlightBooking', 'LandTransport', 'SeaTransport', 'Train']
       var eventModelPromises = []
 
       models.forEach(model => {
@@ -37,7 +37,7 @@ const Itinerary = {
             }
 
             // LODGING / TRANSPORT ---> 2 EVENT ROWS
-            if (model === 'Lodging' || model === 'Transport') {
+            if (model === 'Lodging' || model === 'LandTransport' || model === 'SeaTransport' || model === 'Train') {
               foundRows.forEach(e => {
                 arrModel.push({day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e})
                 arrModel.push({day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e})

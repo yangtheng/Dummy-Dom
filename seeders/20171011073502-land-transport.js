@@ -16,7 +16,6 @@ module.exports = {
         endDay: 1,
         startTime: 32400, // 9am after flight
         endTime: 36000, // 10am
-        description: `Transport ${i}`,
         notes: casual.sentences(3),
         cost: (Math.floor(Math.random() * 20) + 1) * 10,
         currency: casual.currency_code,
@@ -27,10 +26,10 @@ module.exports = {
         updatedAt: new Date()
       })
     }
-    return queryInterface.bulkInsert('Transports', seedArr, {})
+    return queryInterface.bulkInsert('LandTransports', seedArr, {})
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Transports', null, {})
+    return queryInterface.bulkDelete('LandTransports', null, {})
   }
 }
