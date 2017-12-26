@@ -38,6 +38,7 @@ const Input = `
     startLoadSequence: Int
     endLoadSequence: Int
     notes: String
+    firstFlight: Boolean
   }
 
   input updateFlightInstanceInput {
