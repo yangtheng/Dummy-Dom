@@ -12,8 +12,8 @@ const Train = `
     endLoadSequence: Int
     startDay: Int
     endDay: Int
-    startTime: Int!
-    endTime: Int!
+    startTime: Int
+    endTime: Int
     notes: String
     cost: Int
     currency: String
