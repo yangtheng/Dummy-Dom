@@ -1,5 +1,5 @@
-const Transport = `
-  type Transport {
+const LandTransport = `
+  type LandTransport {
     id: ID!
     ItineraryId: ID!
     DepartureLocationId: ID
@@ -14,7 +14,6 @@ const Transport = `
     endDay: Int
     startTime: Int!
     endTime: Int!
-    description: String
     notes: String
     cost: Int
     currency: String
@@ -25,4 +24,4 @@ const Transport = `
     backgroundImage: String
   }
 `
-module.exports = Transport
+module.exports = LandTransport

@@ -1,6 +1,6 @@
 'use strict'
 module.exports = function (sequelize, DataTypes) {
-  var Transport = sequelize.define('Transport', {
+  var Train = sequelize.define('Train', {
     DepartureLocationId: DataTypes.INTEGER,
     ArrivalLocationId: DataTypes.INTEGER,
     ItineraryId: DataTypes.INTEGER,
@@ -12,7 +12,6 @@ module.exports = function (sequelize, DataTypes) {
     endDay: DataTypes.INTEGER,
     startTime: DataTypes.INTEGER,
     endTime: DataTypes.INTEGER,
-    description: DataTypes.STRING,
     notes: DataTypes.TEXT,
     cost: DataTypes.INTEGER,
     currency: DataTypes.STRING,
@@ -22,22 +21,22 @@ module.exports = function (sequelize, DataTypes) {
     backgroundImage: DataTypes.STRING
   })
 
-  Transport.associate = function (models) {
-    Transport.belongsTo(models.Itinerary)
-    Transport.belongsTo(models.Location, {
-      as: 'TransportArrival',
+  Train.associate = function (models) {
+    Train.belongsTo(models.Itinerary)
+    Train.belongsTo(models.Location, {
+      as: 'TrainArrival',
       foreignKey: 'ArrivalLocationId'
     })
-    Transport.belongsTo(models.Location, {
-      as: 'TransportDeparture',
+    Train.belongsTo(models.Location, {
+      as: 'TrainDeparture',
       foreignKey: 'DepartureLocationId'
     })
-    Transport.hasMany(models.Attachment)
+    Train.hasMany(models.Attachment)
   }
 
-  Transport.beforeDestroy((instance, options) => {
+  Train.beforeDestroy((instance, options) => {
     return sequelize.models.Attachment.destroy({where: {TransportId: instance.id}})
   })
 
-  return Transport
+  return Train
 }

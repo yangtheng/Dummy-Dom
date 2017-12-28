@@ -4,7 +4,7 @@ const LoadSequence = {
   Mutation: {
     changingLoadSequence: (__, data) => {
       var input = data.input
-      // type Activity, Food, Lodging, Transport, FlightInstance
+      // type Activity, Food, Lodging, FlightInstance, LandTransport, SeaTransport,Train
       input.forEach(e => {
         var model = db[e.type].findById(e.id)
         return model.then(found => {
@@ -13,7 +13,7 @@ const LoadSequence = {
               loadSequence: e.loadSequence,
               day: e.day
             })
-          } else if (e.type === 'Transport' || e.type === 'Lodging' || e.type === 'FlightInstance') {
+          } else if (e.type === 'Lodging' || e.type === 'FlightInstance' || e.type === 'LandTransport' || e.type === 'SeaTransport' || e.type === 'Train') {
             if (e.start) {
               return found.update({
                 startLoadSequence: e.loadSequence,

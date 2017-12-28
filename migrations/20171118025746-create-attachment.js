@@ -44,18 +44,6 @@ module.exports = {
           key: 'id'
         }
       },
-      TransportId: {
-        allowNull: true,
-        type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        hooks: true,
-        references: {
-          model: {
-            tableName: 'Transports'
-          },
-          key: 'id'
-        }
-      },
       LodgingId: {
         allowNull: true,
         type: Sequelize.INTEGER,
@@ -64,6 +52,42 @@ module.exports = {
         references: {
           model: {
             tableName: 'Lodgings'
+          },
+          key: 'id'
+        }
+      },
+      LandTransportId: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        hooks: true,
+        references: {
+          model: {
+            tableName: 'LandTransports'
+          },
+          key: 'id'
+        }
+      },
+      SeaTransportId: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        hooks: true,
+        references: {
+          model: {
+            tableName: 'SeaTransports'
+          },
+          key: 'id'
+        }
+      },
+      TrainId: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        hooks: true,
+        references: {
+          model: {
+            tableName: 'Trains'
           },
           key: 'id'
         }

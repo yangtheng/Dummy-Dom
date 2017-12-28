@@ -4,8 +4,10 @@ const Attachment = `
     ActivityId: ID
     FoodId: ID
     FlightId: ID
-    TransportId: ID
     LodgingId: ID
+    LandTransportId: ID
+    SeaTransportId: ID
+    TrainId: ID
     fileName: String
     fileAlias: String
     fileType: String
