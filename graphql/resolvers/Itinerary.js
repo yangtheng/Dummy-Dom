@@ -31,7 +31,7 @@ const Itinerary = {
             // ACTIVITY / FOOD ---> 1 EVENT ROW
             if (model === 'Activity' || model === 'Food') {
               foundRows.forEach(e => {
-                arrModel.push({day: e.startDay, type: model, modelId: e.id, loadSequence: e.loadSequence, [model]: e})
+                arrModel.push({day: e.startDay, type: model, modelId: e.id, loadSequence: e.loadSequence, [model]: e, time: e.startTime})
               })
               return arrModel
             }
@@ -39,8 +39,8 @@ const Itinerary = {
             // LODGING / TRANSPORT ---> 2 EVENT ROWS
             if (model === 'Lodging' || model === 'LandTransport' || model === 'SeaTransport' || model === 'Train') {
               foundRows.forEach(e => {
-                arrModel.push({day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e})
-                arrModel.push({day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e})
+                arrModel.push({day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime})
+                arrModel.push({day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime})
               })
               return arrModel
             }
@@ -74,8 +74,8 @@ const Itinerary = {
               .then(flattened => {
                 // modelId refers to flightBooking id
                 flattened.forEach(eventRow => {
-                  arrModel.push({day: eventRow.instance.startDay, type: 'Flight', start: true, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.startLoadSequence, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}})
-                  arrModel.push({day: eventRow.instance.endDay, type: 'Flight', start: false, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.endLoadSequence, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}})
+                  arrModel.push({day: eventRow.instance.startDay, type: 'Flight', start: true, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.startLoadSequence, time: eventRow.instance.startTime, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}})
+                  arrModel.push({day: eventRow.instance.endDay, type: 'Flight', start: false, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.endLoadSequence, time: eventRow.instance.endTime, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}})
                 })
                 return arrModel
               })
