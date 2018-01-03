@@ -9,7 +9,7 @@ module.exports = {
       seedArr.push({
         ItineraryId: i,
         LocationId: i,
-        loadSequence: 7,
+        loadSequence: 3,
         startDay: 1,
         endDay: 1,
         description: `Restaurant ${i}`,

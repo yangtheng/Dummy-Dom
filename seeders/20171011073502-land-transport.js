@@ -10,8 +10,8 @@ module.exports = {
         ItineraryId: i,
         DepartureLocationId: i,
         ArrivalLocationId: Math.floor(Math.random() * 50) + 1,
-        startLoadSequence: 3,
-        endLoadSequence: 4,
+        startLoadSequence: 1,
+        endLoadSequence: 2,
         startDay: 1,
         endDay: 1,
         startTime: 32400, // 9am after flight

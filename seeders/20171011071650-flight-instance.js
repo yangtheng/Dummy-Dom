@@ -18,11 +18,11 @@ module.exports = {
         departureGate: `Gate ${Math.floor(Math.random() * 10) + 1}`,
         arrivalGate: `Gate ${Math.floor(Math.random() * 10) + 1}`,
         startDay: 1,
-        endDay: 1,
-        startLoadSequence: 1,
-        endLoadSequence: 2,
-        startTime: 21600, // 6am flight
-        endTime: 32400, // 9am arrival
+        endDay: 2,
+        startLoadSequence: 4,
+        endLoadSequence: 1,
+        startTime:  79200, // 10pm flight overnight
+        endTime: 21600, // 6am arrival
         notes: casual.sentences(3),
         firstFlight: true,
         createdAt: new Date(),

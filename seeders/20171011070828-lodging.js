@@ -9,11 +9,11 @@ module.exports = {
       seedArr.push({
         ItineraryId: i,
         LocationId: i,
-        startLoadSequence: 5,
+        startLoadSequence: 2,
         endLoadSequence: 1,
         description: `Lodging ${i}`,
         notes: casual.sentences(3),
-        startDay: 1,
+        startDay: 2,
         endDay: 6,
         startTime: 36000, // 10am checkin
         endTime: 46800, // 1pm checkout
