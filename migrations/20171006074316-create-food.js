@@ -68,6 +68,9 @@ module.exports = {
       backgroundImage: {
         type: Sequelize.STRING
       },
+      openingHoursValidation: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: true,
         type: Sequelize.DATE

@@ -16,7 +16,8 @@ module.exports = function (sequelize, DataTypes) {
     bookingStatus: DataTypes.BOOLEAN,
     bookedThrough: DataTypes.STRING,
     bookingConfirmation: DataTypes.STRING,
-    backgroundImage: DataTypes.STRING
+    backgroundImage: DataTypes.STRING,
+    openingHoursValidation: DataTypes.STRING
   })
 
   Activity.associate = function (models) {

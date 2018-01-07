@@ -20,6 +20,7 @@ const Activity = `
     bookingConfirmation: String
     attachments: [Attachment]
     backgroundImage: String
+    openingHoursValidation: String
   }
 `
 module.exports = Activity
