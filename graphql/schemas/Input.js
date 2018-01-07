@@ -13,7 +13,16 @@ const Input = `
     latitude: Float
     longitude: Float
     address: String
-    openingHours: String
+    openingHours: [openingHoursPeriodsInput]
+    openingHoursText: [String]
+  }
+  input openingHoursPeriodsInput {
+    close: periodObjInput
+    open: periodObjInput
+  }
+  input periodObjInput {
+    day: Int
+    time: String
   }
   input attachmentInput {
     fileName: String

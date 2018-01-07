@@ -8,7 +8,16 @@ const Location = `
     longitude: Float
     address: String
     country: Country
-    openingHours: [String]
+    openingHours: [openingHoursPeriods]
+    openingHoursText: [String]
+  }
+  type openingHoursPeriods {
+    open: periodObj
+    close: periodObj
+  }
+  type periodObj {
+    day: Int
+    time: String
   }
 `
 

@@ -36,6 +36,9 @@ module.exports = {
       openingHours: {
         type: Sequelize.JSON
       },
+      openingHoursText: {
+        type: Sequelize.JSON
+      },
       createdAt: {
         allowNull: true,
         type: Sequelize.DATE
