@@ -71,6 +71,9 @@ module.exports = {
       openingHoursValidation: {
         type: Sequelize.STRING
       },
+      allDayEvent: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: true,
         type: Sequelize.DATE

@@ -21,6 +21,7 @@ const Food = `
     attachments: [Attachment]
     backgroundImage: String
     openingHoursValidation: String
+    allDayEvent: Boolean
   }
 `
 module.exports = Food
