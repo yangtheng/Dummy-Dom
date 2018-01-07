@@ -10,7 +10,7 @@ module.exports = {
         FlightBookingId: i,
         flightNumber: 1234,
         airlineCode: 'JS',
-        airlineName: 'Air Koryo',
+        airlineName: 'Seeded Airline - Air Koryo',
         DepartureLocationId: i,
         ArrivalLocationId: Math.floor(Math.random() * 50) + 1,
         departureTerminal: `Terminal ${Math.floor(Math.random() * 4) + 1}`,

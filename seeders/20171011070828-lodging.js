@@ -11,7 +11,7 @@ module.exports = {
         LocationId: i,
         startLoadSequence: 2,
         endLoadSequence: 1,
-        description: `Lodging ${i}`,
+        description: `Seeded Lodging ${i}`,
         notes: casual.sentences(3),
         startDay: 2,
         endDay: 6,

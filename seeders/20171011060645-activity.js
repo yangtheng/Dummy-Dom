@@ -12,7 +12,7 @@ module.exports = {
         loadSequence: 3,
         startDay: 2,
         endDay: 1,
-        description: `Activity ${i}`,
+        description: `Seeded Activity ${i}`,
         notes: casual.sentences(3),
         startTime: 50400, // 2pm 1970
         endTime:  57600, // 4pm
