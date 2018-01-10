@@ -1,6 +1,7 @@
 const db = require('../connectors')
 const findOrCreateLocation = require('./helpers/findOrCreateLocation')
 const createAllAttachments = require('./helpers/createAllAttachments')
+const deleteAttachmentsFromCloud = require('./helpers/deleteAttachmentsFromCloud')
 
 const Activity = {
   Activity: {
@@ -81,7 +82,16 @@ const Activity = {
       })
     },
     deleteActivity: (__, data) => {
-      return db.Activity.destroy({where: {id: data.id}, individualHooks: true})
+      var deleteAll = deleteAttachmentsFromCloud('Activity', data.id)
+
+      return deleteAll
+      .then(isFinished => {
+        console.log('isFinished', isFinished)
+        return db.Activity.destroy({where: {id: data.id}, individualHooks: true})
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   }
 }
