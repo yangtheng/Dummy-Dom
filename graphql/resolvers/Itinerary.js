@@ -68,7 +68,7 @@ const Itinerary = {
               .then(values => {
                 var flattened = values.reduce(function (a, b) {
                   return a.concat(b)
-                })
+                }, [])
                 return flattened
               })
               .then(flattened => {
@@ -88,7 +88,7 @@ const Itinerary = {
         .then(values => {
           var events = values.reduce(function (a, b) {
             return a.concat(b)
-          })
+          }, [])
           var sorted = events.sort(function (a, b) {
             return a.day - b.day || a.loadSequence - b.loadSequence
           })
