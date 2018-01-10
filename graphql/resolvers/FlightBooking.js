@@ -1,6 +1,7 @@
 const db = require('../connectors')
 const findOrCreateAirportLocation = require('./helpers/findOrCreateAirportLocation')
 const createAllAttachments = require('./helpers/createAllAttachments')
+const deleteAttachmentsFromCloud = require('./helpers/deleteAttachmentsFromCloud')
 
 const FlightBooking = {
   FlightBooking: {
@@ -116,7 +117,16 @@ const FlightBooking = {
         })
     },
     deleteFlightBooking: (__, data) => {
-      return db.FlightBooking.destroy({where: {id: data.id}, individualHooks: true})
+      var deleteAll = deleteAttachmentsFromCloud('FlightBooking', data.id)
+
+      return deleteAll
+      .then(isFinished => {
+        console.log('isFinished', isFinished)
+        return db.FlightBooking.destroy({where: {id: data.id}, individualHooks: true})
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   }
 }
