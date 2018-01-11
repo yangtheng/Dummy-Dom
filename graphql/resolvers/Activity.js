@@ -22,6 +22,7 @@ const Activity = {
   },
   Mutation: {
     createActivity: (__, data) => {
+      console.log('CREATE ACTIVITY', data)
       var temp = {}
       Object.keys(data).forEach(key => {
         if (key !== 'googlePlaceData' && key !== 'LocationId') {
