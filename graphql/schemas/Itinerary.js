@@ -4,9 +4,6 @@ const Itinerary = `
     name: String!
     days: Int!
     startDate: Int
-    pax: Int
-    travelInsurance: String
-    budget: Int
     countries: [Country]
     owner: User
     users: [User!]

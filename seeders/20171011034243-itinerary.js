@@ -1,19 +1,15 @@
 'use strict'
-const casual = require('casual')
-const faker = require('faker')
+// const casual = require('casual')
+// const faker = require('faker')
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
     var seedArr = []
-    // var date = (new Date(casual.date()).getTime() / 1000).toFixed(0)
     for (var i = 1; i <= 50; i++) {
       seedArr.push({
         name: `Itinerary ${i}`,
-        startDate: 1515974400, // 15th jan 2018
+        startDate: 1518652800, // 15th feb 2018 thurs
         days: 6,
-        pax: Math.floor(Math.random() * 4) + 1,
-        budget: (Math.floor(Math.random() * 8) + 2) * 1000,
-        travelInsurance: faker.internet.url(),
         createdAt: new Date(),
         updatedAt: new Date()
       })
