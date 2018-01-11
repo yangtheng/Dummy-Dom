@@ -12,10 +12,11 @@ module.exports = {
         seedArr.push({
           CountryId: i,
           placeId: `googleplaceid${idCounter}`,
+          name: `Seeded Location ${idCounter}`,
+          address: casual.address,
+          telephone: '12345678',
           latitude: casual.latitude,
           longitude: casual.longitude,
-          address: casual.address,
-          name: `Seeded Location ${idCounter}`,
           openingHours: JSON.stringify(openingHours),
           openingHoursText: JSON.stringify(openingHoursText),
           createdAt: new Date(),
