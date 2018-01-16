@@ -46,6 +46,7 @@ function findOrCreateAirportLocation (iata) {
             telephone: google.international_phone_number || google.formatted_phone_number,
             latitude: google.geometry.location.lat,
             longitude: google.geometry.location.lng,
+            utcOffset: google.utc_offset,
             address: google.formatted_address
           }
           return googlePlaceData

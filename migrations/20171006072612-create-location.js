@@ -36,6 +36,9 @@ module.exports = {
       longitude: {
         type: Sequelize.FLOAT
       },
+      utcOffset: {
+        type: Sequelize.INTEGER
+      },
       openingHours: {
         type: Sequelize.JSON
       },

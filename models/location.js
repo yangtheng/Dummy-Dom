@@ -8,6 +8,7 @@ module.exports = function (sequelize, DataTypes) {
     address: DataTypes.STRING,
     latitude: DataTypes.FLOAT,
     longitude: DataTypes.FLOAT,
+    utcOffset: DataTypes.INTEGER,
     openingHours: DataTypes.JSON,
     openingHoursText: DataTypes.JSON
   })
