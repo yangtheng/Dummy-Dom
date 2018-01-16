@@ -1,6 +1,7 @@
 const db = require('../connectors')
 const findOrCreateLocation = require('./helpers/findOrCreateLocation')
 const createAllAttachments = require('./helpers/createAllAttachments')
+const deleteAttachmentsFromCloud = require('./helpers/deleteAttachmentsFromCloud')
 
 const Activity = {
   Activity: {
@@ -21,6 +22,7 @@ const Activity = {
   },
   Mutation: {
     createActivity: (__, data) => {
+      // console.log('CREATE ACTIVITY', data)
       var temp = {}
       Object.keys(data).forEach(key => {
         if (key !== 'googlePlaceData' && key !== 'LocationId') {
@@ -56,9 +58,11 @@ const Activity = {
       })
     },
     updateActivity: (__, data) => {
+      console.log('UPDATE ACTIVITY', data)
+
       var temp = {}
       Object.keys(data).forEach(key => {
-        if (key !== 'id' && key !== 'googlePlaceData') {
+        if (key !== 'id' && key !== 'googlePlaceData' && key !== 'addAttachments' && key !== 'removeAttachments') {
           temp[key] = data[key]
         }
       })
@@ -73,15 +77,49 @@ const Activity = {
         updateObj = Promise.resolve(temp)
       }
 
-      return updateObj.then(updateObj => {
-        return db.Activity.findById(data.id)
-          .then(found => {
-            return found.update(updateObj)
+      var attachmentsPromiseArr = []
+      if (data.addAttachments) {
+        data.addAttachments.forEach(attachment => {
+          var addAttachmentPromise = db.Attachment.create({
+            ActivityId: data.id,
+            fileName: attachment.fileName,
+            fileAlias: attachment.fileAlias,
+            fileSize: attachment.fileSize,
+            fileType: attachment.fileType
           })
+          attachmentsPromiseArr.push(addAttachmentPromise)
+        })
+      }
+      if (data.removeAttachments) {
+        data.removeAttachments.forEach(id => {
+          var removeAttachmentPromise = db.Attachment.destroy({where: {
+            id: id
+          }})
+          attachmentsPromiseArr.push(removeAttachmentPromise)
+        })
+      }
+
+      return Promise.all(attachmentsPromiseArr)
+      .then(() => {
+        return updateObj.then(updateObj => {
+          return db.Activity.findById(data.id)
+            .then(found => {
+              return found.update(updateObj)
+            })
+        })
       })
     },
     deleteActivity: (__, data) => {
-      return db.Activity.destroy({where: {id: data.id}, individualHooks: true})
+      var deleteAll = deleteAttachmentsFromCloud('Activity', data.id)
+
+      return deleteAll
+      .then(isFinished => {
+        console.log('isFinished', isFinished)
+        return db.Activity.destroy({where: {id: data.id}, individualHooks: true})
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   }
 }

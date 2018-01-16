@@ -35,7 +35,7 @@ module.exports = function (sequelize, DataTypes) {
   }
 
   Train.beforeDestroy((instance, options) => {
-    return sequelize.models.Attachment.destroy({where: {TransportId: instance.id}})
+    return sequelize.models.Attachment.destroy({where: {TrainId: instance.id}})
   })
 
   return Train

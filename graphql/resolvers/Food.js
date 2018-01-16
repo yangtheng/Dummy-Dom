@@ -1,6 +1,7 @@
 const db = require('../connectors')
 const findOrCreateLocation = require('./helpers/findOrCreateLocation')
 const createAllAttachments = require('./helpers/createAllAttachments')
+const deleteAttachmentsFromCloud = require('./helpers/deleteAttachmentsFromCloud')
 
 const Food = {
   Food: {
@@ -56,9 +57,10 @@ const Food = {
       })
     },
     updateFood: (__, data) => {
+      console.log('UPDATE FOOD', data)
       var temp = {}
       Object.keys(data).forEach(key => {
-        if (key !== 'id' && key !== 'googlePlaceData') {
+        if (key !== 'id' && key !== 'googlePlaceData' && key !== 'addAttachments' && key !== 'removeAttachments') {
           temp[key] = data[key]
         }
       })
@@ -73,15 +75,48 @@ const Food = {
         updateObj = Promise.resolve(temp)
       }
 
-      return updateObj.then(updateObj => {
-        return db.Food.findById(data.id)
-          .then(found => {
-            return found.update(updateObj)
+      var attachmentsPromiseArr = []
+      if (data.addAttachments) {
+        data.addAttachments.forEach(attachment => {
+          var addAttachmentPromise = db.Attachment.create({
+            FoodId: data.id,
+            fileName: attachment.fileName,
+            fileAlias: attachment.fileAlias,
+            fileSize: attachment.fileSize,
+            fileType: attachment.fileType
           })
+          attachmentsPromiseArr.push(addAttachmentPromise)
+        })
+      }
+      if (data.removeAttachments) {
+        data.removeAttachments.forEach(id => {
+          var removeAttachmentPromise = db.Attachment.destroy({where: {
+            id: id
+          }})
+          attachmentsPromiseArr.push(removeAttachmentPromise)
+        })
+      }
+      return Promise.all(attachmentsPromiseArr)
+      .then(() => {
+        return updateObj.then(updateObj => {
+          return db.Food.findById(data.id)
+            .then(found => {
+              return found.update(updateObj)
+            })
+        })
       })
     },
     deleteFood: (__, data) => {
-      return db.Food.destroy({where: {id: data.id}, individualHooks: true})
+      var deleteAll = deleteAttachmentsFromCloud('Food', data.id)
+
+      return deleteAll
+      .then(isFinished => {
+        console.log('isFinished', isFinished)
+        return db.Food.destroy({where: {id: data.id}, individualHooks: true})
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   }
 }

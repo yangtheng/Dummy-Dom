@@ -10,6 +10,7 @@ const Input = `
     placeId: String!
     countryCode: String
     name: String
+    telephone: String
     latitude: Float
     longitude: Float
     address: String

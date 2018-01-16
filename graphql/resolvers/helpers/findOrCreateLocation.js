@@ -14,6 +14,7 @@ function findOrCreateLocation (google) {
             return db.Location.create({
               placeId: google.placeId,
               name: google.name,
+              telephone: google.telephone,
               CountryId: country.id,
               latitude: google.latitude,
               longitude: google.longitude,
@@ -56,6 +57,7 @@ function findOrCreateLocation (google) {
                 return db.Location.create({
                   placeId: google.placeId,
                   name: google.name,
+                  telephone: google.telephone,
                   CountryId: country.id,
                   latitude: google.latitude,
                   longitude: google.longitude,

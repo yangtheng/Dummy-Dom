@@ -4,9 +4,10 @@ module.exports = function (sequelize, DataTypes) {
     CountryId: DataTypes.INTEGER,
     placeId: DataTypes.STRING,
     name: DataTypes.STRING,
+    telephone: DataTypes.STRING,
+    address: DataTypes.STRING,
     latitude: DataTypes.FLOAT,
     longitude: DataTypes.FLOAT,
-    address: DataTypes.STRING,
     openingHours: DataTypes.JSON,
     openingHoursText: DataTypes.JSON
   })

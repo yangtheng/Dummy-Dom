@@ -24,14 +24,17 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
+      telephone: {
+        type: Sequelize.STRING
+      },
+      address: {
+        type: Sequelize.STRING
+      },
       latitude: {
         type: Sequelize.FLOAT
       },
       longitude: {
         type: Sequelize.FLOAT
-      },
-      address: {
-        type: Sequelize.STRING
       },
       openingHours: {
         type: Sequelize.JSON

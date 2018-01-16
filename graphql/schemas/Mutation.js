@@ -10,9 +10,9 @@ const Mutation = `
 
     createToken(email:String!, password:String!): String
 
-    createItinerary(UserId: Int!, CountryId: Int, name:String!, days: Int!, startDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
+    createItinerary(UserId: Int!, CountryId: Int, name:String!, days: Int!, startDate:Int): Itinerary
 
-    updateItineraryDetails(id: ID!, name:String, days: Int, startDate:Int,pax:Int,travelInsurance:String,budget:Int): Itinerary
+    updateItineraryDetails(id: ID!, name:String, days: Int, startDate:Int): Itinerary
 
     createCountriesItineraries(ItineraryId: Int!, countryCode: String!): CountriesItineraries
 
@@ -20,11 +20,11 @@ const Mutation = `
 
     deleteItinerary(id: ID!): Boolean
 
-    createLocation(placeId: String!, CountryId: ID, name:String, latitude:String, longitude:String, address:String, openingHours: String, openingHoursText: String): Location
+    createLocation(placeId: String!, CountryId: ID, name:String, telephone: String, latitude:String, longitude:String, address:String, openingHours: String, openingHoursText: String): Location
 
     createActivity(ItineraryId: ID!, googlePlaceData: googlePlaceData, LocationId: ID, locationAlias: String, startDay: Int, endDay: Int, loadSequence: Int, description: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachments: [attachmentInput], backgroundImage: String, openingHoursValidation: String, allDayEvent: Boolean): Activity
 
-    updateActivity(id: ID!, googlePlaceData: googlePlaceData, locationAlias: String, startDay: Int, endDay: Int, description: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String, openingHoursValidation: String, allDayEvent: Boolean): Activity
+    updateActivity(id: ID!, googlePlaceData: googlePlaceData, locationAlias: String, startDay: Int, endDay: Int, startTime: Int, endTime: Int, loadSequence: Int, cost: Int, currency: String, description: String, notes: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String, addAttachments: [attachmentInput], removeAttachments: [ID], openingHoursValidation: String, allDayEvent: Boolean): Activity
 
     deleteActivity(id:ID!): Boolean
 
@@ -42,7 +42,7 @@ const Mutation = `
 
     createFood(ItineraryId: ID!, googlePlaceData: googlePlaceData, LocationId: ID, locationAlias: String, startDay: Int,  endDay: Int, loadSequence: Int, description: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachments: [attachmentInput], backgroundImage: String, openingHoursValidation: String, allDayEvent: Boolean): Food
 
-    updateFood(id: ID!, googlePlaceData: googlePlaceData, locationAlias: String, startDay: Int, endDay: Int, description: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String, openingHoursValidation: String, allDayEvent: Boolean): Food
+    updateFood(id: ID!, googlePlaceData: googlePlaceData, locationAlias: String, startDay: Int, endDay: Int, loadSequence: Int, description: String, notes: String, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String, addAttachments: [attachmentInput], removeAttachments: [ID], openingHoursValidation: String, allDayEvent: Boolean): Food
 
     deleteFood(id:ID!): Boolean
 

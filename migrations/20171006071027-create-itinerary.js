@@ -17,15 +17,6 @@ module.exports = {
       startDate: {
         type: Sequelize.INTEGER
       },
-      pax: {
-        type: Sequelize.INTEGER
-      },
-      travelInsurance: {
-        type: Sequelize.STRING
-      },
-      budget: {
-        type: Sequelize.INTEGER
-      },
       createdAt: {
         allowNull: true,
         type: Sequelize.DATE

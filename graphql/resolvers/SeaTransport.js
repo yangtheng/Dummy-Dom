@@ -1,6 +1,7 @@
 const db = require('../connectors')
 const findOrCreateLocation = require('./helpers/findOrCreateLocation')
 const createAllAttachments = require('./helpers/createAllAttachments')
+const deleteAttachmentsFromCloud = require('./helpers/deleteAttachmentsFromCloud')
 
 const SeaTransport = {
   SeaTransport: {
@@ -82,7 +83,16 @@ const SeaTransport = {
       }
     },
     deleteSeaTransport: (__, data) => {
-      return db.SeaTransport.destroy({where: {id: data.id}, individualHooks: true})
+      var deleteAll = deleteAttachmentsFromCloud('SeaTransport', data.id)
+
+      return deleteAll
+      .then(isFinished => {
+        console.log('isFinished', isFinished)
+        return db.SeaTransport.destroy({where: {id: data.id}, individualHooks: true})
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   }
 }
