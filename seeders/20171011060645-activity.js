@@ -11,7 +11,7 @@ module.exports = {
         LocationId: i,
         loadSequence: 3,
         startDay: 2,
-        endDay: 1,
+        endDay: 2,
         description: `Seeded Activity ${i}`,
         notes: casual.sentences(3),
         startTime: 50400, // 2pm 1970
