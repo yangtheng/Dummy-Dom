@@ -9,6 +9,7 @@ const Location = `
     address: String
     latitude: Float
     longitude: Float
+    utcOffset: Int
     openingHours: [openingHoursPeriods]
     openingHoursText: [String]
   }

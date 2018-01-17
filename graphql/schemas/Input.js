@@ -10,10 +10,11 @@ const Input = `
     placeId: String!
     countryCode: String
     name: String
+    address: String
     telephone: String
     latitude: Float
     longitude: Float
-    address: String
+    utcOffset: Int
     openingHours: [openingHoursPeriodsInput]
     openingHoursText: [String]
   }

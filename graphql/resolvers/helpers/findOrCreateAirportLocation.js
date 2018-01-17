@@ -23,10 +23,9 @@ function findOrCreateAirportLocation (iata) {
       return response.json()
     })
     .then(json => {
-      // console.log('json', json)
       return json.results[0].place_id // take first result (typically only 1)
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log('ERROR', err))
 
   var googlePlaceData = placeId
     .then(placeId => {
@@ -34,23 +33,26 @@ function findOrCreateAirportLocation (iata) {
 
       return fetch(placeDetailsUri)
         .then(response => {
-          var google = response.json().result
-          return google
+          return response.json()
         })
-        .then(google => {
-          // console.log('details', json)
+        .then(json => {
+          var result = json.result
+          console.log('RESULT IN RESPONSE', result)
           var googlePlaceData = {
             placeId: placeId,
             countryCode: region,
-            name: google.name,
-            telephone: google.international_phone_number || google.formatted_phone_number,
-            latitude: google.geometry.location.lat,
-            longitude: google.geometry.location.lng,
-            address: google.formatted_address
+            name: result.name,
+            telephone: result.international_phone_number || result.formatted_phone_number,
+            latitude: result.geometry.location.lat,
+            longitude: result.geometry.location.lng,
+            utcOffset: result.utc_offset,
+            address: result.formatted_address
           }
           return googlePlaceData
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log('ERROR', err)
+        })
     })
 
   return googlePlaceData.then(googlePlaceData => {

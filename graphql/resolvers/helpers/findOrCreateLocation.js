@@ -16,9 +16,10 @@ function findOrCreateLocation (google) {
               name: google.name,
               telephone: google.telephone,
               CountryId: country.id,
+              address: google.address,
               latitude: google.latitude,
               longitude: google.longitude,
-              address: google.address,
+              utcOffset: google.utcOffset,
               openingHours: google.openingHours,
               openingHoursText: google.openingHoursText
             })

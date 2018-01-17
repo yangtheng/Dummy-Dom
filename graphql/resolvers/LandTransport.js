@@ -57,6 +57,8 @@ const LandTransport = {
       })
     },
     updateLandTransport: (__, data) => {
+      console.log('UPDATE TRANSPORT', data)
+
       var updates = {}
       Object.keys(data).forEach(key => {
         if (key !== 'id' && key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData') {
@@ -64,10 +66,31 @@ const LandTransport = {
         }
       })
 
-      // updates only if both departure and arrival are given. what about updating only 1?
-      if (data.departureGooglePlaceData && data.arrivalGooglePlaceData) {
+      if (data.departureGooglePlaceData && !data.arrivalGooglePlaceData) {
         var departure = findOrCreateLocation(data.departureGooglePlaceData)
+        return departure.then(id => {
+          updates.DepartureLocationId = id
+          return db.LandTransport.findById(data.id)
+            .then(found => {
+              return found.update(updates)
+            })
+        })
+      }
+
+      if (!data.departureGooglePlaceData && data.arrivalGooglePlaceData) {
         var arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
+        return arrival.then(id => {
+          updates.ArrivalLocationId = id
+          return db.LandTransport.findById(data.id)
+            .then(found => {
+              return found.update(updates)
+            })
+        })
+      }
+
+      if (data.departureGooglePlaceData && data.arrivalGooglePlaceData) {
+        departure = findOrCreateLocation(data.departureGooglePlaceData)
+        arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
         return Promise.all([departure, arrival])
           .then(values => {
             console.log(values)
@@ -79,6 +102,7 @@ const LandTransport = {
               })
           })
       } else {
+        // if no location changes
         return db.LandTransport.findById(data.id)
         .then(found => {
           return found.update(updates)

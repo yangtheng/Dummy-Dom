@@ -17,6 +17,7 @@ module.exports = {
           telephone: '12345678',
           latitude: casual.latitude,
           longitude: casual.longitude,
+          utcOffset: 480,
           openingHours: JSON.stringify(openingHours),
           openingHoursText: JSON.stringify(openingHoursText),
           createdAt: new Date(),
