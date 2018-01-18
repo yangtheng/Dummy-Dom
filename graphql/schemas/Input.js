@@ -54,6 +54,9 @@ const Input = `
 
   input updateFlightInstanceInput {
     id: ID!
+    flightNumber: Int,
+    airlineCode: String,
+    airlineName: String,
     departureIATA: String
     arrivalIATA: String
     departureTerminal: String
@@ -66,7 +69,8 @@ const Input = `
     endTime: Int
     startLoadSequence: Int
     endLoadSequence: Int
-    notes: String
+    notes: String,
+    firstFlight: Boolean
   }
 `
 module.exports = Input
