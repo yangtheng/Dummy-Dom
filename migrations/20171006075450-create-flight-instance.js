@@ -29,6 +29,12 @@ module.exports = {
       airlineName: {
         type: Sequelize.STRING
       },
+      departureIATA: {
+        type: Sequelize.STRING
+      },
+      arrivalIATA: {
+        type: Sequelize.STRING
+      },
       DepartureLocationId: {
         type: Sequelize.INTEGER,
         references: {

@@ -40,9 +40,7 @@ const FlightBooking = {
           data.flightInstances.forEach(instance => {
             var newFlightInstance = {}
             Object.keys(instance).forEach(key => {
-              if (key !== 'departureIATA' && key !== 'arrivalIATA') {
-                newFlightInstance[key] = instance[key]
-              }
+              newFlightInstance[key] = instance[key]
             })
             newFlightInstance.FlightBookingId = createdId
 
@@ -83,7 +81,7 @@ const FlightBooking = {
           data.flightInstances.forEach(instance => {
             var updates = {}
             Object.keys(instance).forEach(key => {
-              if (key !== 'id' && key !== 'departureIATA' && key !== 'arrivalIATA') {
+              if (key !== 'id') {
                 updates[key] = instance[key]
               }
             })
