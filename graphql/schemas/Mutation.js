@@ -34,6 +34,10 @@ const Mutation = `
 
     deleteFlightBooking(id:ID!): Boolean
 
+    updateFlightInstance(id: ID!, FlightBookingId: ID, flightNumber: Int, airlineCode: String, airlineName: String, departureIATA: String, arrivalIATA: String, departureTerminal: String, arrivalTerminal: String, departureGate: String, arrivalGate: String, startDay: Int, endDay: Int, startTime: Int, endTime: Int, startLoadSequence: Int, endLoadSequence: Int, notes: String): FlightInstance
+
+    deleteFlightInstance(id: ID!): Boolean
+
     createLodging(ItineraryId: ID!, googlePlaceData: googlePlaceData, LocationId: ID, locationAlias: String, startLoadSequence: Int, endLoadSequence:Int, description: String, notes: String, startDay: Int, endDay: Int, startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, attachments: [attachmentInput], backgroundImage: String): Lodging
 
     updateLodging(id: ID!, googlePlaceData: googlePlaceData, locationAlias: String, startLoadSequence: Int, endLoadSequence:Int, description: String, notes: String, startDay: Int, endDay: Int,  startTime: Int, endTime: Int, cost: Int, currency: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String, addAttachments: [attachmentInput], removeAttachments: [ID]): Lodging

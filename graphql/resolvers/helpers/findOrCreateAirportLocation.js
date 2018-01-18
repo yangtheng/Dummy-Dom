@@ -37,7 +37,7 @@ function findOrCreateAirportLocation (iata) {
         })
         .then(json => {
           var result = json.result
-          console.log('RESULT IN RESPONSE', result)
+          // console.log('RESULT IN RESPONSE', result)
           var googlePlaceData = {
             placeId: placeId,
             countryCode: region,
