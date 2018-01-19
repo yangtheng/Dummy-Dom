@@ -10,6 +10,7 @@ module.exports = {
         name: `Itinerary ${i}`,
         startDate: 1518652800, // 15th feb 2018 thurs
         days: 6,
+        description: 'SEEDED ITINERARY DESCRIPTION',
         createdAt: new Date(),
         updatedAt: new Date()
       })
