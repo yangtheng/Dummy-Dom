@@ -22,6 +22,7 @@ module.exports = {
         bookedThrough: faker.internet.url(),
         bookingConfirmation: faker.internet.url(),
         backgroundImage: faker.internet.url(),
+        backgroundImage: 'https://storage.googleapis.com/domatodevs/flightDefaultBackground.jpg',
         createdAt: new Date(),
         updatedAt: new Date()
       }
