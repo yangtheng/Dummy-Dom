@@ -7,6 +7,8 @@ const FlightInstance = `
     airlineName: String
     departureIATA: String
     arrivalIATA: String
+    departureCityCountry: String
+    arrivalCityCountry: String
     DepartureLocationId: ID!
     departureLocation: Location!
     ArrivalLocationId: ID!
@@ -19,6 +21,7 @@ const FlightInstance = `
     endDay: Int
     startTime: Int
     endTime: Int
+    durationMins: Int
     startLoadSequence: Int
     endLoadSequence: Int
     notes: String

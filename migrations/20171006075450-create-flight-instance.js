@@ -35,6 +35,12 @@ module.exports = {
       arrivalIATA: {
         type: Sequelize.STRING
       },
+      departureCityCountry: {
+        type: Sequelize.STRING
+      },
+      arrivalCityCountry: {
+        type: Sequelize.STRING
+      },
       DepartureLocationId: {
         type: Sequelize.INTEGER,
         references: {
@@ -75,6 +81,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       endTime: {
+        type: Sequelize.INTEGER
+      },
+      durationMins: {
         type: Sequelize.INTEGER
       },
       startLoadSequence: {
