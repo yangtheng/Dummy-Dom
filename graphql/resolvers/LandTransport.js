@@ -59,55 +59,68 @@ const LandTransport = {
     updateLandTransport: (__, data) => {
       console.log('UPDATE TRANSPORT', data)
 
-      var updates = {}
+      var temp = {}
       Object.keys(data).forEach(key => {
-        if (key !== 'id' && key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData') {
-          updates[key] = data[key]
+        if (key !== 'id' && key !== 'departureGooglePlaceData' && key !== 'arrivalGooglePlaceData' && key !== 'addAttachments' && key !== 'removeAttachments') {
+          temp[key] = data[key]
         }
       })
 
-      if (data.departureGooglePlaceData && !data.arrivalGooglePlaceData) {
-        var departure = findOrCreateLocation(data.departureGooglePlaceData)
-        return departure.then(id => {
-          updates.DepartureLocationId = id
-          return db.LandTransport.findById(data.id)
-            .then(found => {
-              return found.update(updates)
-            })
+      // refactoring locations using promise.resolve
+      if (data.departureGooglePlaceData || data.arrivalGooglePlaceData) {
+        if (data.departureGooglePlaceData) {
+          var departure = findOrCreateLocation(data.departureGooglePlaceData)
+        }
+        if (data.arrivalGooglePlaceData) {
+          var arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
+        }
+        var tempObj = Promise.all([departure, arrival])
+        .then(values => {
+          if (values[0]) {
+            temp.DepartureLocationId = values[0]
+          }
+          if (values[1]) {
+            temp.ArrivalLocationId = values[1]
+          }
+          return temp
         })
-      }
-
-      if (!data.departureGooglePlaceData && data.arrivalGooglePlaceData) {
-        var arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
-        return arrival.then(id => {
-          updates.ArrivalLocationId = id
-          return db.LandTransport.findById(data.id)
-            .then(found => {
-              return found.update(updates)
-            })
-        })
-      }
-
-      if (data.departureGooglePlaceData && data.arrivalGooglePlaceData) {
-        departure = findOrCreateLocation(data.departureGooglePlaceData)
-        arrival = findOrCreateLocation(data.arrivalGooglePlaceData)
-        return Promise.all([departure, arrival])
-          .then(values => {
-            console.log(values)
-            updates.DepartureLocationId = values[0]
-            updates.ArrivalLocationId = values[1]
-            return db.LandTransport.findById(data.id)
-              .then(foundTransport => {
-                return foundTransport.update(updates)
-              })
-          })
       } else {
-        // if no location changes
-        return db.LandTransport.findById(data.id)
-        .then(found => {
-          return found.update(updates)
+        tempObj = Promise.resolve(temp)
+      }
+
+      // after adding possible location, add/remove attachments
+      var attachmentsPromiseArr = []
+      if (data.addAttachments) {
+        data.addAttachments.forEach(attachment => {
+          var addAttachmentPromise = db.Attachment.create({
+            LandTransportId: data.id,
+            fileName: attachment.fileName,
+            fileAlias: attachment.fileAlias,
+            fileSize: attachment.fileSize,
+            fileType: attachment.fileType
+          })
+          attachmentsPromiseArr.push(addAttachmentPromise)
         })
       }
+      if (data.removeAttachments) {
+        data.removeAttachments.forEach(id => {
+          var removeAttachmentPromise = db.Attachment.destroy({where: {
+            id: id
+          }})
+          attachmentsPromiseArr.push(removeAttachmentPromise)
+        })
+      }
+
+      // wait for attachment promises to finish before updating LandTransport
+      return Promise.all(attachmentsPromiseArr)
+      .then(() => {
+        return tempObj.then(updates => {
+          return db.LandTransport.findById(data.id)
+            .then(found => {
+              return found.update(updates)
+            })
+        })
+      })
     },
     deleteLandTransport: (__, data) => {
       var deleteAll = deleteAttachmentsFromCloud('LandTransport', data.id)

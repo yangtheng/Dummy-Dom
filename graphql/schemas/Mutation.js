@@ -10,9 +10,9 @@ const Mutation = `
 
     createToken(email:String!, password:String!): String
 
-    createItinerary(UserId: Int!, CountryId: Int, name:String!, days: Int!, startDate:Int): Itinerary
+    createItinerary(UserId: Int!, CountryId: Int, name:String!, days: Int!, startDate:Int, description: String): Itinerary
 
-    updateItineraryDetails(id: ID!, name:String, days: Int, startDate:Int): Itinerary
+    updateItineraryDetails(id: ID!, name:String, days: Int, startDate:Int, description: String): Itinerary
 
     createCountriesItineraries(ItineraryId: Int!, countryCode: String!): CountriesItineraries
 
@@ -28,13 +28,13 @@ const Mutation = `
 
     deleteActivity(id:ID!): Boolean
 
-    createFlightBooking(ItineraryId: ID!, paxAdults: Int, paxChildren: Int, paxInfants: Int, cost: Int, currency: String, classCode: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String, attachments: [attachmentInput], flightInstances: [createFlightInstanceInput]): FlightBooking
+    createFlightBooking(ItineraryId: ID!, paxAdults: Int, paxChildren: Int, paxInfants: Int, cost: Int, currency: String, classCode: String, departureDate: Int, returnDate: Int, departureIATA: String, arrivalIATA: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String, attachments: [attachmentInput], flightInstances: [createFlightInstanceInput]): FlightBooking
 
-    updateFlightBooking(id: ID!, paxAdults: Int, paxChildren: Int, paxInfants: Int, cost: Int, currency: String, classCode: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String, addAttachments: [attachmentInput], removeAttachments: [ID], flightInstances: [updateFlightInstanceInput]): FlightBooking
+    updateFlightBooking(id: ID!, paxAdults: Int, paxChildren: Int, paxInfants: Int, cost: Int, currency: String, classCode: String, departureDate: Int, returnDate: Int, departureIATA: String, arrivalIATA: String, bookingStatus: Boolean, bookedThrough: String, bookingConfirmation: String, backgroundImage: String, addAttachments: [attachmentInput], removeAttachments: [ID], flightInstances: [updateFlightInstanceInput]): FlightBooking
 
     deleteFlightBooking(id:ID!): Boolean
 
-    updateFlightInstance(id: ID!, FlightBookingId: ID, flightNumber: Int, airlineCode: String, airlineName: String, departureIATA: String, arrivalIATA: String, departureTerminal: String, arrivalTerminal: String, departureGate: String, arrivalGate: String, startDay: Int, endDay: Int, startTime: Int, endTime: Int, startLoadSequence: Int, endLoadSequence: Int, notes: String): FlightInstance
+    updateFlightInstance(id: ID!, FlightBookingId: ID, flightNumber: Int, airlineCode: String, airlineName: String, departureIATA: String, arrivalIATA: String, departureCityCountry: String, arrivalCityCountry: String, departureTerminal: String, arrivalTerminal: String, departureGate: String, arrivalGate: String, startDay: Int, endDay: Int, startTime: Int, endTime: Int, durationMins: String, startLoadSequence: Int, endLoadSequence: Int, notes: String): FlightInstance
 
     deleteFlightInstance(id: ID!): Boolean
 

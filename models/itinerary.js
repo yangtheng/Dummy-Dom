@@ -3,7 +3,8 @@ module.exports = function (sequelize, DataTypes) {
   var Itinerary = sequelize.define('Itinerary', {
     name: DataTypes.STRING,
     days: DataTypes.INTEGER,
-    startDate: DataTypes.INTEGER
+    startDate: DataTypes.INTEGER,
+    description: DataTypes.STRING
   })
 
   Itinerary.associate = function (models) {

@@ -57,9 +57,11 @@ const Lodging = {
       })
     },
     updateLodging: (__, data) => {
+      console.log('UPDATE LODGING', data)
+
       var temp = {}
       Object.keys(data).forEach(key => {
-        if (key !== 'id' && key !== 'googlePlaceData') {
+        if (key !== 'id' && key !== 'googlePlaceData' && key !== 'addAttachments' && key !== 'removeAttachments') {
           temp[key] = data[key]
         }
       })
@@ -74,11 +76,36 @@ const Lodging = {
         updateObj = Promise.resolve(temp)
       }
 
-      return updateObj.then(updateObj => {
-        return db.Lodging.findById(data.id)
-          .then(found => {
-            return found.update(updateObj)
+      var attachmentsPromiseArr = []
+      if (data.addAttachments) {
+        data.addAttachments.forEach(attachment => {
+          var addAttachmentPromise = db.Attachment.create({
+            LodgingId: data.id,
+            fileName: attachment.fileName,
+            fileAlias: attachment.fileAlias,
+            fileSize: attachment.fileSize,
+            fileType: attachment.fileType
           })
+          attachmentsPromiseArr.push(addAttachmentPromise)
+        })
+      }
+      if (data.removeAttachments) {
+        data.removeAttachments.forEach(id => {
+          var removeAttachmentPromise = db.Attachment.destroy({where: {
+            id: id
+          }})
+          attachmentsPromiseArr.push(removeAttachmentPromise)
+        })
+      }
+
+      return Promise.all(attachmentsPromiseArr)
+      .then(() => {
+        return updateObj.then(updateObj => {
+          return db.Lodging.findById(data.id)
+            .then(found => {
+              return found.update(updateObj)
+            })
+        })
       })
     },
     deleteLodging: (__, data) => {

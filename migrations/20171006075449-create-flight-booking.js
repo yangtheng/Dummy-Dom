@@ -35,6 +35,18 @@ module.exports = {
       classCode: {
         type: Sequelize.STRING
       },
+      departureDate: {
+        type: Sequelize.INTEGER
+      },
+      returnDate: {
+        type: Sequelize.INTEGER
+      },
+      departureIATA: {
+        type: Sequelize.STRING
+      },
+      arrivalIATA: {
+        type: Sequelize.STRING
+      },
       bookingStatus: {
         type: Sequelize.BOOLEAN
       },

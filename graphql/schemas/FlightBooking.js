@@ -8,6 +8,10 @@ const FlightBooking = `
     cost: Int
     currency: String
     classCode: String
+    departureDate: Int,
+    returnDate: Int,
+    departureIATA: String,
+    arrivalIATA: String,
     bookingStatus: Boolean
     bookedThrough: String
     bookingConfirmation: String

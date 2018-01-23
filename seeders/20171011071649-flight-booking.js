@@ -13,11 +13,15 @@ module.exports = {
         paxInfants: 0,
         cost: (Math.floor(Math.random() * 20) + 1) * 100,
         currency: casual.currency_code,
-        classCode: 'Economy',
+        classCode: 'Business',
+        departureDate: 1518652800,
+        returnDate: 1519084800,
+        departureIATA: 'SIN',
+        arrivalIATA: 'SEL',
         bookingStatus: true,
         bookedThrough: faker.internet.url(),
         bookingConfirmation: faker.internet.url(),
-        backgroundImage: faker.internet.url(),
+        backgroundImage: 'https://storage.googleapis.com/domatodevs/flightDefaultBackground.jpg',
         createdAt: new Date(),
         updatedAt: new Date()
       }
