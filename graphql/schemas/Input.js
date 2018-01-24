@@ -5,6 +5,7 @@ const Input = `
     loadSequence: Int!
     day: Int!
     start: Boolean
+    diff: Int
   }
   input googlePlaceData {
     placeId: String!

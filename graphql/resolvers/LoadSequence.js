@@ -10,8 +10,13 @@ const LoadSequence = {
         return model.then(found => {
           if (e.type === 'Activity' || e.type === 'Food') {
             return found.update({
-              loadSequence: e.loadSequence,
-              day: e.day
+              ...{
+                loadSequence: e.loadSequence,
+                startDay: e.day
+              },
+              ...e.diff && {
+                endDay: e.day + e.diff
+              }
             })
           } else if (e.type === 'Lodging' || e.type === 'FlightInstance' || e.type === 'LandTransport' || e.type === 'SeaTransport' || e.type === 'Train') {
             if (e.start) {
