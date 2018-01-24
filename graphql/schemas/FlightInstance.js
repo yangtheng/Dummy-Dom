@@ -24,8 +24,10 @@ const FlightInstance = `
     durationMins: Int
     startLoadSequence: Int
     endLoadSequence: Int
-    notes: String
+    departureNotes: String
+    arrivalNotes: String
     firstFlight: Boolean
+    attachments: [Attachment]
   }
 `
 module.exports = FlightInstance

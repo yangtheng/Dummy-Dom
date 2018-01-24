@@ -16,8 +16,8 @@ const FlightBooking = `
     bookedThrough: String
     bookingConfirmation: String
     backgroundImage: String
-    attachments: [Attachment]
     flightInstances: [FlightInstance]
   }
 `
 module.exports = FlightBooking
+// attachments: [Attachment]

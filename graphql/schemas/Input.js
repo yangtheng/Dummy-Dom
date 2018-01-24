@@ -28,6 +28,7 @@ const Input = `
     time: String
   }
   input attachmentInput {
+    arrivalDeparture: String
     fileName: String
     fileAlias: String
     fileType: String
@@ -52,7 +53,8 @@ const Input = `
     durationMins: Int
     startLoadSequence: Int
     endLoadSequence: Int
-    notes: String
+    departureNotes: String
+    arrivalNotes: String
     firstFlight: Boolean
   }
 
@@ -76,7 +78,8 @@ const Input = `
     durationMins: Int
     startLoadSequence: Int
     endLoadSequence: Int
-    notes: String,
+    departureNotes: String
+    arrivalNotes: String
     firstFlight: Boolean
   }
 `

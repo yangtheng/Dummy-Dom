@@ -92,7 +92,10 @@ module.exports = {
       endLoadSequence: {
         type: Sequelize.INTEGER
       },
-      notes: {
+      departureNotes: {
+        type: Sequelize.TEXT
+      },
+      arrivalNotes: {
         type: Sequelize.TEXT
       },
       firstFlight: {

@@ -27,7 +27,8 @@ module.exports = {
         startTime:  79200, // 10pm flight overnight
         endTime: 21600, // 6am arrival
         durationMins: 480,
-        notes: casual.sentences(3),
+        departureNotes: casual.sentences(3),
+        arrivalNotes: casual.sentences(3),
         firstFlight: true,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -53,7 +54,8 @@ module.exports = {
         startTime: 50400,
         endTime: 72600,
         durationMins: 370,
-        notes: 'Flying back from incheon to changi',
+        departureNotes: casual.sentences(3),
+        arrivalNotes: casual.sentences(3),
         firstFlight: false,
         createdAt: new Date(),
         updatedAt: new Date()

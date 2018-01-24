@@ -22,7 +22,9 @@ module.exports = function (sequelize, DataTypes) {
     durationMins: DataTypes.INTEGER,
     startLoadSequence: DataTypes.INTEGER,
     endLoadSequence: DataTypes.INTEGER,
-    notes: DataTypes.TEXT,
+    // notes: DataTypes.TEXT,
+    departureNotes: DataTypes.TEXT,
+    arrivalNotes: DataTypes.TEXT,
     firstFlight: DataTypes.BOOLEAN
   })
 
@@ -41,7 +43,6 @@ module.exports = function (sequelize, DataTypes) {
 
   FlightInstance.beforeDestroy((instance, options) => {
     sequelize.models.Attachment.destroy({where: {FlightInstanceId: instance.id}})
-    sequelize.models.FlightInstance.destroy({where: {FlightInstanceId: instance.id}})
   })
   return FlightInstance
 }

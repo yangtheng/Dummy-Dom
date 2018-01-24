@@ -16,7 +16,8 @@ module.exports = {
         endDay: 1,
         startTime: 32400, // 9am after flight
         endTime: 36000, // 10am
-        notes: casual.sentences(3),
+        departureNotes: casual.sentences(3),
+        arrivalNotes: casual.sentences(3),
         cost: (Math.floor(Math.random() * 20) + 1) * 10,
         currency: casual.currency_code,
         bookingStatus: true,

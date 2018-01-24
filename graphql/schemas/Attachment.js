@@ -8,6 +8,7 @@ const Attachment = `
     LandTransportId: ID
     SeaTransportId: ID
     TrainId: ID
+    arrivalDeparture: String
     fileName: String
     fileAlias: String
     fileType: String

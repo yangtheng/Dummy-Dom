@@ -59,7 +59,10 @@ module.exports = {
       endTime: {
         type: Sequelize.INTEGER
       },
-      notes: {
+      departureNotes: {
+        type: Sequelize.TEXT
+      },
+      arrivalNotes: {
         type: Sequelize.TEXT
       },
       cost: {

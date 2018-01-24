@@ -14,7 +14,8 @@ const Train = `
     endDay: Int
     startTime: Int
     endTime: Int
-    notes: String
+    departureNotes: String
+    arrivalNotes: String
     cost: Int
     currency: String
     bookingStatus: Boolean
