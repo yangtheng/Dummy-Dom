@@ -56,6 +56,7 @@ const Input = `
     departureNotes: String
     arrivalNotes: String
     firstFlight: Boolean
+    attachments: [attachmentInput]
   }
 
   input updateFlightInstanceInput {
@@ -81,6 +82,8 @@ const Input = `
     departureNotes: String
     arrivalNotes: String
     firstFlight: Boolean
+    addAttachments: [attachmentInput]
+    removeAttachments: [ID]
   }
 `
 module.exports = Input

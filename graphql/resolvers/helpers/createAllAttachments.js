@@ -10,7 +10,8 @@ function createAllAttachments (array, model, modelId) {
       fileName: info.fileName,
       fileAlias: info.fileAlias,
       fileType: info.fileType,
-      fileSize: info.fileSize
+      fileSize: info.fileSize,
+      arrivalDeparture: info.arrivalDeparture
     })
     attachmentPromises.push(created)
   })

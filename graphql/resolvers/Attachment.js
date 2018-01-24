@@ -14,7 +14,8 @@ const Attachment = {
         fileName: data.fileName,
         fileAlias: data.fileAlias,
         fileType: data.fileType,
-        fileSize: data.fileSize
+        fileSize: data.fileSize,
+        arrivalDeparture: data.arrivalDeparture
       })
     },
     deleteAttachment: (__, data) => {

@@ -8,6 +8,9 @@ const FlightInstance = {
     },
     arrivalLocation (flightInstance) {
       return flightInstance.getFlightArrival()
+    },
+    attachments (flightInstance) {
+      return flightInstance.getAttachments()
     }
   },
   Query: {
@@ -16,6 +19,7 @@ const FlightInstance = {
     }
   },
   Mutation: {
+    // REWRITE UPDATE FLIGHT INSTANCES FOR ATTACHMENTS
     updateFlightInstance: (__, data) => {
       console.log('UPDATE DATA', data)
       var temp = {}

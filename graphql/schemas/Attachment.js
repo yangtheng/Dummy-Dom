@@ -3,7 +3,7 @@ const Attachment = `
     id: ID!
     ActivityId: ID
     FoodId: ID
-    FlightId: ID
+    FlightInstanceId: ID
     LodgingId: ID
     LandTransportId: ID
     SeaTransportId: ID

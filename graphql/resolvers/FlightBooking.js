@@ -5,9 +5,6 @@ const deleteAttachmentsFromCloud = require('./helpers/deleteAttachmentsFromCloud
 
 const FlightBooking = {
   FlightBooking: {
-    attachments (flightBooking) {
-      return flightBooking.getAttachments()
-    },
     flightInstances (flightBooking) {
       return flightBooking.getFlightInstances()
     }
@@ -18,7 +15,7 @@ const FlightBooking = {
     }
   },
   Mutation: {
-    // CRUD handle both booking and instances tgt
+    // REWRITE AND REMOVE ATTACHMENTS
     createFlightBooking: (__, data) => {
       var newFlightBooking = {}
       Object.keys(data).forEach(key => {
