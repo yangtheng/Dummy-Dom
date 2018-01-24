@@ -3,25 +3,35 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
     var seedArr = []
-    var eventsId = ['ActivityId', 'FoodId', 'FlightBookingId', 'LodgingId', 'LandTransportId']
+    var eventsId = ['ActivityId', 'FoodId', 'FlightInstanceId', 'LodgingId', 'LandTransportId']
     // dont seed sea and train yet
     eventsId.forEach(e => {
-      // var defaultBackground = {
-      //   'ActivityId': 'activityDefaultBackground.jpg',
-      //   'FoodId': 'foodDefaultBackground.jpg',
-      //   'FlightBookingId': 'flightDefaultBackground.jpg',
-      //   'LodgingId': 'lodgingDefaultBackground.jpg',
-      //   'LandTransportId': 'landTransportDefaultBackground.jpg'
-      // }
-      // var eventName = defaultBackground[e]
-      for (var i = 1; i <= 50; i++) {
-        seedArr.push({
-          [e]: i,
-          // fileName: eventName,
-          fileName: 'ItineraryX_Seeded',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        })
+      if (e === 'ActivityId' || e === 'FoodId' || e === 'LodgingId') {
+        for (var i = 1; i <= 50; i++) {
+          seedArr.push({
+            [e]: i,
+            fileName: 'ItineraryX_Seeded',
+            createdAt: new Date(),
+            updatedAt: new Date()
+          })
+        }
+      } else if (e === 'FlightInstanceId' || e === 'LandTransportId') {
+        for (var j = 1; j <= 50; j++) {
+          seedArr.push({
+            [e]: j,
+            arrivalDeparture: 'departure',
+            fileName: 'ItineraryX_Seeded',
+            createdAt: new Date(),
+            updatedAt: new Date()
+          })
+          seedArr.push({
+            [e]: j,
+            arrivalDeparture: 'arrival',
+            fileName: 'ItineraryX_Seeded',
+            createdAt: new Date(),
+            updatedAt: new Date()
+          })
+        }
       }
     })
     return queryInterface.bulkInsert('Attachments', seedArr, {})

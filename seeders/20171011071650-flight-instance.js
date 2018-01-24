@@ -1,6 +1,5 @@
 'use strict'
 const casual = require('casual')
-const faker = require('faker')
 
 module.exports = {
   up: function (queryInterface, Sequelize) {

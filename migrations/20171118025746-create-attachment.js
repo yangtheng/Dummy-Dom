@@ -32,14 +32,14 @@ module.exports = {
           key: 'id'
         }
       },
-      FlightBookingId: {
+      FlightInstanceId: {
         allowNull: true,
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         hooks: true,
         references: {
           model: {
-            tableName: 'FlightBookings'
+            tableName: 'FlightInstances'
           },
           key: 'id'
         }
@@ -91,6 +91,9 @@ module.exports = {
           },
           key: 'id'
         }
+      },
+      arrivalDeparture: {
+        type: Sequelize.STRING
       },
       fileName: {
         type: Sequelize.STRING

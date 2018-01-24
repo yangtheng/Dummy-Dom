@@ -22,13 +22,13 @@ module.exports = function (sequelize, DataTypes) {
     FlightBooking.belongsTo(models.Itinerary)
     // FlightBooking.hasMany(models.FlightInstance, {onDelete: 'CASCADE', hooks: true})
     FlightBooking.hasMany(models.FlightInstance)
-    FlightBooking.hasMany(models.Attachment)
+    // FlightBooking.hasMany(models.Attachment)
   }
 
-  FlightBooking.beforeDestroy((instance, options) => {
-    sequelize.models.Attachment.destroy({where: {FlightBookingId: instance.id}})
-    sequelize.models.FlightInstance.destroy({where: {FlightBookingId: instance.id}})
-  })
+  // FlightBooking.beforeDestroy((instance, options) => {
+  //   sequelize.models.Attachment.destroy({where: {FlightBookingId: instance.id}})
+  //   sequelize.models.FlightInstance.destroy({where: {FlightBookingId: instance.id}})
+  // })
 
   return FlightBooking
 }
