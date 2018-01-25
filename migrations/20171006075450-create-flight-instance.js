@@ -62,13 +62,7 @@ module.exports = {
       departureTerminal: {
         type: Sequelize.STRING
       },
-      departureGate: {
-        type: Sequelize.STRING
-      },
       arrivalTerminal: {
-        type: Sequelize.STRING
-      },
-      arrivalGate: {
         type: Sequelize.STRING
       },
       startDay: {

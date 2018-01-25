@@ -13,8 +13,6 @@ module.exports = function (sequelize, DataTypes) {
     ArrivalLocationId: DataTypes.INTEGER,
     departureTerminal: DataTypes.STRING,
     arrivalTerminal: DataTypes.STRING,
-    departureGate: DataTypes.STRING,
-    arrivalGate: DataTypes.STRING,
     startDay: DataTypes.INTEGER,
     endDay: DataTypes.INTEGER,
     startTime: DataTypes.INTEGER,
@@ -22,7 +20,6 @@ module.exports = function (sequelize, DataTypes) {
     durationMins: DataTypes.INTEGER,
     startLoadSequence: DataTypes.INTEGER,
     endLoadSequence: DataTypes.INTEGER,
-    // notes: DataTypes.TEXT,
     departureNotes: DataTypes.TEXT,
     arrivalNotes: DataTypes.TEXT,
     firstFlight: DataTypes.BOOLEAN

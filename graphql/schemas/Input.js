@@ -44,8 +44,6 @@ const Input = `
     arrivalCityCountry: String
     departureTerminal: String
     arrivalTerminal: String
-    departureGate: String
-    arrivalGate: String
     startDay: Int
     endDay: Int
     startTime: Int
@@ -70,8 +68,6 @@ const Input = `
     arrivalCityCountry: String
     departureTerminal: String
     arrivalTerminal: String
-    departureGate: String
-    arrivalGate: String
     startDay: Int
     endDay: Int
     startTime: Int
