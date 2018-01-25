@@ -12,6 +12,9 @@ module.exports = function (sequelize, DataTypes) {
     returnDate: DataTypes.INTEGER,
     departureIATA: DataTypes.STRING,
     arrivalIATA: DataTypes.STRING,
+    // can be either the name of airport or city
+    departureName: DataTypes.STRING,
+    arrivalName: DataTypes.STRING,
     bookingStatus: DataTypes.BOOLEAN,
     bookedThrough: DataTypes.STRING,
     bookingConfirmation: DataTypes.STRING,

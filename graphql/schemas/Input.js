@@ -40,6 +40,8 @@ const Input = `
     airlineName: String
     departureIATA: String
     arrivalIATA: String
+    departureAirport: String
+    arrivalAirport: String
     departureCityCountry: String
     arrivalCityCountry: String
     departureTerminal: String
@@ -64,6 +66,8 @@ const Input = `
     airlineName: String,
     departureIATA: String
     arrivalIATA: String
+    departureAirport: String
+    arrivalAirport: String
     departureCityCountry: String
     arrivalCityCountry: String
     departureTerminal: String

@@ -18,6 +18,8 @@ module.exports = {
         returnDate: 1519084800,
         departureIATA: 'SIN',
         arrivalIATA: 'SEL',
+        departureName: 'Changi International Airport',
+        arrivalName: 'Seoul, Korea',
         bookingStatus: true,
         bookedThrough: faker.internet.url(),
         bookingConfirmation: faker.internet.url(),

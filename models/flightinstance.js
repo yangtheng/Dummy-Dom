@@ -7,6 +7,8 @@ module.exports = function (sequelize, DataTypes) {
     airlineName: DataTypes.STRING,
     departureIATA: DataTypes.STRING,
     arrivalIATA: DataTypes.STRING,
+    departureAirport: DataTypes.String,
+    arrivalAirport: DataTypes.String,
     departureCityCountry: DataTypes.STRING,
     arrivalCityCountry: DataTypes.STRING,
     DepartureLocationId: DataTypes.INTEGER,

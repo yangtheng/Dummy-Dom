@@ -35,6 +35,12 @@ module.exports = {
       arrivalIATA: {
         type: Sequelize.STRING
       },
+      departureAirport: {
+        type: Sequelize.STRING
+      },
+      arrivalAirport: {
+        type: Sequelize.STRING
+      },
       departureCityCountry: {
         type: Sequelize.STRING
       },

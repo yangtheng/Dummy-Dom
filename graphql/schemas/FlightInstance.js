@@ -7,6 +7,8 @@ const FlightInstance = `
     airlineName: String
     departureIATA: String
     arrivalIATA: String
+    departureAirport: String
+    arrivalAirport: String
     departureCityCountry: String
     arrivalCityCountry: String
     DepartureLocationId: ID!
