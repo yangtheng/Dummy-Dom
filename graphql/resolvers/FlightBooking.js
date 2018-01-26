@@ -199,11 +199,20 @@ const FlightBooking = {
       //   })
     },
     deleteFlightBooking: (__, data) => {
-      var deleteAll = deleteAttachmentsFromCloud('FlightBooking', data.id)
+      // DELETE ALL ATTACHMENTS IN FLIGHT INSTANCES FROM CLOUD
+      var deleteAttachmentsPromiseArr = []
+      db.FlightBooking.findById(data.id)
+      .then(booking => {
+        booking.getFlightInstances()
+        .then(instance => {
+          var deletePromise = deleteAttachmentsFromCloud('FlightInstance', instance.id)
+          deleteAttachmentsPromiseArr.push(deletePromise)
+        })
+      })
 
-      return deleteAll
-      .then(isFinished => {
-        console.log('isFinished', isFinished)
+      // await all cloud attachments to be removed, then delete flight booking
+      return Promise.all(deleteAttachmentsPromiseArr)
+      .then(() => {
         return db.FlightBooking.destroy({where: {id: data.id}, individualHooks: true})
       })
       .catch(err => {
