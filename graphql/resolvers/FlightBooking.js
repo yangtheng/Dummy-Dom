@@ -15,29 +15,24 @@ const FlightBooking = {
     }
   },
   Mutation: {
-    // REWRITE AND REMOVE ATTACHMENTS
+    // REWRITE FOR ATTACHMENTS MOVE TO FLIGHT INSTANCE MODEL.
     createFlightBooking: (__, data) => {
       var newFlightBooking = {}
       Object.keys(data).forEach(key => {
-        if (key !== 'attachments' && key !== 'flightInstances') {
+        if (key !== 'flightInstances') {
           newFlightBooking[key] = data[key]
         }
       })
 
       return db.FlightBooking.create(newFlightBooking)
-        .then(created => {
-          if (data.attachments) {
-            createAllAttachments(data.attachments, 'FlightBooking', created.id)
-              // check if helper returns true/false
-          }
-          return created.id
-        })
         .then(createdId => {
           var promiseArr = []
           data.flightInstances.forEach(instance => {
             var newFlightInstance = {}
             Object.keys(instance).forEach(key => {
-              newFlightInstance[key] = instance[key]
+              if (key !== 'attachments') {
+                newFlightInstance[key] = instance[key]
+              }
             })
             newFlightInstance.FlightBookingId = createdId
 
@@ -49,6 +44,13 @@ const FlightBooking = {
                 newFlightInstance.DepartureLocationId = values[0]
                 newFlightInstance.ArrivalLocationId = values[1]
                 return db.FlightInstance.create(newFlightInstance)
+                  .then(createdInstance => {
+                    if (instance.attachments) {
+                      return createAllAttachments(instance.attachments, 'FlightInstance', createdInstance.id)
+                    } else {
+                      return true
+                    }
+                  })
               })
             // array of promises for each flight instance
             promiseArr.push(flightInstancePromise)
