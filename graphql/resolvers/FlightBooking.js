@@ -17,6 +17,7 @@ const FlightBooking = {
   Mutation: {
     // REWRITE FOR ATTACHMENTS MOVE TO FLIGHT INSTANCE MODEL.
     createFlightBooking: (__, data) => {
+      console.log('CREATEFLIGHTBOOKING', data)
       var newFlightBooking = {}
       Object.keys(data).forEach(key => {
         if (key !== 'flightInstances') {
@@ -25,8 +26,10 @@ const FlightBooking = {
       })
 
       return db.FlightBooking.create(newFlightBooking)
-        .then(createdId => {
+        .then(created => {
+          var createdId = created.id
           var promiseArr = []
+          console.log('before creating flight instances')
           data.flightInstances.forEach(instance => {
             var newFlightInstance = {}
             Object.keys(instance).forEach(key => {
@@ -43,14 +46,21 @@ const FlightBooking = {
               .then(values => {
                 newFlightInstance.DepartureLocationId = values[0]
                 newFlightInstance.ArrivalLocationId = values[1]
+                console.log('location ids found')
                 return db.FlightInstance.create(newFlightInstance)
-                  .then(createdInstance => {
-                    if (instance.attachments) {
-                      return createAllAttachments(instance.attachments, 'FlightInstance', createdInstance.id)
-                    } else {
-                      return true
-                    }
-                  })
+                  // .then(createdInstance => {
+                  //   console.log('created instance')
+                  //   if (instance.attachments) {
+                  //     console.log('has attachments')
+                  //     return createAllAttachments(instance.attachments, 'FlightInstance', createdInstance.id)
+                  //   } else {
+                  //     console.log('no attachments')
+                  //     return true
+                  //   }
+                  // })
+              })
+              .then(createdInstance => {
+                return createAllAttachments(instance.attachments, 'FlightInstance', createdInstance.id)
               })
             // array of promises for each flight instance
             promiseArr.push(flightInstancePromise)
@@ -59,12 +69,12 @@ const FlightBooking = {
           // await for all flight instances to be created before returning entire flight booking
           return Promise.all(promiseArr)
             .then(values => {
-              // console.log('promisearr', values)
-              return createdId
+              console.log('promisearr values', values)
+              console.log('createdId', createdId)
+              return db.FlightBooking.findById(createdId)
+              // return createdId
             })
-        }) // close flightinstance creation
-        .then(createdId => {
-          return db.FlightBooking.findById(createdId)
+            .catch(err => console.log('ERROR', err))
         })
     },
     updateFlightBooking: (__, data) => {
