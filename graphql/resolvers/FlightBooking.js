@@ -78,36 +78,78 @@ const FlightBooking = {
         })
     },
     updateFlightBooking: (__, data) => {
-      var updates = {}
+      console.log('UPDATE FLIGHT BOOKING', data)
+      var FlightBookingId = data.id
+      var bookingUpdates = {}
       Object.keys(data).forEach(key => {
-        if (key !== 'id' && key !== 'flightInstances' && key !== 'addAttachments' && key !== 'removeAttachments') {
-          updates[key] = data[key]
+        if (key !== 'id' && key !== 'flightInstances' && key !== 'changedFlight') {
+          bookingUpdates[key] = data[key]
         }
       })
 
       // update flight instances first, then update attachments, lastly update FlightBooking itself
-      var flightBooking = db.FlightBooking.findById(data.id)
+      var flightBooking = db.FlightBooking.findById(FlightBookingId)
+      flightBooking
+      .then(foundBooking => {
+        console.log('FOUND BOOKING')
+        return foundBooking.update(bookingUpdates)
+      })
+      .then(updatedBooking => {
+        if (data.changedFlight) {
+          // if changed flight, delete all instances, create new instances with new attachments
+          console.log('CHANGED FLIGHT')
+          return db.FlightInstance.destroy({where: {FlightBookingId: FlightBookingId}, individualHooks: true})
+          .then(() => {
+            var instancePromiseArr = []
+            data.flightInstances.forEach(instance => {
+              var instanceObj = {}
+              Object.keys(instance).forEach(key => {
+                if (key !== 'attachments') {
+                  instanceObj[key] = instance[key]
+                }
+              })
+              var DepartureLocationId = findOrCreateAirportLocation(instance.departureIATA)
+              var ArrivalLocationId = findOrCreateAirportLocation(instance.arrivalIATA)
 
-      return flightBooking
-      .then(found => {
-        var arrInstancePromises = []
-        if (data.flightInstances.length) {
+              var instancePromise = Promise.all([DepartureLocationId, ArrivalLocationId])
+              .then(values => {
+                instanceObj.DepartureLocationId = values[0]
+                instanceObj.ArrivalLocationId = values[1]
+                return db.FlightInstance.create(instanceObj)
+              })
+              .then(createdInstance => {
+                return createAllAttachments(instance.attachments, 'FlightInstance', createdInstance.id)
+              })
+              instancePromiseArr.push(instancePromise)
+            })
+            return Promise.all(instancePromiseArr)
+            .then(values => {
+              console.log('instancePromiseArr', values)
+              return updatedBooking.id
+            })
+            .catch(err => console.log('ERROR', err))
+          })
+        } else {
+          // if not changed flight, update all instances and attachments
+          console.log('NOT CHANGED FLIGHT')
+          var instancePromiseArr = []
           data.flightInstances.forEach(instance => {
+            var FlightInstanceId = instance.id
             var temp = {}
             Object.keys(instance).forEach(key => {
-              if (key !== 'id') {
+              if (key !== 'id' && key !== 'addAttachments' && key !== 'removeAttachments') {
                 temp[key] = instance[key]
               }
             })
-            // optionally add locations if iata was provided
-            if (data.departureIATA || data.arrivalIATA) {
-              if (data.departureIATA) {
-                var departure = findOrCreateAirportLocation(data.departureIATA)
+            // resolve location ids from iata (optional)
+            if (instance.departureIATA || instance.arrivalIATA) {
+              if (instance.departureIATA) {
+                var DepartureLocationId = findOrCreateAirportLocation(instance.departureIATA)
               }
-              if (data.arrivalIATA) {
-                var arrival = findOrCreateAirportLocation(data.arrivalIATA)
+              if (instance.arrivalIATA) {
+                var ArrivalLocationId = findOrCreateAirportLocation(instance.arrivalIATA)
               }
-              var instanceUpdateObj = Promise.all([departure, arrival])
+              var instanceUpdates = Promise.all([DepartureLocationId, ArrivalLocationId])
               .then(values => {
                 if (values[0]) {
                   temp.DepartureLocationId = values[0]
@@ -118,97 +160,142 @@ const FlightBooking = {
                 return temp
               })
             } else {
-              instanceUpdateObj = Promise.resolve(temp)
+              instanceUpdates = Promise.resolve(temp)
             }
-            // when instance update obj is constructed, update each instance, and set up promise arr
-            var instancePromise = instanceUpdateObj
+            var instancePromise = instanceUpdates
             .then(constructed => {
-              return db.FlightInstance.findById(instance.id)
-                .then(foundInstance => {
-                  return foundInstance.update(constructed)
-                })
+              console.log('constructed instance updates obj', constructed)
+              return db.FlightInstance.findById(FlightInstanceId)
+              .then(foundInstance => {
+                console.log('foundInstance', foundInstance)
+                return foundInstance.update(constructed)
+              })
+              .then(updatedInstance => {
+                console.log('updatedInstance', updatedInstance)
+                var attachmentsPromiseArr = []
+                if (instance.addAttachments) {
+                  instance.addAttachments.forEach(attachment => {
+                    var attachmentPromise = db.Attachment.create({
+                      FlightInstanceId: FlightInstanceId,
+                      fileName: attachment.fileName,
+                      fileAlias: attachment.fileAlias,
+                      fileType: attachment.fileType,
+                      fileSize: attachment.fileSize,
+                      arrivalDeparture: attachment.arrivalDeparture
+                    })
+                    attachmentsPromiseArr.push(attachmentPromise)
+                  })
+                }
+                if (instance.removeAttachments) {
+                  instance.removeAttachments.forEach(id => {
+                    var attachmentPromise = db.Attachment.destroy({where: {id: id}})
+                    attachmentsPromiseArr.push(attachmentPromise)
+                  })
+                }
+                return Promise.all(attachmentsPromiseArr)
+                  .then(() => {
+                    return true
+                  })
+                  .catch(err => console.log(err))
+              })
             })
-
-            arrInstancePromises.push(instancePromise)
+            .catch(err => console.log('ERROR UPDATE INSTANCE', err))
+            instancePromiseArr.push(instancePromise)
+          })
+          Promise.all(instancePromiseArr)
+          .then(values => {
+            console.log('instancePromiseArr', values)
+            return updatedBooking.id
           })
         }
-        // await all instance updates to finish, pass found FlightBooking row to next then
-        return arrInstancePromises
-        .then(() => {
-          return found
-        })
       })
-      .then(found => {
-        var attachmentsPromiseArr = []
-        if (data.addAttachments) {
-          data.addAttachments.forEach(attachment => {
-            var addAttachmentPromise = db.Attachment.create({
-              FlightBookingId: data.id,
-              fileName: attachment.fileName,
-              fileAlias: attachment.fileAlias,
-              fileSize: attachment.fileSize,
-              fileType: attachment.fileType
-            })
-            attachmentsPromiseArr.push(addAttachmentPromise)
-          })
-        }
-        if (data.removeAttachments) {
-          data.removeAttachments.forEach(id => {
-            var removeAttachmentPromise = db.Attachment.destroy({where: {
-              id: id
-            }})
-            attachmentsPromiseArr.push(removeAttachmentPromise)
-          })
-        }
-
-        // when attachment promises have all fulfilled, return found FlightBooking to next then
-        return Promise.all(attachmentsPromiseArr)
-        .then(() => {
-          return found
-        })
+      .then(bookingId => {
+        // if all instances r resolved, return whole flight booking
+        console.log('bookingId', bookingId)
+        return db.FlightBooking.findById(bookingId)
       })
-      .then(found => {
-        return found.update(updates)
-      })
-
-      // return db.FlightBooking.findById(data.id)
-      //   .then(found => {
-      //     var arrInstancePromises = []
+      // return flightBooking
+      // .then(found => {
+      //   var arrInstancePromises = []
+      //   if (data.flightInstances.length) {
       //     data.flightInstances.forEach(instance => {
-      //       var updates = {}
+      //       var temp = {}
       //       Object.keys(instance).forEach(key => {
       //         if (key !== 'id') {
-      //           updates[key] = instance[key]
+      //           temp[key] = instance[key]
       //         }
       //       })
-      //       // ASSUMING UPDATING FLIGHT INSTANCES PASSES IATA TO BACKEND
-      //       var DepartureLocationId = findOrCreateAirportLocation(instance.departureIATA)
-      //       var ArrivalLocationId = findOrCreateAirportLocation(instance.arrivalIATA)
-      //
-      //       var instancePromise = Promise.all([DepartureLocationId, ArrivalLocationId])
-      //       .then(values => {
-      //         updates.DepartureLocationId = values[0]
-      //         updates.ArrivalLocationId = values[1]
-      //         return updates
-      //       })
-      //       .then(updates => {
+      //       // optionally add locations if iata was provided
+      //       if (data.departureIATA || data.arrivalIATA) {
+      //         if (data.departureIATA) {
+      //           var departure = findOrCreateAirportLocation(data.departureIATA)
+      //         }
+      //         if (data.arrivalIATA) {
+      //           var arrival = findOrCreateAirportLocation(data.arrivalIATA)
+      //         }
+      //         var instanceUpdateObj = Promise.all([departure, arrival])
+      //         .then(values => {
+      //           if (values[0]) {
+      //             temp.DepartureLocationId = values[0]
+      //           }
+      //           if (values[1]) {
+      //             temp.ArrivalLocationId = values[1]
+      //           }
+      //           return temp
+      //         })
+      //       } else {
+      //         instanceUpdateObj = Promise.resolve(temp)
+      //       }
+      //       // when instance update obj is constructed, update each instance, and set up promise arr
+      //       var instancePromise = instanceUpdateObj
+      //       .then(constructed => {
       //         return db.FlightInstance.findById(instance.id)
-      //           .then(found => {
-      //             return found.update(updates)
+      //           .then(foundInstance => {
+      //             return foundInstance.update(constructed)
       //           })
       //       })
-      //       arrInstancePromises.push(instancePromise)
-      //     }) // close forEach instance
       //
-      //     return Promise.all(arrInstancePromises)
-      //       .then(returning => {
-      //         console.log('returning instance promises', returning)
-      //         return found
+      //       arrInstancePromises.push(instancePromise)
+      //     })
+      //   }
+      //   // await all instance updates to finish, pass found FlightBooking row to next then
+      //   return arrInstancePromises
+      //   .then(() => {
+      //     return found
+      //   })
+      // })
+      // .then(found => {
+      //   var attachmentsPromiseArr = []
+      //   if (data.addAttachments) {
+      //     data.addAttachments.forEach(attachment => {
+      //       var addAttachmentPromise = db.Attachment.create({
+      //         FlightBookingId: data.id,
+      //         fileName: attachment.fileName,
+      //         fileAlias: attachment.fileAlias,
+      //         fileSize: attachment.fileSize,
+      //         fileType: attachment.fileType
       //       })
+      //       attachmentsPromiseArr.push(addAttachmentPromise)
+      //     })
+      //   }
+      //   if (data.removeAttachments) {
+      //     data.removeAttachments.forEach(id => {
+      //       var removeAttachmentPromise = db.Attachment.destroy({where: {
+      //         id: id
+      //       }})
+      //       attachmentsPromiseArr.push(removeAttachmentPromise)
+      //     })
+      //   }
+      //
+      //   // when attachment promises have all fulfilled, return found FlightBooking to next then
+      //   return Promise.all(attachmentsPromiseArr)
+      //   .then(() => {
+      //     return found
       //   })
-      //   .then(found => {
-      //     return found.update(updates)
-      //   })
+      // })
+      // .then(found => {
+      //   return found.update(updates)
+      // })
     },
     deleteFlightBooking: (__, data) => {
       // DELETE ALL ATTACHMENTS IN FLIGHT INSTANCES FROM CLOUD

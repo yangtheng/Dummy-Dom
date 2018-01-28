@@ -60,7 +60,8 @@ const Input = `
   }
 
   input updateFlightInstanceInput {
-    id: ID!
+    id: ID
+    FlightBookingId: ID
     flightNumber: Int,
     airlineCode: String,
     airlineName: String,
@@ -82,6 +83,7 @@ const Input = `
     departureNotes: String
     arrivalNotes: String
     firstFlight: Boolean
+    attachments: [attachmentInput]
     addAttachments: [attachmentInput]
     removeAttachments: [ID]
   }

@@ -20,7 +20,6 @@ module.exports = function (sequelize, DataTypes) {
     Attachment.belongsTo(models.Activity, {onDelete: 'CASCADE', hooks: true})
     Attachment.belongsTo(models.Food, {onDelete: 'CASCADE', hooks: true})
     Attachment.belongsTo(models.Lodging, {onDelete: 'CASCADE', hooks: true})
-    // Attachment.belongsTo(models.FlightBooking, {onDelete: 'CASCADE', hooks: true})
     Attachment.belongsTo(models.FlightInstance, {onDelete: 'CASCADE', hooks: true})
     Attachment.belongsTo(models.LandTransport, {onDelete: 'CASCADE', hooks: true})
     Attachment.belongsTo(models.SeaTransport, {onDelete: 'CASCADE', hooks: true})
