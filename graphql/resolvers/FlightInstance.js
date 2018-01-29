@@ -1,5 +1,6 @@
 const db = require('../connectors')
 const findOrCreateAirportLocation = require('./helpers/findOrCreateAirportLocation')
+const deleteAttachmentsFromCloud = require('./helpers/deleteAttachmentsFromCloud')
 
 const FlightInstance = {
   FlightInstance: {
@@ -80,50 +81,24 @@ const FlightInstance = {
         }
 
         return Promise.all(attachmentsPromiseArr)
-          .then(() => {
-            return true
-          })
+          .then(() => true)
           .catch(err => console.log(err))
       })
       .then(() => {
         return db.FlightInstance.findById(FlightInstanceId)
       })
-
-      // if (data.departureIATA && !data.arrivalIATA) {
-      //   var updatesObj = findOrCreateAirportLocation(data.departureIATA)
-      //     .then(id => {
-      //       temp.DepartureLocationId = id
-      //       return temp
-      //     })
-      // } else if (!data.departureIATA && data.arrivalIATA) {
-      //   updatesObj = findOrCreateAirportLocation(data.arrivalIATA)
-      //     .then(id => {
-      //       temp.ArrivalLocationId = id
-      //       return temp
-      //     })
-      // } else if (data.departureIATA && data.arrivalIATA) {
-      //   var departure = findOrCreateAirportLocation(data.departureIATA)
-      //   var arrival = findOrCreateAirportLocation(data.arrivalIATA)
-      //   updatesObj = Promise.all([departure, arrival])
-      //   .then(values => {
-      //     temp.DepartureLocationId = values[0]
-      //     temp.ArrivalLocationId = values[1]
-      //     return temp
-      //   })
-      // } else {
-      //   updatesObj = Promise.resolve(temp)
-      // }
-
-      // return updatesObj.then(updatesObj => {
-      //   console.log('UPDATES OBJ AFTER ADDING AIRPORT LOCATION ID', updatesObj)
-      //   var instance = db.FlightInstance.findById(data.id)
-      //   return instance.then(foundInstance => {
-      //     return foundInstance.update(updatesObj)
-      //   })
-      // })
     },
     deleteFlightInstance: (__, data) => {
-      return db.FlightInstance.destroy({where: {id: data.id}})
+      var deleteAttachmentsPromiseArr = []
+      db.FlightInstance.findById(data.id)
+      .then(foundInstance => {
+        var deletePromise = deleteAttachmentsFromCloud('FlightInstance', foundInstance.id)
+        deleteAttachmentsPromiseArr.push(deletePromise)
+      })
+      Promise.all(deleteAttachmentsPromiseArr)
+      .then(() => {
+        return db.FlightInstance.destroy({where: {id: data.id}, individualHooks: true})
+      })
     }
   }
 }
