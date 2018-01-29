@@ -8,7 +8,7 @@ module.exports = {
     for (var i = 1; i <= 50; i++) {
       seedArr.push({
         name: `Itinerary ${i}`,
-        startDate: 1518652800, // 15th feb 2018 thurs
+        startDate: 1521072000, // 15th march 2018 thurs
         days: 6,
         description: 'SEEDED ITINERARY DESCRIPTION',
         createdAt: new Date(),

@@ -14,8 +14,8 @@ module.exports = {
         cost: (Math.floor(Math.random() * 20) + 1) * 100,
         currency: casual.currency_code,
         classCode: 'Business',
-        departureDate: 1518652800,
-        returnDate: 1519084800,
+        departureDate: 1521072000, //15th march
+        returnDate: 1521504000,
         departureIATA: 'SIN',
         arrivalIATA: 'SEL',
         departureName: 'Changi International Airport',
