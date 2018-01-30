@@ -34,7 +34,7 @@ const Mutation = `
 
     deleteFlightBooking(id:ID!): Boolean
 
-    updateFlightInstance(id: ID!, FlightBookingId: ID, flightNumber: Int, airlineCode: String, airlineName: String, departureIATA: String, arrivalIATA: String, departureAirport: String, arrivalAirport: String, departureCityCountry: String, arrivalCityCountry: String, departureTerminal: String, arrivalTerminal: String, startDay: Int, endDay: Int, startTime: Int, endTime: Int, durationMins: String, startLoadSequence: Int, endLoadSequence: Int, departureNotes: String, arrivalNotes: String, addAttachments: [attachmentInput], removeAttachments: [ID]): FlightInstance
+    updateFlightInstance(id: ID!, FlightBookingId: ID, flightNumber: Int, airlineCode: String, airlineName: String, departureIATA: String, arrivalIATA: String, departureAirport: String, arrivalAirport: String, departureCityCountry: String, arrivalCityCountry: String, departureTerminal: String, arrivalTerminal: String, startDay: Int, endDay: Int, startTime: Int, endTime: Int, durationMins: Int, startLoadSequence: Int, endLoadSequence: Int, departureNotes: String, arrivalNotes: String, addAttachments: [attachmentInput], removeAttachments: [ID]): FlightInstance
 
     deleteFlightInstance(id: ID!): Boolean
 
