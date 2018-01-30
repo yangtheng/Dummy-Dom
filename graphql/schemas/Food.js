@@ -13,6 +13,7 @@ const Food = `
     notes: String
     startTime: Int
     endTime: Int
+    utcOffset: Int
     cost: Int
     currency: String
     bookingStatus: Boolean

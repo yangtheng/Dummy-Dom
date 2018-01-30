@@ -24,8 +24,10 @@ module.exports = {
         endDay: 2,
         startLoadSequence: 4,
         endLoadSequence: 1,
-        startTime:  79200, // 10pm flight overnight
+        startTime: 79200, // 10pm flight overnight
         endTime: 21600, // 6am arrival
+        departureUtcOffset: 480,
+        arrivalUtcOffset: 480,
         durationMins: 480,
         departureNotes: casual.sentences(3),
         arrivalNotes: casual.sentences(3),
@@ -53,6 +55,8 @@ module.exports = {
         endLoadSequence: 3,
         startTime: 50400,
         endTime: 72600,
+        departureUtcOffset: 480,
+        arrivalUtcOffset: 480,
         durationMins: 370,
         departureNotes: casual.sentences(3),
         arrivalNotes: casual.sentences(3),

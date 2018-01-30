@@ -11,6 +11,7 @@ module.exports = function (sequelize, DataTypes) {
     notes: DataTypes.TEXT,
     startTime: DataTypes.INTEGER,
     endTime: DataTypes.INTEGER,
+    utcOffset: DataTypes.INTEGER,
     cost: DataTypes.INTEGER,
     currency: DataTypes.STRING,
     bookingStatus: DataTypes.BOOLEAN,

@@ -12,6 +12,8 @@ module.exports = function (sequelize, DataTypes) {
     endDay: DataTypes.INTEGER,
     startTime: DataTypes.INTEGER,
     endTime: DataTypes.INTEGER,
+    departureUtcOffset: DataTypes.INTEGER,
+    arrivalUtcOffset: DataTypes.INTEGER,
     departureNotes: DataTypes.TEXT,
     arrivalNotes: DataTypes.TEXT,
     cost: DataTypes.INTEGER,

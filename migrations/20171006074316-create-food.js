@@ -50,6 +50,9 @@ module.exports = {
       endTime: {
         type: Sequelize.INTEGER
       },
+      utcOffset: {
+        type: Sequelize.INTEGER
+      },
       cost: {
         type: Sequelize.INTEGER
       },

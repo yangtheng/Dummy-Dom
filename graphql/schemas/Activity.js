@@ -13,6 +13,7 @@ const Activity = `
     notes: String
     startTime: Int
     endTime: Int
+    utcOffset: Int
     cost: Int
     currency: String
     bookingStatus: Boolean

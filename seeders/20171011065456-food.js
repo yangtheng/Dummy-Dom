@@ -14,8 +14,9 @@ module.exports = {
         endDay: 1,
         description: `Seeded Restaurant ${i}`,
         notes: casual.sentences(3),
-        startTime: 64800, //6pm dinner
-        endTime: 68400, //7pm end
+        startTime: 64800, // 6pm dinner
+        endTime: 68400, // 7pm end
+        utcOffset: 480,
         cost: Math.floor(Math.random() * 100) + 1,
         currency: casual.currency_code,
         bookingStatus: true,

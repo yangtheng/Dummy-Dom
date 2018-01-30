@@ -41,6 +41,9 @@ module.exports = {
       notes: {
         type: Sequelize.TEXT
       },
+      utcOffset: {
+        type: Sequelize.INTEGER
+      },
       startDay: {
         type: Sequelize.INTEGER
       },
