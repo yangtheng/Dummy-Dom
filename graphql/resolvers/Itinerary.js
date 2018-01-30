@@ -35,27 +35,25 @@ const Itinerary = {
                 var rowObj = e.getLocation()
                 .then(location => {
                   var obj = {day: e.startDay, type: model, modelId: e.id, loadSequence: e.loadSequence, [model]: e, time: e.startTime, utcOffset: location.utcOffset}
+                  obj.timeUtcZero = obj.time - obj.utcOffset * 60
                   return Promise.resolve(obj)
                 })
                 arrModel.push(rowObj)
-                // arrModel.push({day: e.startDay, type: model, modelId: e.id, loadSequence: e.loadSequence, [model]: e, time: e.startTime})
               })
               return Promise.all(arrModel)
-              // .then(arrModel => {
-              //   return arrModel
-              // })
-              // return arrModel
             }
             if (model === 'Lodging') {
               foundRows.forEach(e => {
                 var startRow = e.getLocation()
                   .then(location => {
                     var obj = {day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime, utcOffset: location.utcOffset}
+                    obj.timeUtcZero = obj.time - obj.utcOffset * 60
                     return Promise.resolve(obj)
                   })
                 var endRow = e.getLocation()
                   .then(location => {
                     var obj = {day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime, utcOffset: location.utcOffset}
+                    obj.timeUtcZero = obj.time - obj.utcOffset * 60
                     return Promise.resolve(obj)
                   })
                 arrModel.push(startRow, endRow)
@@ -70,11 +68,13 @@ const Itinerary = {
                 var startRow = e.getLandTransportDeparture()
                   .then(departureLocation => {
                     var obj = {day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime, utcOffset: departureLocation.utcOffset}
+                    obj.timeUtcZero = obj.time - obj.utcOffset * 60
                     return Promise.resolve(obj)
                   })
                 var endRow = e.getLandTransportArrival()
                   .then(arrivalLocation => {
                     var obj = {day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime, utcOffset: arrivalLocation.utcOffset}
+                    obj.timeUtcZero = obj.time - obj.utcOffset * 60
                     return Promise.resolve(obj)
                   })
                 arrModel.push(startRow, endRow)
@@ -87,11 +87,13 @@ const Itinerary = {
                 var startRow = e.getSeaTransportDeparture()
                   .then(departureLocation => {
                     var obj = {day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime, utcOffset: departureLocation.utcOffset}
+                    obj.timeUtcZero = obj.time - obj.utcOffset * 60
                     return Promise.resolve(obj)
                   })
                 var endRow = e.getSeaTransportArrival()
                   .then(arrivalLocation => {
                     var obj = {day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime, utcOffset: arrivalLocation.utcOffset}
+                    obj.timeUtcZero = obj.time - obj.utcOffset * 60
                     return Promise.resolve(obj)
                   })
                 arrModel.push(startRow, endRow)
@@ -104,11 +106,13 @@ const Itinerary = {
                 var startRow = e.getTrainDeparture()
                   .then(departureLocation => {
                     var obj = {day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime, utcOffset: departureLocation.utcOffset}
+                    obj.timeUtcZero = obj.time - obj.utcOffset * 60
                     return Promise.resolve(obj)
                   })
                 var endRow = e.getTrainArrival()
                   .then(arrivalLocation => {
                     var obj = {day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime, utcOffset: arrivalLocation.utcOffset}
+                    obj.timeUtcZero = obj.time - obj.utcOffset * 60
                     return Promise.resolve(obj)
                   })
                 arrModel.push(startRow, endRow)
@@ -150,12 +154,14 @@ const Itinerary = {
                     .then(departureLocation => {
                       // console.log('GETFLIGHTDEPARTURE')
                       var obj = {day: eventRow.instance.startDay, type: 'Flight', start: true, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.startLoadSequence, time: eventRow.instance.startTime, utcOffset: departureLocation.utcOffset, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}}
+                      obj.timeUtcZero = obj.time - obj.utcOffset * 60
                       return Promise.resolve(obj)
                     })
                   var endRow = eventRow.instance.getFlightArrival()
                     .then(arrivalLocation => {
                       // console.log('GETFLIGHTARRIVAL')
                       var obj = {day: eventRow.instance.endDay, type: 'Flight', start: false, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.endLoadSequence, time: eventRow.instance.endTime, utcOffset: arrivalLocation.utcOffset, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}}
+                      obj.timeUtcZero = obj.time - obj.utcOffset * 60
                       return Promise.resolve(obj)
                     })
                   arrModel.push(startRow, endRow)
