@@ -6,6 +6,7 @@ const Event = `
     loadSequence: Int
     start: Boolean
     time: Int
+    utcOffset: Int
     Activity: Activity
     Food: Food
     Lodging: Lodging

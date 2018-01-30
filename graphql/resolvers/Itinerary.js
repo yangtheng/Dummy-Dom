@@ -31,20 +31,91 @@ const Itinerary = {
             // ACTIVITY / FOOD ---> 1 EVENT ROW
             if (model === 'Activity' || model === 'Food') {
               foundRows.forEach(e => {
-                arrModel.push({day: e.startDay, type: model, modelId: e.id, loadSequence: e.loadSequence, [model]: e, time: e.startTime})
+                // try adding utcOffset
+                var rowObj = e.getLocation()
+                .then(location => {
+                  var obj = {day: e.startDay, type: model, modelId: e.id, loadSequence: e.loadSequence, [model]: e, time: e.startTime, utcOffset: location.utcOffset}
+                  return Promise.resolve(obj)
+                })
+                arrModel.push(rowObj)
+                // arrModel.push({day: e.startDay, type: model, modelId: e.id, loadSequence: e.loadSequence, [model]: e, time: e.startTime})
               })
-              return arrModel
+              return Promise.all(arrModel)
+              // .then(arrModel => {
+              //   return arrModel
+              // })
+              // return arrModel
             }
-
-            // LODGING / TRANSPORT ---> 2 EVENT ROWS
-            if (model === 'Lodging' || model === 'LandTransport' || model === 'SeaTransport' || model === 'Train') {
+            if (model === 'Lodging') {
               foundRows.forEach(e => {
-                arrModel.push({day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime})
-                arrModel.push({day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime})
+                var startRow = e.getLocation()
+                  .then(location => {
+                    var obj = {day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime, utcOffset: location.utcOffset}
+                    return Promise.resolve(obj)
+                  })
+                var endRow = e.getLocation()
+                  .then(location => {
+                    var obj = {day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime, utcOffset: location.utcOffset}
+                    return Promise.resolve(obj)
+                  })
+                arrModel.push(startRow, endRow)
               })
-              return arrModel
+              // return arrModel
+              return Promise.all(arrModel)
             }
 
+            // TRANSPORT, 2 ROWS, 2 LOCATIONS
+            if (model === 'LandTransport') {
+              foundRows.forEach(e => {
+                var startRow = e.getLandTransportDeparture()
+                  .then(departureLocation => {
+                    var obj = {day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime, utcOffset: departureLocation.utcOffset}
+                    return Promise.resolve(obj)
+                  })
+                var endRow = e.getLandTransportArrival()
+                  .then(arrivalLocation => {
+                    var obj = {day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime, utcOffset: arrivalLocation.utcOffset}
+                    return Promise.resolve(obj)
+                  })
+                arrModel.push(startRow, endRow)
+              })
+              // return arrModel
+              return Promise.all(arrModel)
+            }
+            if (model === 'SeaTransport') {
+              foundRows.forEach(e => {
+                var startRow = e.getSeaTransportDeparture()
+                  .then(departureLocation => {
+                    var obj = {day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime, utcOffset: departureLocation.utcOffset}
+                    return Promise.resolve(obj)
+                  })
+                var endRow = e.getSeaTransportArrival()
+                  .then(arrivalLocation => {
+                    var obj = {day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime, utcOffset: arrivalLocation.utcOffset}
+                    return Promise.resolve(obj)
+                  })
+                arrModel.push(startRow, endRow)
+              })
+              // return arrModel
+              return Promise.all(arrModel)
+            }
+            if (model === 'Train') {
+              foundRows.forEach(e => {
+                var startRow = e.getTrainDeparture()
+                  .then(departureLocation => {
+                    var obj = {day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime, utcOffset: departureLocation.utcOffset}
+                    return Promise.resolve(obj)
+                  })
+                var endRow = e.getTrainArrival()
+                  .then(arrivalLocation => {
+                    var obj = {day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime, utcOffset: arrivalLocation.utcOffset}
+                    return Promise.resolve(obj)
+                  })
+                arrModel.push(startRow, endRow)
+              })
+              // return arrModel
+              return Promise.all(arrModel)
+            }
             // FLIGHTBOOKING AND FLIGHTINSTANCE ---> 2 EVENT ROWS
             if (model === 'FlightBooking') {
               // foundRows are FlightBooking rows here
@@ -69,15 +140,32 @@ const Itinerary = {
                 var flattened = values.reduce(function (a, b) {
                   return a.concat(b)
                 }, [])
+                // console.log('FLATTENED', flattened)
                 return flattened
               })
               .then(flattened => {
                 // modelId refers to flightBooking id
                 flattened.forEach(eventRow => {
-                  arrModel.push({day: eventRow.instance.startDay, type: 'Flight', start: true, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.startLoadSequence, time: eventRow.instance.startTime, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}})
-                  arrModel.push({day: eventRow.instance.endDay, type: 'Flight', start: false, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.endLoadSequence, time: eventRow.instance.endTime, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}})
+                  var startRow = eventRow.instance.getFlightDeparture()
+                    .then(departureLocation => {
+                      // console.log('GETFLIGHTDEPARTURE')
+                      var obj = {day: eventRow.instance.startDay, type: 'Flight', start: true, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.startLoadSequence, time: eventRow.instance.startTime, utcOffset: departureLocation.utcOffset, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}}
+                      return Promise.resolve(obj)
+                    })
+                  var endRow = eventRow.instance.getFlightArrival()
+                    .then(arrivalLocation => {
+                      // console.log('GETFLIGHTARRIVAL')
+                      var obj = {day: eventRow.instance.endDay, type: 'Flight', start: false, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.endLoadSequence, time: eventRow.instance.endTime, utcOffset: arrivalLocation.utcOffset, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}}
+                      return Promise.resolve(obj)
+                    })
+                  arrModel.push(startRow, endRow)
                 })
-                return arrModel
+                // return arrModel
+                return Promise.all(arrModel)
+                  .then(values => {
+                    console.log('FLIGHTS ROWS', values)
+                    return values
+                  })
               })
             }
           })
@@ -86,13 +174,15 @@ const Itinerary = {
 
       return Promise.all(eventModelPromises)
         .then(values => {
+          // console.log('EVENT MODEL PROMISES', values)
           var events = values.reduce(function (a, b) {
             return a.concat(b)
           }, [])
+          // console.log('FLATTENED EVENTS', events)
           var sorted = events.sort(function (a, b) {
             return a.day - b.day || a.loadSequence - b.loadSequence
           })
-          // console.log('sorted', sorted)
+          console.log('sorted', sorted)
           return sorted
         })
     }
