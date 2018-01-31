@@ -50,8 +50,6 @@ const Input = `
     endDay: Int
     startTime: Int
     endTime: Int
-    departureUtcOffset: Int
-    arrivalUtcOffset: Int
     durationMins: Int
     startLoadSequence: Int
     endLoadSequence: Int
@@ -79,8 +77,6 @@ const Input = `
     endDay: Int
     startTime: Int
     endTime: Int
-    departureUtcOffset: Int
-    arrivalUtcOffset: Int
     durationMins: Int
     startLoadSequence: Int
     endLoadSequence: Int

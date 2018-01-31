@@ -14,7 +14,6 @@ const Lodging = `
     endDay: Int
     startTime: Int
     endTime: Int
-    utcOffset: Int
     cost: Int
     currency: String
     bookingStatus: Boolean

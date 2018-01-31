@@ -59,12 +59,12 @@ module.exports = {
       endTime: {
         type: Sequelize.INTEGER
       },
-      departureUtcOffset: {
-        type: Sequelize.INTEGER
-      },
-      arrivalUtcOffset: {
-        type: Sequelize.INTEGER
-      },
+      // departureUtcOffset: {
+      //   type: Sequelize.INTEGER
+      // },
+      // arrivalUtcOffset: {
+      //   type: Sequelize.INTEGER
+      // },
       departureNotes: {
         type: Sequelize.TEXT
       },

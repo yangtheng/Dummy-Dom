@@ -16,8 +16,8 @@ module.exports = {
         endDay: 1,
         startTime: 32400, // 9am after flight
         endTime: 36000, // 10am
-        departureUtcOffset: 480,
-        arrivalUtcOffset: 480,
+        // departureUtcOffset: 480,
+        // arrivalUtcOffset: 480,
         departureNotes: casual.sentences(3),
         arrivalNotes: casual.sentences(3),
         cost: (Math.floor(Math.random() * 20) + 1) * 10,

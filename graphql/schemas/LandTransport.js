@@ -14,8 +14,6 @@ const LandTransport = `
     endDay: Int
     startTime: Int
     endTime: Int
-    departureUtcOffset: Int
-    arrivalUtcOffset: Int
     departureNotes: String
     arrivalNotes: String
     cost: Int

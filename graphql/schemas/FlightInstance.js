@@ -23,8 +23,6 @@ const FlightInstance = `
     endDay: Int
     startTime: Int
     endTime: Int
-    departureUtcOffset: Int
-    arrivalUtcOffset: Int
     durationMins: Int
     startLoadSequence: Int
     endLoadSequence: Int
