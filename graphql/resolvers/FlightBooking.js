@@ -77,7 +77,7 @@ const FlightBooking = {
       var flightBooking = db.FlightBooking.findById(FlightBookingId)
       flightBooking
       .then(foundBooking => {
-        console.log('FOUND BOOKING')
+        // console.log('FOUND BOOKING')
         return foundBooking.update(bookingUpdates)
       })
       .then(updatedBooking => {
@@ -110,7 +110,7 @@ const FlightBooking = {
             })
             return Promise.all(instancePromiseArr)
             .then(values => {
-              console.log('instancePromiseArr', values)
+              // console.log('instancePromiseArr', values)
               return updatedBooking.id
             })
             .catch(err => console.log('ERROR', err))
@@ -150,14 +150,14 @@ const FlightBooking = {
             }
             var instancePromise = instanceUpdates
             .then(constructed => {
-              console.log('constructed instance updates obj', constructed)
+              // console.log('constructed instance updates obj', constructed)
               return db.FlightInstance.findById(FlightInstanceId)
               .then(foundInstance => {
-                console.log('foundInstance', foundInstance)
+                // console.log('foundInstance', foundInstance)
                 return foundInstance.update(constructed)
               })
               .then(updatedInstance => {
-                console.log('updatedInstance', updatedInstance)
+                // console.log('updatedInstance', updatedInstance)
                 var attachmentsPromiseArr = []
                 if (instance.addAttachments) {
                   instance.addAttachments.forEach(attachment => {
@@ -186,7 +186,7 @@ const FlightBooking = {
             .catch(err => console.log('ERROR UPDATE INSTANCE', err))
             instancePromiseArr.push(instancePromise)
           })
-          Promise.all(instancePromiseArr)
+          return Promise.all(instancePromiseArr)
           .then(values => {
             console.log('instancePromiseArr', values)
             return updatedBooking.id
@@ -194,7 +194,7 @@ const FlightBooking = {
         }
       })
       .then(bookingId => {
-        console.log('bookingId', bookingId)
+        console.log('SENT OUT TO FRONT END WITH BOOKINGID', bookingId)
         return db.FlightBooking.findById(bookingId)
       })
     },

@@ -179,7 +179,7 @@ const Itinerary = {
                 // return arrModel
                 return Promise.all(arrModel)
                   .then(values => {
-                    console.log('FLIGHTS ROWS', values)
+                    // console.log('FLIGHTS ROWS', values)
                     return values
                   })
               })
@@ -196,7 +196,7 @@ const Itinerary = {
           var sorted = events.sort(function (a, b) {
             return a.day - b.day || a.loadSequence - b.loadSequence
           })
-          console.log('sorted', sorted)
+          // console.log('sorted', sorted)
           return sorted
         })
     }
