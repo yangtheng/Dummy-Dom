@@ -11,6 +11,9 @@ module.exports = {
           seedArr.push({
             [e]: i,
             fileName: 'ItineraryX_Seeded',
+            fileAlias: 'Seeded fileAlias',
+            fileSize: '2MB',
+            fileType: 'jpeg',
             createdAt: new Date(),
             updatedAt: new Date()
           })
@@ -21,6 +24,9 @@ module.exports = {
             [e]: j,
             arrivalDeparture: 'departure',
             fileName: 'ItineraryX_Seeded',
+            fileAlias: 'Seeded fileAlias',
+            fileSize: '2MB',
+            fileType: 'jpeg',
             createdAt: new Date(),
             updatedAt: new Date()
           })
@@ -28,6 +34,9 @@ module.exports = {
             [e]: j,
             arrivalDeparture: 'arrival',
             fileName: 'ItineraryX_Seeded',
+            fileAlias: 'Seeded fileAlias',
+            fileSize: '2MB',
+            fileType: 'jpeg',
             createdAt: new Date(),
             updatedAt: new Date()
           })
