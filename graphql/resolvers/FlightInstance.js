@@ -60,7 +60,7 @@ const FlightInstance = {
       .then(updatedInstance => {
         // add or remove attachments
         var attachmentsPromiseArr = []
-        if (data.addAttachments.length) {
+        if (data.addAttachment && data.addAttachments.length) {
           data.addAttachments.forEach(attachment => {
             var attachmentPromise = db.Attachment.create({
               FlightInstanceId: FlightInstanceId,
@@ -73,7 +73,7 @@ const FlightInstance = {
             attachmentsPromiseArr.push(attachmentPromise)
           })
         }
-        if (data.removeAttachments.length) {
+        if (data.removeAttachments && data.removeAttachments.length) {
           data.removeAttachments.forEach(id => {
             var attachmentPromise = db.Attachment.destroy({where: {id: id}})
             attachmentsPromiseArr.push(attachmentPromise)
