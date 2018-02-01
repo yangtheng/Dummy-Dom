@@ -19,7 +19,6 @@ const Itinerary = {
     events (itinerary) {
       var ItineraryId = itinerary.id
 
-      // REFACTORED EVENTS
       var models = ['Activity', 'Food', 'Lodging', 'FlightBooking', 'LandTransport', 'SeaTransport', 'Train']
       var eventModelPromises = []
 
@@ -27,17 +26,9 @@ const Itinerary = {
         var arrModel = []
         var eventModel = db[model].findAll({where: {ItineraryId: ItineraryId}})
           .then(foundRows => {
-
-            // ACTIVITY / FOOD ---> 1 EVENT ROW
             if (model === 'Activity' || model === 'Food') {
               foundRows.forEach(e => {
-                // try adding utcOffset
-                // var rowObj = e.getLocation()
-                // .then(location => {
-                //   var obj = {day: e.startDay, type: model, modelId: e.id, loadSequence: e.loadSequence, [model]: e, time: e.startTime, utcOffset: location.utcOffset}
-                //   obj.timeUtcZero = obj.time - obj.utcOffset * 60
-                //   return Promise.resolve(obj)
-                // })
+                // activity and food have utcOffset in case no location
                 var rowObj = {day: e.startDay, type: model, modelId: e.id, loadSequence: e.loadSequence, [model]: e, time: e.startTime, utcOffset: e.utcOffset, timeUtcZero: e.startTime - e.utcOffset * 60}
                 arrModel.push(rowObj)
               })
@@ -57,14 +48,10 @@ const Itinerary = {
                     obj.timeUtcZero = obj.time - obj.utcOffset * 60
                     return Promise.resolve(obj)
                   })
-                // var startRow = {day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime, utcOffset: e.utcOffset, timeUtcZero: e.startTime - e.utcOffset * 60}
-                // var endRow = {day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime, utcOffset: e.utcOffset, timeUtcZero: e.endTime - e.utcOffset * 60}
                 arrModel.push(startRow, endRow)
               })
               return Promise.all(arrModel)
             }
-
-            // TRANSPORT, 2 ROWS, 2 LOCATIONS
             if (model === 'LandTransport') {
               foundRows.forEach(e => {
                 var startRow = e.getLandTransportDeparture()
@@ -79,11 +66,8 @@ const Itinerary = {
                     obj.timeUtcZero = obj.time - obj.utcOffset * 60
                     return Promise.resolve(obj)
                   })
-                // var startRow = {day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime, utcOffset: e.departureUtcOffset, timeUtcZero: e.startTime - e.departureUtcOffset * 60}
-                // var endRow = {day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime, utcOffset: e.arrivalUtcOffset, timeUtcZero: e.endTime - e.arrivalUtcOffset * 60}
                 arrModel.push(startRow, endRow)
               })
-              // return arrModel
               return Promise.all(arrModel)
             }
             if (model === 'SeaTransport') {
@@ -100,11 +84,8 @@ const Itinerary = {
                     obj.timeUtcZero = obj.time - obj.utcOffset * 60
                     return Promise.resolve(obj)
                   })
-                // var startRow = {day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime, utcOffset: e.departureUtcOffset, timeUtcZero: e.startTime - e.departureUtcOffset * 60}
-                // var endRow = {day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime, utcOffset: e.arrivalUtcOffset, timeUtcZero: e.endTime - e.arrivalUtcOffset * 60}
                 arrModel.push(startRow, endRow)
               })
-              // return arrModel
               return Promise.all(arrModel)
             }
             if (model === 'Train') {
@@ -121,11 +102,8 @@ const Itinerary = {
                     obj.timeUtcZero = obj.time - obj.utcOffset * 60
                     return Promise.resolve(obj)
                   })
-                // var startRow = {day: e.startDay, start: true, type: model, modelId: e.id, loadSequence: e.startLoadSequence, [model]: e, time: e.startTime, utcOffset: e.departureUtcOffset, timeUtcZero: e.startTime - e.departureUtcOffset * 60}
-                // var endRow = {day: e.endDay, start: false, type: model, modelId: e.id, loadSequence: e.endLoadSequence, [model]: e, time: e.endTime, utcOffset: e.arrivalUtcOffset, timeUtcZero: e.endTime - e.arrivalUtcOffset * 60}
                 arrModel.push(startRow, endRow)
               })
-              // return arrModel
               return Promise.all(arrModel)
             }
             // FLIGHTBOOKING AND FLIGHTINSTANCE ---> 2 EVENT ROWS
@@ -160,20 +138,16 @@ const Itinerary = {
                 flattened.forEach(eventRow => {
                   var startRow = eventRow.instance.getFlightDeparture()
                     .then(departureLocation => {
-                      // console.log('GETFLIGHTDEPARTURE')
                       var obj = {day: eventRow.instance.startDay, type: 'Flight', start: true, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.startLoadSequence, time: eventRow.instance.startTime, utcOffset: departureLocation.utcOffset, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}}
                       obj.timeUtcZero = obj.time - obj.utcOffset * 60
                       return Promise.resolve(obj)
                     })
                   var endRow = eventRow.instance.getFlightArrival()
                     .then(arrivalLocation => {
-                      // console.log('GETFLIGHTARRIVAL')
                       var obj = {day: eventRow.instance.endDay, type: 'Flight', start: false, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.endLoadSequence, time: eventRow.instance.endTime, utcOffset: arrivalLocation.utcOffset, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}}
                       obj.timeUtcZero = obj.time - obj.utcOffset * 60
                       return Promise.resolve(obj)
                     })
-                  // var startRow = {day: eventRow.instance.startDay, type: 'Flight', start: true, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.startLoadSequence, time: eventRow.instance.startTime, utcOffset: eventRow.instance.departureUtcOffset, timeUtcZero: eventRow.instance.startTime - eventRow.instance.departureUtcOffset * 60, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}}
-                  // var endRow = {day: eventRow.instance.endDay, type: 'Flight', start: false, modelId: eventRow.instance.FlightBookingId, loadSequence: eventRow.instance.endLoadSequence, time: eventRow.instance.endTime, utcOffset: eventRow.instance.arrivalUtcOffset, timeUtcZero: eventRow.instance.endTime - eventRow.instance.arrivalUtcOffset * 60, Flight: {FlightInstance: eventRow.instance, FlightBooking: eventRow.booking}}
                   arrModel.push(startRow, endRow)
                 })
                 // return arrModel

@@ -54,10 +54,11 @@ const FlightInstance = {
       .then(constructed => {
         return db.FlightInstance.findById(FlightInstanceId)
         .then(foundInstance => {
-          return foundInstance.update(instanceUpdates)
+          return foundInstance.update(constructed)
         })
       })
       .then(updatedInstance => {
+        console.log('updatedInstance', updatedInstance)
         // add or remove attachments
         var attachmentsPromiseArr = []
         if (data.addAttachment && data.addAttachments.length) {

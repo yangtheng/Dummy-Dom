@@ -9,6 +9,7 @@ module.exports = {
       seedArr.push({
         ItineraryId: i,
         LocationId: i,
+        locationAlias: 'Seeded Lodging Alias',
         startLoadSequence: 2,
         endLoadSequence: 1,
         description: `Seeded Lodging ${i}`,
@@ -17,7 +18,6 @@ module.exports = {
         endDay: 6,
         startTime: 36000, // 10am checkin
         endTime: 46800, // 1pm checkout
-        // utcOffset: 480,
         cost: Math.floor(Math.random() * 100) + 1,
         currency: casual.currency_code,
         bookingStatus: true,

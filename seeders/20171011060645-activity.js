@@ -9,6 +9,7 @@ module.exports = {
       seedArr.push({
         ItineraryId: i,
         LocationId: i,
+        locationAlias: 'Seeded Activity Alias',
         loadSequence: 3,
         startDay: 2,
         endDay: 2,
