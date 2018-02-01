@@ -22,4 +22,3 @@ const FlightBooking = `
   }
 `
 module.exports = FlightBooking
-// attachments: [Attachment]

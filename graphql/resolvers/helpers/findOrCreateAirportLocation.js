@@ -20,9 +20,11 @@ function findOrCreateAirportLocation (iata) {
 
   var placeId = fetch(placeSearchUri)
     .then(response => {
+      // console.log('response', response)
       return response.json()
     })
     .then(json => {
+      // console.log('json', json)
       return json.results[0].place_id // take first result (typically only 1)
     })
     .catch(err => console.log('ERROR', err))

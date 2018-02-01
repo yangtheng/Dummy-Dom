@@ -73,11 +73,10 @@ const FlightBooking = {
         }
       })
 
-      // update flight instances first, then update attachments, lastly update FlightBooking itself
       var flightBooking = db.FlightBooking.findById(FlightBookingId)
-      flightBooking
+
+      return flightBooking
       .then(foundBooking => {
-        // console.log('FOUND BOOKING')
         return foundBooking.update(bookingUpdates)
       })
       .then(updatedBooking => {
@@ -194,7 +193,7 @@ const FlightBooking = {
         }
       })
       .then(bookingId => {
-        console.log('SENT OUT TO FRONT END WITH BOOKINGID', bookingId)
+        console.log('BOOKINGID', bookingId)
         return db.FlightBooking.findById(bookingId)
       })
     },
