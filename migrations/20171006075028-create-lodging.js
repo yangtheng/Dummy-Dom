@@ -38,12 +38,12 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
-      notes: {
+      arrivalNotes: {
         type: Sequelize.TEXT
       },
-      // utcOffset: {
-      //   type: Sequelize.INTEGER
-      // },
+      departureNotes: {
+        type: Sequelize.TEXT
+      },
       startDay: {
         type: Sequelize.INTEGER
       },

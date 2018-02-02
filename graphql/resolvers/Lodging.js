@@ -84,7 +84,8 @@ const Lodging = {
             fileName: attachment.fileName,
             fileAlias: attachment.fileAlias,
             fileSize: attachment.fileSize,
-            fileType: attachment.fileType
+            fileType: attachment.fileType,
+            arrivalDeparture: attachment.arrivalDeparture
           })
           attachmentsPromiseArr.push(addAttachmentPromise)
         })
@@ -113,7 +114,6 @@ const Lodging = {
 
       return deleteAll
       .then(isFinished => {
-        console.log('isFinished', isFinished)
         return db.Lodging.destroy({where: {id: data.id}, individualHooks: true})
       })
       .catch(err => {

@@ -6,7 +6,7 @@ module.exports = {
     var eventsId = ['ActivityId', 'FoodId', 'FlightInstanceId', 'LodgingId', 'LandTransportId']
     // dont seed sea and train yet
     eventsId.forEach(e => {
-      if (e === 'ActivityId' || e === 'FoodId' || e === 'LodgingId') {
+      if (e === 'ActivityId' || e === 'FoodId') {
         for (var i = 1; i <= 50; i++) {
           seedArr.push({
             [e]: i,
@@ -18,7 +18,7 @@ module.exports = {
             updatedAt: new Date()
           })
         }
-      } else if (e === 'FlightInstanceId' || e === 'LandTransportId') {
+      } else if (e === 'FlightInstanceId' || e === 'LandTransportId' || e === 'LodgingId') {
         for (var j = 1; j <= 50; j++) {
           seedArr.push({
             [e]: j,
