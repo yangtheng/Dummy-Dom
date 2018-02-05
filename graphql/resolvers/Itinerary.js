@@ -17,6 +17,7 @@ const Itinerary = {
         })
     },
     events (itinerary) {
+      console.log('itinerary', itinerary)
       var ItineraryId = itinerary.id
 
       var models = ['Activity', 'Food', 'Lodging', 'FlightBooking', 'LandTransport', 'SeaTransport', 'Train']
@@ -170,7 +171,7 @@ const Itinerary = {
           var sorted = events.sort(function (a, b) {
             return a.day - b.day || a.loadSequence - b.loadSequence
           })
-          // console.log('sorted', sorted)
+          console.log('sorted', sorted)
           return sorted
         })
     }
@@ -215,6 +216,14 @@ const Itinerary = {
     }
   },
   Mutation: {
+    testItineraryEndpoint: (__, data) => {
+      console.log('data', data)
+      var itinerary = db.Itinerary.findById(data.id)
+      return itinerary
+        .then(found => {
+          console.log(found)
+        })
+    },
     createItinerary: (__, data) => {
       var newItinerary = {}
       var UserId = data.UserId
