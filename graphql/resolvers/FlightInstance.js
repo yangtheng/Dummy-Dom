@@ -61,7 +61,7 @@ const FlightInstance = {
         console.log('updatedInstance', updatedInstance)
         // add or remove attachments
         var attachmentsPromiseArr = []
-        if (data.addAttachment && data.addAttachments.length) {
+        if (data.addAttachments && data.addAttachments.length) {
           data.addAttachments.forEach(attachment => {
             var attachmentPromise = db.Attachment.create({
               FlightInstanceId: FlightInstanceId,

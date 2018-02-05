@@ -2,9 +2,9 @@ const db = require('../connectors')
 
 const Itinerary = {
   Itinerary: {
-    countries (itinerary) {
-      return itinerary.getCountries()
-    },
+    // countries (itinerary) {
+    //   return itinerary.getCountries()
+    // },
     owner (itinerary) {
       var ownerId = null
       return db.UsersItineraries.find({where: {
@@ -219,45 +219,54 @@ const Itinerary = {
       var newItinerary = {}
       var UserId = data.UserId
       // console.log('owner', UserId)
-
       Object.keys(data).forEach(key => {
-        if (key !== 'UserId' && key !== 'CountryId') {
+        if (key !== 'UserId') {
           newItinerary[key] = data[key]
         }
       })
-
-      if (data.CountryId) {
-        newItinerary.CountryId = data.CountryId
-
-        return db.Itinerary.create(newItinerary)
-          .then(createdItinerary => {
-            db.CountriesItineraries.create({
-              ItineraryId: createdItinerary.id,
-              CountryId: data.CountryId
-            })
-            db.UsersItineraries.create({
-              ItineraryId: createdItinerary.id,
-              UserId: data.UserId,
-              permissions: 'owner'
-            })
-            return createdItinerary
+      return db.Itinerary.create(newItinerary)
+        .then(createdItinerary => {
+          return db.UsersItineraries.create({
+            UserId: UserId,
+            ItineraryId: createdItinerary.id,
+            permissions: 'owner'
           })
-          .then(createdItinerary => {
+          .then(() => {
             return db.Itinerary.findById(createdItinerary.id)
           })
-      } else {
-        return db.Itinerary.create(newItinerary)
-          .then(createdItinerary => {
-            return db.UsersItineraries.create({
-              UserId: data.UserId,
-              ItineraryId: createdItinerary.id,
-              permissions: 'owner'
-            })
-              .then(() => {
-                return db.Itinerary.findById(createdItinerary.id)
-              })
-          })
-      }
+        })
+      // if (data.CountryId) {
+      //   newItinerary.CountryId = data.CountryId
+      //
+      //   return db.Itinerary.create(newItinerary)
+      //     .then(createdItinerary => {
+      //       db.CountriesItineraries.create({
+      //         ItineraryId: createdItinerary.id,
+      //         CountryId: data.CountryId
+      //       })
+      //       db.UsersItineraries.create({
+      //         ItineraryId: createdItinerary.id,
+      //         UserId: data.UserId,
+      //         permissions: 'owner'
+      //       })
+      //       return createdItinerary
+      //     })
+      //     .then(createdItinerary => {
+      //       return db.Itinerary.findById(createdItinerary.id)
+      //     })
+      // } else {
+      //   return db.Itinerary.create(newItinerary)
+      //     .then(createdItinerary => {
+      //       return db.UsersItineraries.create({
+      //         UserId: data.UserId,
+      //         ItineraryId: createdItinerary.id,
+      //         permissions: 'owner'
+      //       })
+      //         .then(() => {
+      //           return db.Itinerary.findById(createdItinerary.id)
+      //         })
+      //     })
+      // }
     },
     updateItineraryDetails: (__, data) => {
       var updates = {}
